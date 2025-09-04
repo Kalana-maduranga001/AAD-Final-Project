@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Dashboard - Booking.com</title>
+  <link rel="stylesheet" href="dashboard.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="dashboard-container">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="logo">
+      <img src="https://via.placeholder.com/150x40/003580/ffffff?text=Booking.com" alt="Booking.com">
+      <span class="business-tag">business</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active">
+        <i class="fas fa-th-large"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fas fa-suitcase"></i>
+        <span>Bookings</span>
+        <span class="notification-badge">1</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fas fa-users"></i>
+        <span>Profiles</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fas fa-file-text"></i>
+        <span>Travel Policy</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fas fa-headset"></i>
+        <span>Support</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fas fa-bell"></i>
+        <span>Notifications</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-section">
+      <h3>PEOPLE</h3>
+      <a href="#" class="nav-item">
+        <i class="fas fa-user-plus"></i>
+        <span>Invite Team</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fas fa-users-cog"></i>
+        <span>Manage Team</span>
+      </a>
+    </div>
+
+    <div class="sidebar-section">
+      <h3>COMPANY</h3>
+      <a href="#" class="nav-item">
+        <i class="fas fa-building"></i>
+        <span>Details</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fas fa-globe"></i>
+        <span>Countries and Regions</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fas fa-credit-card"></i>
+        <span>Payment</span>
+      </a>
+    </div>
+
+    <div class="sidebar-section">
+      <h3>SETTINGS</h3>
+      <a href="#" class="nav-item">
+        <i class="fas fa-cog"></i>
+        <span>General Settings</span>
+      </a>
+    </div>
+
+    <div class="sidebar-section">
+      <h3>SUPPORT</h3>
+      <a href="#" class="nav-item">
+        <i class="fas fa-question-circle"></i>
+        <span>FAQ</span>
+      </a>
+    </div>
+
+    <div class="sidebar-footer">
+      <a href="#" class="nav-item">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Sign Out</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Top Header -->
+    <div class="top-header">
+      <div class="greeting">
+        <h1>Good morning, Dan</h1>
+      </div>
+      <div class="header-right">
+        <span class="currency">EUR (EN)</span>
+        <div class="user-profile">
+          <img src="https://via.placeholder.com/40x40/cccccc/ffffff?text=D" alt="User">
+          <div class="step-indicator">3</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search Section -->
+    <div class="search-section">
+      <div class="search-tabs">
+        <button class="tab active">
+          <i class="fas fa-bed"></i>
+          Stays
+        </button>
+        <button class="tab">
+          <i class="fas fa-plane"></i>
+          Flights
+        </button>
+        <button class="tab">
+          <i class="fas fa-car"></i>
+          Rental cars
+        </button>
+      </div>
+
+      <div class="search-form">
+        <div class="search-inputs">
+          <input type="text" placeholder="Where are you going?" class="location-input">
+          <input type="date" class="date-input" placeholder="Check-in">
+          <input type="date" class="date-input" placeholder="Check-out">
+          <select class="guest-select">
+            <option>1 adult • 1 room</option>
+          </select>
+          <button class="search-btn">Search</button>
+        </div>
+        <div class="work-travel">
+          <input type="checkbox" id="work-travel" checked>
+          <label for="work-travel">I'm travelling for work</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-content">
+      <!-- Bookings Section -->
+      <div class="bookings-section">
+        <div class="section-header">
+          <h2>Bookings</h2>
+          <a href="#" class="view-all">View all 12 bookings</a>
+        </div>
+
+        <div class="booking-cards">
+          <div class="booking-card">
+            <div class="booking-info">
+              <div class="route">
+                <i class="fas fa-plane"></i>
+                <span class="cities">New York JFK → San Francisco SFO</span>
+              </div>
+              <div class="trip-type">Return trip 🇺🇸</div>
+            </div>
+            <div class="booking-dates">
+              <div class="date-range">18 Feb – 23 Feb</div>
+              <div class="status in-progress">In progress</div>
+            </div>
+            <div class="booking-badge">B</div>
+          </div>
+
+          <div class="booking-card">
+            <div class="booking-info">
+              <div class="route">
+                <i class="fas fa-car"></i>
+                <span class="cities">Economy Suzuki Swift or similar</span>
+              </div>
+              <div class="trip-type">Pick up & Drop off • Los Angeles, CA 🇺🇸</div>
+            </div>
+            <div class="booking-dates">
+              <div class="date-range">11 Apr – 13 Apr</div>
+              <div class="status upcoming">In 51 days</div>
+            </div>
+            <div class="booking-badge">B</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Section -->
+      <div class="bottom-section">
+        <!-- Spend Overview -->
+        <div class="spend-overview">
+          <div class="section-header">
+            <h3>Spend overview</h3>
+            <div class="step-indicator">4</div>
+          </div>
+          <div class="spend-filter">
+            <select>
+              <option>Travel date</option>
+            </select>
+          </div>
+          <div class="spend-chart">
+            <div class="chart-container">
+              <div class="donut-chart">
+                <div class="chart-center">
+                  <div class="travelled">Travelled</div>
+                  <div class="amount">$1,830</div>
+                  <div class="upcoming">Upcoming</div>
+                  <div class="upcoming-amount">$1,503</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Traveller Activity Map -->
+        <div class="traveller-map">
+          <div class="section-header">
+            <h3>Traveller activity map</h3>
+            <div class="step-indicator">5</div>
+          </div>
+          <div class="map-filters">
+            <button class="filter-btn active">All (1)</button>
+            <button class="filter-btn">In progress (0)</button>
+          </div>
+          <div class="map-container">
+            <div class="search-map">
+              <input type="text" placeholder="Search by traveller" class="map-search">
+            </div>
+            <div class="map-locations">
+              <div class="location-item">
+                <span class="location-name">Incheon</span>
+                <div class="location-marker green">1</div>
+              </div>
+              <div class="location-item">
+                <span class="location-name">Seoul</span>
+                <div class="location-marker black">2</div>
+              </div>
+              <div class="location-item">
+                <span class="location-name">Busan</span>
+                <div class="location-marker black">2</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget">
+      <div class="chat-bubble">
+        Hi! Can I help you today?
+      </div>
+      <div class="chat-icon">
+        <i class="fas fa-comments"></i>
+      </div>
+    </div>
+
+    <!-- Feedback Button -->
+    <div class="feedback-btn">
+      FEEDBACK
+    </div>
+  </div>
+</div>
+</body>
+</html>
