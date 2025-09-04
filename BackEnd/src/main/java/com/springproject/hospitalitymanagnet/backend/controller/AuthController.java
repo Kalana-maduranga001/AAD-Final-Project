@@ -3,7 +3,7 @@ package com.springproject.hospitalitymanagnet.backend.controller;
 import com.springproject.hospitalitymanagnet.backend.dto.ApiResponse;
 import com.springproject.hospitalitymanagnet.backend.dto.AuthDto;
 import com.springproject.hospitalitymanagnet.backend.dto.RegisterDto;
-import com.springproject.hospitalitymanagnet.backend.service.AuthService;
+import com.springproject.hospitalitymanagnet.backend.service.impl.AuthService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

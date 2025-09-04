@@ -116,7 +116,7 @@
             100% { transform: translateY(-100px) translateX(50px); opacity: 0; }
         }
 
-        /* Container with glassmorphism effect */
+        /* Container with glassmorphism effect - CENTERED */
         .signin-container {
             background: rgba(255, 255, 255, 0.25);
             backdrop-filter: blur(20px);
@@ -127,21 +127,23 @@
                     inset 0 1px 0 rgba(255, 255, 255, 0.3);
             padding: 20px;
             width: 90%;
-            max-width: 420px;
+            max-width: 520px;
             max-height: 85vh;
             overflow-y: auto;
-            position: relative;
-            z-index: 1;
-            transition: all 0.5s ease;
-            transform: translateY(50px) scale(0.8);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
             opacity: 0;
             visibility: hidden;
+            z-index: 1;
+            transition: all 0.5s ease;
         }
 
         /* Show the container with animation */
         .signin-container.show {
             animation: fadeSlideIn 1.2s ease forwards;
-            transform: translateY(0) scale(1);
+            transform: translate(-50%, -50%) scale(1);
             opacity: 1;
             visibility: visible;
         }
@@ -348,12 +350,16 @@
             opacity: 1;
             visibility: visible;
             transition: all 0.6s ease;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
         .welcome-message.hidden {
             opacity: 0;
             visibility: hidden;
-            transform: translateY(-20px);
+            transform: translate(-50%, -60%);
         }
 
         .welcome-title {
@@ -376,17 +382,28 @@
         }
 
         @keyframes welcomeFloat {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
+            50% { transform: translate(-50%, -50%) translateY(-10px); }
         }
 
-        /* Responsive adjustments */
+        /* Responsive adjustments - ENHANCED FOR 320px */
         @media (max-width: 576px) {
             .signin-container {
                 padding: 16px 12px;
-                margin: 16px;
-                max-width: 90%;
+                margin: 10px;
+                max-width: calc(100% - 20px);
+                width: calc(100% - 20px);
+                min-width: 280px;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(0.8);
+                position: absolute;
             }
+
+            .signin-container.show {
+                transform: translate(-50%, -50%) scale(1);
+            }
+
             .signin-title {
                 font-size: 18px;
             }
@@ -404,6 +421,89 @@
             }
             .welcome-subtitle {
                 font-size: 1rem;
+            }
+
+            /* Better form field spacing on small screens */
+            .form-field {
+                margin-bottom: 12px;
+            }
+
+            .form-control {
+                padding: 8px 30px 8px 10px;
+                font-size: 12px;
+            }
+
+            .btn-primary-booking {
+                padding: 12px 16px;
+                font-size: 12px;
+                margin-top: 15px;
+            }
+        }
+
+        /* Extra small screens (320px and below) */
+        @media (max-width: 320px) {
+            body {
+                padding: 0;
+                margin: 0;
+            }
+
+            .signin-container {
+                margin: 5px;
+                padding: 12px 10px;
+                max-width: calc(100% - 10px);
+                width: calc(100% - 10px);
+                min-width: 300px;
+                border-radius: 10px;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+
+            .signin-container.show {
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            .signin-title {
+                font-size: 16px;
+                margin-bottom: 6px;
+            }
+
+            .signin-subtitle {
+                font-size: 10px;
+                margin-bottom: 15px;
+            }
+
+            .form-label {
+                font-size: 11px;
+                margin-bottom: 4px;
+            }
+
+            .form-control {
+                padding: 8px 28px 8px 8px;
+                font-size: 11px;
+            }
+
+            .btn-primary-booking {
+                padding: 10px 14px;
+                font-size: 11px;
+                margin-top: 12px;
+            }
+
+            .footer-text {
+                font-size: 9px;
+                margin-top: 12px;
+            }
+
+            .copyright {
+                font-size: 9px;
+                margin-top: 6px;
+            }
+
+            .top-signup-btn {
+                top: 10px;
+                right: 10px;
+                padding: 5px 10px;
+                font-size: 10px;
             }
         }
     </style>
@@ -593,10 +693,20 @@
             data: JSON.stringify(credentials),
             success: function (response) {
                 console.log("✅ Login success:", response);
-                alert(`Welcome back, ${response.username || credentials.username}!`);
-                // Optionally, save JWT token or redirect
-                // localStorage.setItem("token", response.token);
-                // window.location.href = "/dashboard.html";
+                // alert(`Welcome back, ${response.username || credentials.username}!`);
+                const token = response.data.accessToken;
+                if (token) {
+                    localStorage.setItem('accessToken', token);
+                }
+
+                const payload = parseJwt(token);
+                console.log(payload);
+
+                if (payload.sub === "admin") {
+                    window.location.href = "HotelOwnerSection/hotelregister.html";
+                } else {
+                    window.location.href = "CustomerSection/CustomerDashBoard/UserDashBoard.html";
+                }
             },
             error: function (xhr) {
                 console.error("❌ Login failed:", xhr.responseText);
@@ -874,6 +984,10 @@
         // Reset form
         this.reset();
     });
+
+
+
+
 </script>
 </body>
 </html>

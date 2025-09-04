@@ -1,4 +1,4 @@
-package com.springproject.hospitalitymanagnet.backend.service;
+package com.springproject.hospitalitymanagnet.backend.service.impl;
 
 import com.springproject.hospitalitymanagnet.backend.dto.AuthDto;
 import com.springproject.hospitalitymanagnet.backend.dto.AuthResponseDto;

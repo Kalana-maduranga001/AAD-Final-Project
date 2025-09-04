@@ -1,0 +1,49 @@
+package com.springproject.hospitalitymanagnet.backend.entity;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.List;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Entity
+@Table(name = "hotels")
+public class Hotel{
+     @Id
+     @GeneratedValue(strategy = GenerationType.IDENTITY)
+     private Integer id;
+
+     private String name;
+     private String location;
+     private Integer starRating;
+     private String contactNumber;
+
+     @Column(columnDefinition = "TEXT")
+     private String description;
+
+     private String status; // ACTIVE / INACTIVE
+
+     // Relations
+     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
+     private List<HotelImage> images;
+
+     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
+     private List<RoomType> roomTypes;
+
+     @ManyToMany
+     @JoinTable(
+             name = "hotel_amenities",
+             joinColumns = @JoinColumn(name = "hotel_id"),
+             inverseJoinColumns = @JoinColumn(name = "amenity_id")
+     )
+     private List<Amenity> amenities;
+
+     @OneToOne(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
+     private Policy policy;
+}
