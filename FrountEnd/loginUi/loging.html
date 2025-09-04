@@ -669,7 +669,20 @@
 <!--<script src="useeLogin.js"></script>-->
 <script>
     // Register
-
+    function registerUser(userData) {
+        $.ajax({
+            url: "http://localhost:8080/auth/register",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(userData),
+            success: function (response) {
+                console.log("✅ Registration success:", response);
+            },
+            error: function (xhr) {
+                console.error("❌ Registration failed:", xhr.responseText);
+            }
+        });
+    }
 
     // Login
     function loginUser(credentials) {
