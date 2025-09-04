@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Admin Panel - Add Hotel Details</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles02.css">
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(30,70,142);">
+    <div class="container">
+        <a class="navbar-brand" href="#"><i class="fas fa-hotel"></i> Hotel Admin Panel</a>
+        <div class="navbar-nav ms-auto d-flex align-items-center">
+            <button class="like-button me-3" id="likeBtn">
+                <i class="far fa-heart" id="heartIcon"></i>
+                <span id="likeCount">0</span>
+            </button>
+            <a class="nav-link" href="#"><i class="fas fa-user"></i> Admin</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Dashboard Panel -->
+<div class="dashboard-panel">
+    <div class="container">
+        <div class="dashboard-buttons">
+            <button class="dashboard-btn active" onclick="showSection('slideshow')">
+                <i class="fas fa-images"></i>
+                <span>Gallery</span>
+            </button>
+            <button class="dashboard-btn" onclick="showSection('basic-info')">
+                <i class="fas fa-info-circle"></i>
+                <span>Basic Info</span>
+            </button>
+            <button class="dashboard-btn" onclick="showSection('room-types')">
+                <i class="fas fa-bed"></i>
+                <span>Room Types</span>
+            </button>
+            <button class="dashboard-btn" onclick="showSection('amenities')">
+                <i class="fas fa-swimming-pool"></i>
+                <span>Amenities</span>
+            </button>
+            <button class="dashboard-btn" onclick="showSection('policies')">
+                <i class="fas fa-clipboard-list"></i>
+                <span>Policies</span>
+            </button>
+            <button class="dashboard-btn" onclick="showSection('all')">
+                <i class="fas fa-th-large"></i>
+                <span>Show All</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="container my-4">
+    <!-- Image Slideshow Section -->
+    <div class="slideshow-container mb-4" id="slideshow-section">
+        <div class="slide active">
+            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=400&fit=crop" alt="Luxury Hotel 1">
+        </div>
+        <div class="slide">
+            <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&h=400&fit=crop" alt="Hotel Room 2">
+        </div>
+        <div class="slide">
+            <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&h=400&fit=crop" alt="Hotel Lobby 3">
+        </div>
+        <div class="slide">
+            <img src="https://images.unsplash.com/photo-1455587734955-081b22074882?w=800&h=400&fit=crop" alt="Hotel Pool 4">
+        </div>
+        
+        <!-- Navigation arrows -->
+        <button class="slide-btn prev-btn" onclick="changeSlide(-1)">&#10094;</button>
+        <button class="slide-btn next-btn" onclick="changeSlide(1)">&#10095;</button>
+        
+        <!-- Slide indicators -->
+        <div class="slide-indicators">
+            <span class="indicator active" onclick="currentSlide(1)"></span>
+            <span class="indicator" onclick="currentSlide(2)"></span>
+            <span class="indicator" onclick="currentSlide(3)"></span>
+            <span class="indicator" onclick="currentSlide(4)"></span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <h2 class="mb-4"><i class="fas fa-plus-circle"></i> Add Hotel Details</h2>
+
+            <form id="hotelForm">
+                <!-- Hotel Basic Information -->
+                <div class="form-section" id="basic-info-section">
+                    <h4 class="mb-3"><i class="fas fa-info-circle"></i> Basic Information</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label">Hotel Name</label>
+                            <input type="text" class="form-control" placeholder="e.g., The Leela Palace New Delhi" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Location</label>
+                            <input type="text" class="form-control" placeholder="e.g., Safdarjung, New Delhi" required>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Star Rating</label>
+                            <select class="form-select">
+                                <option value="">Select Rating</option>
+                                <option value="3">3 Star</option>
+                                <option value="4">4 Star</option>
+                                <option value="5">5 Star</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Contact Number</label>
+                            <input type="tel" class="form-control" placeholder="+91 9876543210" required>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <label class="form-label">Hotel Description</label>
+                        <textarea class="form-control" rows="3" placeholder="Brief description of your hotel..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Hotel Images -->
+                <div class="form-section" id="images-section" style="display: none;">
+                    <h4 class="mb-3"><i class="fas fa-images"></i> Hotel Images</h4>
+                    <div class="image-upload">
+                        <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i>
+                        <p>Drag and drop images here or click to upload</p>
+                        <input type="file" class="form-control" multiple accept="image/*">
+                        <small class="text-muted">Upload high-quality images (Max 10 images, 5MB each)</small>
+                    </div>
+                </div>
+
+                <!-- Room Types -->
+                <div class="form-section" id="room-types-section" style="display: none;">
+                    <h4 class="mb-3"><i class="fas fa-bed"></i> Room Types</h4>
+
+                    <!-- Standard Room -->
+                    <div class="room-option">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5><i class="fas fa-bed"></i> Standard Room</h5>
+                            <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeRoom(this)">
+                                <i class="fas fa-trash"></i> Remove
+                            </button>
+                        </div>
+
+                        <!-- Room Options -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Option 1</h6>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label class="form-label">Base Price (₹)</label>
+                                        <input type="number" class="form-control price-input" placeholder="75,108">
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label">Per Night</label>
+                                        <input type="number" class="form-control" value="2" readonly>
+                                    </div>
+                                </div>
+                                <div class="mt-2">
+                                    <label class="form-label">Inclusions</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="roomOnly1">
+                                        <label class="form-check-label" for="roomOnly1">Room Only</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <h6>Option 2</h6>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label class="form-label">Base Price (₹)</label>
+                                        <input type="number" class="form-control price-input" placeholder="76,150">
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label">Per Night</label>
+                                        <input type="number" class="form-control" value="2" readonly>
+                                    </div>
+                                </div>
+                                <div class="mt-2">
+                                    <label class="form-label">Inclusions</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="breakfast1" checked>
+                                        <label class="form-check-label" for="breakfast1">Free Breakfast</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="cancellation1" checked>
+                                        <label class="form-check-label" for="cancellation1">Free Cancellation (till 4th Aug)</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Room Amenities -->
+                        <div class="mt-3">
+                            <h6>Room Amenities</h6>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-check amenity-checkbox">
+                                        <input class="form-check-input" type="checkbox" id="doubleBed1" checked>
+                                        <label class="form-check-label" for="doubleBed1">Double Bed</label>
+                                    </div>
+                                    <div class="form-check amenity-checkbox">
+                                        <input class="form-check-input" type="checkbox" id="sqft1" checked>
+                                        <label class="form-check-label" for="sqft1">380 Sq Ft</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-check amenity-checkbox">
+                                        <input class="form-check-input" type="checkbox" id="gardenView1" checked>
+                                        <label class="form-check-label" for="gardenView1">Garden View</label>
+                                    </div>
+                                    <div class="form-check amenity-checkbox">
+                                        <input class="form-check-input" type="checkbox" id="wifi1" checked>
+                                        <label class="form-check-label" for="wifi1">WiFi</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-check amenity-checkbox">
+                                        <input class="form-check-input" type="checkbox" id="kettle1" checked>
+                                        <label class="form-check-label" for="kettle1">Electric Kettle</label>
+                                    </div>
+                                    <div class="form-check amenity-checkbox">
+                                        <input class="form-check-input" type="checkbox" id="ironBoard1" checked>
+                                        <label class="form-check-label" for="ironBoard1">Iron Board</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Deluxe Room -->
+                    <div class="room-option">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5><i class="fas fa-crown"></i> Deluxe Room</h5>
+                            <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeRoom(this)">
+                                <i class="fas fa-trash"></i> Remove
+                            </button>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Option 1</h6>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label class="form-label">Base Price (₹)</label>
+                                        <input type="number" class="form-control price-input" placeholder="75,800">
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label">Pay at Hotel</label>
+                                        <div class="form-check mt-2">
+                                            <input class="form-check-input" type="checkbox" checked>
+                                            <label class="form-check-label">Available</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <h6>Option 2</h6>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label class="form-label">Corporate Rate (₹)</label>
+                                        <input type="number" class="form-control price-input" placeholder="76,445">
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label">Special Rate</label>
+                                        <div class="form-check mt-2">
+                                            <input class="form-check-input" type="checkbox">
+                                            <label class="form-check-label">Corporate</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-3">
+                            <h6>Deluxe Room Amenities</h6>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-check amenity-checkbox">
+                                        <input class="form-check-input" type="checkbox" checked>
+                                        <label class="form-check-label">Double Bed</label>
+                                    </div>
+                                    <div class="form-check amenity-checkbox">
+                                        <input class="form-check-input" type="checkbox" checked>
+                                        <label class="form-check-label">380 Sq Ft</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-check amenity-checkbox">
+                                        <input class="form-check-input" type="checkbox" checked>
+                                        <label class="form-check-label">Garden View</label>
+                                    </div>
+                                    <div class="form-check amenity-checkbox">
+                                        <input class="form-check-input" type="checkbox" checked>
+                                        <label class="form-check-label">WiFi</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-check amenity-checkbox">
+                                        <input class="form-check-input" type="checkbox" checked>
+                                        <label class="form-check-label">Electric Kettle</label>
+                                    </div>
+                                    <div class="form-check amenity-checkbox">
+                                        <input class="form-check-input" type="checkbox" checked>
+                                        <label class="form-check-label">Iron Board</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-outline-primary" onclick="addNewRoom()">
+                        <i class="fas fa-plus"></i> Add New Room Type
+                    </button>
+                </div>
+
+                <!-- Hotel Amenities -->
+                <div class="form-section" id="amenities-section" style="display: none;">
+                    <h4 class="mb-3"><i class="fas fa-swimming-pool"></i> Hotel Amenities</h4>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-check amenity-checkbox">
+                                <input class="form-check-input" type="checkbox" id="freeWifi" checked>
+                                <label class="form-check-label" for="freeWifi">
+                                    <i class="fas fa-wifi"></i> Free WiFi
+                                </label>
+                            </div>
+                            <div class="form-check amenity-checkbox">
+                                <input class="form-check-input" type="checkbox" id="freeBreakfast" checked>
+                                <label class="form-check-label" for="freeBreakfast">
+                                    <i class="fas fa-coffee"></i> Free Breakfast
+                                </label>
+                            </div>
+                            <div class="form-check amenity-checkbox">
+                                <input class="form-check-input" type="checkbox" id="frontDesk" checked>
+                                <label class="form-check-label" for="frontDesk">
+                                    <i class="fas fa-clock"></i> 24 Hours Front Desk
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check amenity-checkbox">
+                                <input class="form-check-input" type="checkbox" id="freeCancellation" checked>
+                                <label class="form-check-label" for="freeCancellation">
+                                    <i class="fas fa-times-circle"></i> Free Cancellation
+                                </label>
+                            </div>
+                            <div class="form-check amenity-checkbox">
+                                <input class="form-check-input" type="checkbox" id="airConditioning" checked>
+                                <label class="form-check-label" for="airConditioning">
+                                    <i class="fas fa-snowflake"></i> Air Conditioning
+                                </label>
+                            </div>
+                            <div class="form-check amenity-checkbox">
+                                <input class="form-check-input" type="checkbox" id="swimmingPool" checked>
+                                <label class="form-check-label" for="swimmingPool">
+                                    <i class="fas fa-swimming-pool"></i> Swimming Pool
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check amenity-checkbox">
+                                <input class="form-check-input" type="checkbox" id="parking">
+                                <label class="form-check-label" for="parking">
+                                    <i class="fas fa-parking"></i> Free Parking
+                                </label>
+                            </div>
+                            <div class="form-check amenity-checkbox">
+                                <input class="form-check-input" type="checkbox" id="gym">
+                                <label class="form-check-label" for="gym">
+                                    <i class="fas fa-dumbbell"></i> Fitness Center
+                                </label>
+                            </div>
+                            <div class="form-check amenity-checkbox">
+                                <input class="form-check-input" type="checkbox" id="spa">
+                                <label class="form-check-label" for="spa">
+                                    <i class="fas fa-spa"></i> Spa Services
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Policies & Information -->
+                <div class="form-section" id="policies-section" style="display: none;">
+                    <h4 class="mb-3"><i class="fas fa-info-circle"></i> Policies & Important Information</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label">Check-in Time</label>
+                            <input type="time" class="form-control" value="14:00">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Check-out Time</label>
+                            <input type="time" class="form-control" value="12:00">
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <label class="form-label">Cancellation Policy</label>
+                        <textarea class="form-control" rows="3" placeholder="Free cancellation till 4th Aug. View Cancellation Policy for details."></textarea>
+                    </div>
+                    <div class="mt-3">
+                        <label class="form-label">Additional Information</label>
+                        <textarea class="form-control" rows="3" placeholder="Mandatory tax payable at hotel. Price Per Room Night inclusive of taxes. Contact the property in advance to make arrangements."></textarea>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-orange btn-lg">
+                        <i class="fas fa-save"></i> Save Hotel Details
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary btn-lg">
+                        <i class="fas fa-eye"></i> Preview
+                    </button>
+                    <button type="reset" class="btn btn-outline-danger btn-lg">
+                        <i class="fas fa-undo"></i> Reset Form
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <div class="form-section">
+                <h5><i class="fas fa-chart-line"></i> Quick Stats</h5>
+                <div class="row text-center">
+                    <div class="col-6">
+                        <h4 class="text-primary" id="roomCount">2</h4>
+                        <small>Room Types</small>
+                    </div>
+                    <div class="col-6">
+                        <h4 class="text-success" id="amenityCount">9</h4>
+                        <small>Amenities</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h5><i class="fas fa-lightbulb"></i> Tips</h5>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-check text-success"></i> Add high-quality photos</li>
+                    <li><i class="fas fa-check text-success"></i> Set competitive pricing</li>
+                    <li><i class="fas fa-check text-success"></i> Include all amenities</li>
+                    <li><i class="fas fa-check text-success"></i> Write clear policies</li>
+                </ul>
+            </div>
+
+            <div class="form-section">
+                <h5><i class="fas fa-phone"></i> Need Help?</h5>
+                <p class="small">Contact our support team for assistance with setting up your hotel.</p>
+                <button class="btn btn-outline-primary btn-sm">
+                    <i class="fas fa-headset"></i> Contact Support
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Dashboard functionality
+    function showSection(sectionName) {
+        // Hide all sections first
+        const sections = ['slideshow-section', 'basic-info-section', 'images-section', 'room-types-section', 'amenities-section', 'policies-section'];
+        
+        sections.forEach(id => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.style.display = 'none';
+            }
+        });
+
+        // Remove active class from all dashboard buttons
+        document.querySelectorAll('.dashboard-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+
+        // Show selected section(s) and set active button
+        if (sectionName === 'all') {
+            sections.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.style.display = 'block';
+                }
+            });
+            event.target.closest('.dashboard-btn').classList.add('active');
+        } else {
+            const targetSection = document.getElementById(sectionName + '-section');
+            if (targetSection) {
+                targetSection.style.display = 'block';
+            }
+            event.target.closest('.dashboard-btn').classList.add('active');
+        }
+    }
+
+    // Initialize - show slideshow by default
+    document.addEventListener('DOMContentLoaded', function() {
+        showSection('slideshow');
+    });
+
+    let roomCounter = 2;
+    let likeCount = 0;
+    let isLiked = false;
+    let currentSlideIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+    const indicators = document.querySelectorAll('.indicator');
+
+    // Like button functionality
+    document.getElementById('likeBtn').addEventListener('click', function() {
+        const heartIcon = document.getElementById('heartIcon');
+        const likeCountElement = document.getElementById('likeCount');
+        
+        if (!isLiked) {
+            likeCount++;
+            heartIcon.className = 'fas fa-heart';
+            this.classList.add('liked');
+            isLiked = true;
+        } else {
+            likeCount--;
+            heartIcon.className = 'far fa-heart';
+            this.classList.remove('liked');
+            isLiked = false;
+        }
+        
+        likeCountElement.textContent = likeCount;
+    });
+
+    // Slideshow functionality
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.classList.toggle('active', i === index);
+        });
+        
+        indicators.forEach((indicator, i) => {
+            indicator.classList.toggle('active', i === index);
+        });
+    }
+
+    function changeSlide(direction) {
+        currentSlideIndex += direction;
+        
+        if (currentSlideIndex >= slides.length) {
+            currentSlideIndex = 0;
+        } else if (currentSlideIndex < 0) {
+            currentSlideIndex = slides.length - 1;
+        }
+        
+        showSlide(currentSlideIndex);
+    }
+
+    function currentSlide(index) {
+        currentSlideIndex = index - 1;
+        showSlide(currentSlideIndex);
+    }
+
+    // Auto-play slideshow
+    setInterval(() => {
+        changeSlide(1);
+    }, 5000);
+
+    function addNewRoom() {
+        roomCounter++;
+        const addButton = document.querySelector('button[onclick="addNewRoom()"]');
+        const newRoom = document.createElement('div');
+        newRoom.className = 'room-option';
+        newRoom.innerHTML = `
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5><i class="fas fa-bed"></i> Room Type ${roomCounter}</h5>
+                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeRoom(this)">
+                        <i class="fas fa-trash"></i> Remove
+                    </button>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label class="form-label">Room Type Name</label>
+                        <input type="text" class="form-control mb-3" placeholder="e.g., Executive Suite">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Base Price (₹)</label>
+                        <input type="number" class="form-control price-input" placeholder="Enter price">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Room Size (Sq Ft)</label>
+                        <input type="number" class="form-control" placeholder="e.g., 380">
+                    </div>
+                </div>
+            `;
+
+        addButton.parentNode.insertBefore(newRoom, addButton);
+        updateRoomCount();
+    }
+
+    function removeRoom(button) {
+        if (roomCounter > 1) {
+            button.closest('.room-option').remove();
+            roomCounter--;
+            updateRoomCount();
+        } else {
+            alert('At least one room type is required!');
+        }
+    }
+
+    function updateRoomCount() {
+        document.getElementById('roomCount').textContent = roomCounter;
+    }
+
+    function updateAmenityCount() {
+        const checkedAmenities = document.querySelectorAll('input[type="checkbox"]:checked').length;
+        document.getElementById('amenityCount').textContent = checkedAmenities;
+    }
+
+    // Update amenity count when checkboxes change
+    document.addEventListener('change', function(e) {
+        if (e.target.type === 'checkbox') {
+            updateAmenityCount();
+        }
+    });
+
+    // Form submission
+    document.getElementById('hotelForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Hotel details saved successfully! This would normally save to your database.');
+    });
+
+    // Initialize counts
+    updateAmenityCount();
+</script>
+
+
+</body>
+
+</html>

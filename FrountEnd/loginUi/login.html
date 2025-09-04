@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in or create an account</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!--    <link rel="stylesheet" href="loginUi.css">-->
+    <style>
+        :root {
+            --booking-blue: #013b94;
+            --booking-blue-hover: #1299f4;
+            --booking-light-gray: #f5f5f5;
+            --booking-border: #e0e0e0;
+            --booking-text: #262626;
+            --booking-text-light: #6b6b6b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #2b409e 0%, #013b94 100%);
+        }
+
+        /* Hide scrollbars */
+        * {
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* Internet Explorer 10+ */
+        }
+
+        *::-webkit-scrollbar {
+            display: none; /* WebKit */
+        }
+
+        /* Top-right Sign Up button */
+        .top-signup-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            padding: 8px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #003580;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .top-signup-btn:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            color: #003580;
+        }
+
+        /* Video Background */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            object-fit: cover;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .particle:nth-child(1) { width: 4px; height: 4px; left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { width: 6px; height: 6px; left: 20%; animation-delay: 2s; }
+        .particle:nth-child(3) { width: 3px; height: 3px; left: 25%; animation-delay: 4s; }
+        .particle:nth-child(4) { width: 5px; height: 5px; left: 40%; animation-delay: 1s; }
+        .particle:nth-child(5) { width: 4px; height: 4px; left: 70%; animation-delay: 3s; }
+        .particle:nth-child(6) { width: 7px; height: 7px; left: 80%; animation-delay: 5s; }
+        .particle:nth-child(7) { width: 3px; height: 3px; left: 90%; animation-delay: 2.5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) translateX(0px); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) translateX(50px); opacity: 0; }
+        }
+
+        /* Container with glassmorphism effect */
+        .signin-container {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 14px;
+            box-shadow:
+                    0 8px 32px rgba(0, 0, 0, 0.3),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            padding: 20px;
+            width: 90%;
+            max-width: 420px;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            z-index: 1;
+            transition: all 0.5s ease;
+            transform: translateY(50px) scale(0.8);
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* Show the container with animation */
+        .signin-container.show {
+            animation: fadeSlideIn 1.2s ease forwards;
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Show Details Animation Box */
+
+
+        .signin-title {
+            font-size: 22px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #151010, #170d0d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+            text-align: center;
+            animation: fadeIn 1.2s ease;
+            text-shadow: 0 2px 10px #003580;
+            transition: all 0.3s ease;
+        }
+
+        .signin-subtitle {
+            color: rgb(0, 0, 0);
+            font-size: 12px;
+            margin-bottom: 18px;
+            text-align: center;
+            animation: fadeIn 1.6s ease;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #003580;
+            margin-bottom: 6px;
+            font-size: 12px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 10px 35px 10px 12px;
+            font-size: 13px;
+            color:#003580;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        .form-control::placeholder {
+            color: #003580;
+        }
+
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: #003580;
+            box-shadow:
+                    0 0 20px rgba(255, 255, 255, 0.2),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            outline: none;
+            color: #003580;
+        }
+
+        /* Eye toggle button */
+        .password-toggle {
+            border: none;
+            background: transparent;
+            color: #003580;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 8px;
+            border-radius: 6px;
+        }
+        .password-toggle:hover {
+            color: white;
+            background:#003580;
+            transform: scale(1.1);
+        }
+
+        .btn-primary-booking {
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            width: 100%;
+            color: #003580;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 12px;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary-booking::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary-booking:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary-booking:hover {
+            transform: translateY(-3px);
+            box-shadow:
+                    0 10px 25px rgba(102, 126, 234, 0.4),
+                    0 5px 15px rgba(118, 75, 162, 0.3);
+        }
+
+        .btn-primary-booking:active {
+            transform: translateY(-1px);
+        }
+
+        /* Back to Sign In button */
+        .back-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #003580;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #003580;
+            transform: translateX(-3px);
+        }
+
+        /* Hidden elements animation */
+        .form-field {
+            transition: all 0.4s ease;
+            opacity: 1;
+            max-height: 100px;
+            overflow: hidden;
+        }
+
+        .form-field.hidden {
+            opacity: 0;
+            max-height: 0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .footer-text {
+            font-size: 10px;
+            color: #003580;
+            text-align: center;
+            margin-top: 16px;
+            line-height: 1.4;
+            animation: fadeIn 2s ease;
+            text-shadow: 0 1px 2px rgba(213, 8, 8, 0.3);
+        }
+        .footer-text a {
+            color: #003580;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .footer-text a:hover {
+            color: #003580;
+            text-shadow: 0 0 8px rgb(5, 25, 1);
+        }
+        .copyright {
+            margin-top: 8px;
+            font-size: 10px;
+            color: #003580;
+            text-align: center;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Form text styling */
+        .form-text {
+            color: #003580;
+            font-size: 10px;
+            margin-top: 4px;
+        }
+
+        /* Welcome message styles */
+        .welcome-message {
+            text-align: center;
+            color: white;
+            opacity: 1;
+            visibility: visible;
+            transition: all 0.6s ease;
+        }
+
+        .welcome-message.hidden {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-20px);
+        }
+
+        .welcome-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff, #e3f2fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+            animation: welcomeFloat 3s ease-in-out infinite;
+        }
+
+        .welcome-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes welcomeFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 576px) {
+            .signin-container {
+                padding: 16px 12px;
+                margin: 16px;
+                max-width: 90%;
+            }
+            .signin-title {
+                font-size: 18px;
+            }
+            .signin-subtitle {
+                font-size: 11px;
+            }
+            .top-signup-btn {
+                top: 15px;
+                right: 15px;
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+            .welcome-title {
+                font-size: 2rem;
+            }
+            .welcome-subtitle {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Floating particles -->
+<div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+</div>
+
+<!-- Top-right Sign Up button -->
+<button class="top-signup-btn" id="toggleMode">
+    <i class="fas fa-user-plus me-1"></i> <span id="toggleText">Get Started</span>
+</button>
+
+<!-- Video Background -->
+<video class="video-background" autoplay muted loop>
+    <!--    <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">-->
+    <!--    <source src="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4" type="video/mp4">-->
+    <!--    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">-->
+    <!--    <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type="video/mp4">-->
+    <!--    <source src="https://archive.org/download/ElephantsDream/ed_1024_512kb.mp4" type="video/mp4">-->
+</video>
+
+<!-- Welcome message (shown initially) -->
+<div class="welcome-message" id="welcomeMessage">
+    <h1 class="welcome-title">Welcome to Booking.com</h1>
+    <p class="welcome-subtitle">Your gateway to amazing travel experiences</p>
+</div>
+
+<!-- Sign in/up container (hidden initially) -->
+<div class="signin-container" id="signinContainer">
+    <!-- Back button (only visible in signup mode) -->
+    <button class="back-btn form-field hidden" id="backBtn">
+        <i class="fas fa-arrow-left me-1"></i> Back to Sign In
+    </button>
+
+    <h1 class="signin-title" id="formTitle">Sign in or create an account</h1>
+    <p class="signin-subtitle" id="formSubtitle">You can sign in using your Booking.com account to access our services.</p>
+
+    <!-- Details Toggle Box -->
+    <div class="details-toggle">
+        <div class="details-header" id="detailsHeader">
+
+        </div>
+    </div>
+
+    <form id="mainForm">
+        <!-- Full Name -->
+        <div class="mb-3 form-field" id="fullNameField">
+            <label for="fullName" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="fullName" placeholder="Enter your full name" required>
+        </div>
+
+        <!-- Email Input (only for signup) -->
+        <div class="mb-3 form-field hidden" id="emailField">
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter your email address">
+        </div>
+
+        <!-- Role Selection (only for signup) -->
+        <div class="mb-3 form-field hidden" id="roleField">
+            <label for="role" class="form-label">Select Role</label>
+            <select class="form-control" id="role">
+                <option value="">Choose your role</option>
+                <option value="USER">User</option>
+                <option value="OWNER">Owner</option>
+            </select>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3 form-field" id="passwordField">
+            <label for="password" class="form-label">Password</label>
+            <div class="position-relative">
+                <input
+                        type="password"
+                        class="form-control pe-5"
+                        id="password"
+                        placeholder="Enter your password"
+                        required
+                        autocomplete="new-password"
+                        aria-describedby="passwordHelp"
+                >
+                <button
+                        type="button"
+                        class="password-toggle position-absolute top-50 translate-middle-y end-0 me-2"
+                        id="togglePassword"
+                        aria-label="Show password"
+                        aria-pressed="false"
+                >
+                    <i class="fa-solid fa-eye"></i>
+                </button>
+            </div>
+            <div id="passwordHelp" class="form-text">At least 6 characters.</div>
+        </div>
+
+        <!-- Confirmation Password (only for signup) -->
+        <div class="mb-3 form-field hidden" id="confirmPasswordField">
+            <label for="confirmPassword" class="form-label">Confirm Password</label>
+            <div class="position-relative">
+                <input
+                        type="password"
+                        class="form-control pe-5"
+                        id="confirmPassword"
+                        placeholder="Confirm your password"
+                        autocomplete="new-password"
+                >
+                <button
+                        type="button"
+                        class="password-toggle position-absolute top-50 translate-middle-y end-0 me-2"
+                        id="toggleConfirmPassword"
+                        aria-label="Show confirm password"
+                        aria-pressed="false"
+                >
+                    <i class="fa-solid fa-eye"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Terms and conditions (only for signup) -->
+        <div class="mb-3 form-field hidden" id="termsField">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="terms">
+                <label class="form-check-label" for="terms" style="font-size: 11px; color: #003580;">
+                    I agree to the <a href="#" style="color: #003580;">Terms & Conditions</a> and <a href="#" style="color: #003580;">Privacy Policy</a>
+                </label>
+            </div>
+        </div>
+
+        <!-- Newsletter (only for signup) -->
+        <div class="mb-3 form-field hidden" id="newsletterField">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="newsletter">
+                <label class="form-check-label" for="newsletter" style="font-size: 11px; color: #003580;">
+                    Subscribe to our newsletter for travel deals and updates
+                </label>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-primary-booking" id="submitBtn">Sign In</button>
+    </form>
+
+    <div class="footer-text">
+        By signing in or creating an account, you agree with our
+        <a href="#" target="_blank">Terms & conditions</a> and
+        <a href="#" target="_blank">Privacy statement</a>
+    </div>
+
+    <div class="copyright">
+        All rights reserved.<br>
+        Copyright (2006 - 2025) - Booking.com™
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!--<script src="useeLogin.js"></script>-->
+<script>
+    // Register
+    function registerUser(userData) {
+        $.ajax({
+            url: "http://localhost:8080/auth/register",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(userData),
+            success: function (response) {
+                console.log("✅ Registration success:", response);
+            },
+            error: function (xhr) {
+                console.error("❌ Registration failed:", xhr.responseText);
+            }
+        });
+    }
+
+    // Login
+    function loginUser(credentials) {
+        $.ajax({
+            url: "http://localhost:8080/auth/login", // Adjust if different
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(credentials),
+            success: function (response) {
+                console.log("✅ Login success:", response);
+                alert(`Welcome back, ${response.username || credentials.username}!`);
+                // Optionally, save JWT token or redirect
+                // localStorage.setItem("token", response.token);
+                // window.location.href = "/dashboard.html";
+            },
+            error: function (xhr) {
+                console.error("❌ Login failed:", xhr.responseText);
+                alert("Login failed: " + xhr.responseText);
+            }
+        });
+    }
+
+    document.getElementById('mainForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const isSignUp = isSignUpMode; // Make sure this variable is defined somewhere in your code
+
+        if (isSignUp) {
+            // SIGN-UP MODE
+            const username = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const role = document.getElementById('role').value;
+            const terms = document.getElementById('terms').checked;
+
+            if (!username || !email || !password || !confirmPassword || !role || !terms) {
+                alert('Please fill in all required fields and agree to the terms.');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match.');
+                return;
+            }
+
+            const userData = {
+                username: username,
+                email: email,
+                password: password,
+                role: role
+            };
+
+            registerUser(userData);
+        } else {
+            // SIGN-IN MODE - Only full name and password required
+            const username = document.getElementById('fullName').value.trim();
+            const password = document.getElementById('password').value;
+
+            if (!username || !password) {
+                alert('Please enter your full name and password.');
+                return;
+            }
+
+            const loginData = {
+                username: username,
+                password: password
+            };
+
+            loginUser(loginData);
+        }
+
+        // Reset form after submission
+        this.reset();
+    });
+
+    let isSignUpMode = false;
+    let isFormVisible = false;
+
+    // Details toggle functionality
+    document.getElementById('detailsHeader').addEventListener('click', function() {
+        const content = document.getElementById('detailsContent');
+        const arrow = document.getElementById('detailsArrow');
+
+        content.classList.toggle('show');
+        arrow.classList.toggle('rotated');
+    });
+
+    // Utility to add show/hide (with press-and-hold) to a password field
+    function attachPasswordToggle(inputId, buttonId) {
+        const input = document.getElementById(inputId);
+        const btn = document.getElementById(buttonId);
+
+        if (!input || !btn) return;
+
+        const icon = btn.querySelector('i');
+
+        function setVisible(visible) {
+            input.type = visible ? 'text' : 'password';
+            btn.setAttribute('aria-pressed', visible ? 'true' : 'false');
+            btn.setAttribute('aria-label', visible ? 'Hide password' : 'Show password');
+            icon.classList.toggle('fa-eye', !visible);
+            icon.classList.toggle('fa-eye-slash', visible);
+        }
+
+        // Click toggles visibility
+        btn.addEventListener('click', () => setVisible(input.type === 'password'));
+
+        // Press-and-hold temporarily shows (mouse)
+        btn.addEventListener('mousedown', () => setVisible(true));
+        btn.addEventListener('mouseup', () => setVisible(false));
+        btn.addEventListener('mouseleave', () => setVisible(false));
+
+        // Press-and-hold (touch)
+        btn.addEventListener('touchstart', (e) => { e.preventDefault(); setVisible(true); }, { passive: false });
+        btn.addEventListener('touchend', () => setVisible(false));
+        btn.addEventListener('touchcancel', () => setVisible(false));
+    }
+
+    // Attach password toggles
+    attachPasswordToggle('password', 'togglePassword');
+    attachPasswordToggle('confirmPassword', 'toggleConfirmPassword');
+
+    // Show/hide the form container
+    function toggleFormVisibility() {
+        const container = document.getElementById('signinContainer');
+        const welcomeMessage = document.getElementById('welcomeMessage');
+
+        if (!isFormVisible) {
+            // Show form, hide welcome message
+            welcomeMessage.classList.add('hidden');
+            container.classList.add('show');
+            isFormVisible = true;
+
+            // Update button text
+            const toggleText = document.getElementById('toggleText');
+            if (!isSignUpMode) {
+                toggleText.textContent = 'Sign Up';
+            } else {
+                toggleText.textContent = 'Sign In';
+            }
+        } else {
+            // If form is visible, toggle between sign in/up modes
+            toggleFormMode();
+        }
+    }
+
+    // Toggle between Sign In and Sign Up modes
+    function toggleFormMode() {
+        isSignUpMode = !isSignUpMode;
+
+        const formTitle = document.getElementById('formTitle');
+        const formSubtitle = document.getElementById('formSubtitle');
+        const submitBtn = document.getElementById('submitBtn');
+        const toggleBtn = document.getElementById('toggleMode');
+        const toggleText = document.getElementById('toggleText');
+        const backBtn = document.getElementById('backBtn');
+
+        // Fields that are only visible in signup mode
+        const signupOnlyFields = [
+            'emailField', 'roleField', 'confirmPasswordField', 'termsField', 'newsletterField'
+        ];
+
+        if (isSignUpMode) {
+            // Switch to Sign Up mode
+            formTitle.textContent = 'Create New Account';
+            formSubtitle.textContent = 'Join Booking.com to access exclusive deals and manage your bookings.';
+            submitBtn.textContent = 'CREATE ACCOUNT';
+            toggleText.textContent = 'Sign In';
+            toggleBtn.querySelector('i').className = 'fas fa-sign-in-alt me-1';
+
+            // Show signup fields
+            signupOnlyFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                field.classList.remove('hidden');
+            });
+
+            // Show back button
+            backBtn.classList.remove('hidden');
+
+            // Update password help text
+            document.getElementById('passwordHelp').textContent = 'At least 8 characters with uppercase, lowercase, and number.';
+
+            // Make additional fields required
+            document.getElementById('email').required = true;
+            document.getElementById('role').required = true;
+            document.getElementById('confirmPassword').required = true;
+            document.getElementById('terms').required = true;
+
+        } else {
+            // Switch to Sign In mode
+            formTitle.textContent = 'Sign in to your account';
+            formSubtitle.textContent = 'Welcome back! Please sign in to access your Booking.com account.';
+            submitBtn.textContent = 'SIGN IN';
+            toggleText.textContent = 'Sign Up';
+            toggleBtn.querySelector('i').className = 'fas fa-user-plus me-1';
+
+            // Hide signup fields
+            signupOnlyFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                field.classList.add('hidden');
+            });
+
+            // Hide back button
+            backBtn.classList.add('hidden');
+
+            // Reset password help text
+            document.getElementById('passwordHelp').textContent = 'At least 6 characters.';
+
+            // Remove required from additional fields
+            document.getElementById('email').required = false;
+            document.getElementById('role').required = false;
+            document.getElementById('confirmPassword').required = false;
+            document.getElementById('terms').required = false;
+
+            // Clear additional fields
+            document.getElementById('email').value = '';
+            document.getElementById('role').value = '';
+            document.getElementById('confirmPassword').value = '';
+            document.getElementById('terms').checked = false;
+            document.getElementById('newsletter').checked = false;
+        }
+    }
+
+    // Event listeners
+    document.getElementById('toggleMode').addEventListener('click', toggleFormVisibility);
+    document.getElementById('backBtn').addEventListener('click', () => {
+        if (isSignUpMode) toggleFormMode();
+    });
+
+    // Form validation and submission
+    document.getElementById('mainForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const fullName = document.getElementById('fullName').value.trim();
+        const password = document.getElementById('password').value;
+
+        if (!fullName || !password) {
+            alert('Please fill in all required fields');
+            return;
+        }
+
+        if (isSignUpMode) {
+            // Sign up validation
+            const email = document.getElementById('email').value.trim();
+            const role = document.getElementById('role').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const terms = document.getElementById('terms').checked;
+
+            if (!email || !role || !confirmPassword) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            if (!terms) {
+                alert('You must agree to the Terms & Conditions');
+                return;
+            }
+            if (password !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+            // if (password.length < 8) {
+            //     alert('Password must be at least 8 characters');
+            //     return;
+            // }
+
+            // Simple password strength validation
+            // const hasUpper = /[A-Z]/.test(password);
+            // const hasLower = /[a-z]/.test(password);
+            // const hasNumber = /[0-9]/.test(password);
+
+            // if (!hasUpper || !hasLower || !hasNumber) {
+            //     alert('Password must contain at least one uppercase letter, one lowercase letter, and one number');
+            //     return;
+            // }
+
+            const newsletter = document.getElementById('newsletter').checked;
+            alert(`Account created successfully!\nName: ${fullName}\nEmail: ${email}\nRole: ${role}\nNewsletter: ${newsletter ? 'Yes' : 'No'}`);
+
+        } else {
+            // Sign in validation - only full name and password
+            if (password.length < 6) {
+                alert('Password must be at least 6 characters');
+                return;
+            }
+            alert(`Sign in successful!\nName: ${fullName}`);
+        }
+
+        // Reset form
+        this.reset();
+    });
+</script>
+</body>
+</html>

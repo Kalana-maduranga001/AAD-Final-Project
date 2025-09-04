@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>290 hotels in Pointe A Pitre, Guadeloupe - Booking.com</title>
+    <link rel="stylesheet" href="styles2.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <span class="booking-logo">Booking.com</span>
+                <small class="package-info">Packages at Booking.com provided by Priceline</small>
+            </div>
+            <div class="user-actions">
+                <button class="help-btn"><i class="fas fa-question-circle"></i></button>
+                <button class="btn-secondary">List your property</button>
+                <button class="btn-secondary">Register</button>
+                <button class="btn-primary">Sign in</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <div class="container">
+            <div class="search-form-main">
+                <div class="search-input-main">
+                    <i class="fas fa-search"></i>
+                    <div class="input-content">
+                        <label>Where to?</label>
+                        <input type="text" value="Pointe A Pitre, Guadeloupe" class="location-input-main">
+                    </div>
+                </div>
+                <div class="date-input-main">
+                    <i class="fas fa-calendar"></i>
+                    <div class="input-content">
+                        <label>Check-in - Check-out</label>
+                        <input type="text" value="mm/dd/yyyy - mm/dd/yyyy" class="date-field-main">
+                    </div>
+                </div>
+                <div class="guests-input-main">
+                    <i class="fas fa-user"></i>
+                    <div class="input-content">
+                        <label>Rooms & Guests</label>
+                        <input type="text" value="1 Room, 2 Adults" class="guests-field-main">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+                <button class="update-search-btn">Update Search</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="content-wrapper">
+                <!-- Left Sidebar -->
+                <aside class="left-sidebar">
+                    <!-- Map Section -->
+                    <div class="map-section">
+                        <div class="map-container">
+                            <img src="https://images.unsplash.com/photo-1519302959554-a75be0afc82a?w=300&h=200&fit=crop" alt="Map" class="map-image">
+                            <button class="view-map-btn">
+                                <i class="fas fa-map-marker-alt"></i>
+                                View Map
+                            </button>
+                            <div class="map-label">Saint-François<br><span class="sub-label">Basse-Terre</span></div>
+                            <div class="google-logo">Google</div>
+                            <div class="map-attribution">Map data ©2025 Google</div>
+                        </div>
+                    </div>
+
+                    <!-- Sort By -->
+                    <div class="filter-section">
+                        <div class="filter-group">
+                            <h3>Sort by</h3>
+                            <select class="sort-dropdown">
+                                <option>Recommended</option>
+                                <option>Price (low to high)</option>
+                                <option>Price (high to low)</option>
+                                <option>Guest rating</option>
+                            </select>
+                        </div>
+
+                        <!-- Amenities -->
+                        <div class="filter-group">
+                            <h3>Amenities <i class="fas fa-chevron-up"></i></h3>
+                            <div class="checkbox-list">
+                                <label class="checkbox-item">
+                                    <input type="checkbox">
+                                    <span>Free Internet Access</span>
+                                    <span class="count">(260)</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox">
+                                    <span>Free Breakfast</span>
+                                    <span class="count">(3)</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox">
+                                    <span>Free Parking</span>
+                                    <span class="count">(170)</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox">
+                                    <span>Pets Allowed</span>
+                                    <span class="count">(1)</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox">
+                                    <span>Swimming Pool</span>
+                                    <span class="count">(78)</span>
+                                </label>
+                            </div>
+                            <button class="show-more-btn">Show 12 more <i class="fas fa-chevron-down"></i></button>
+                        </div>
+
+                        <!-- Property Name -->
+                        <div class="filter-group">
+                            <h3>Property Name <i class="fas fa-chevron-up"></i></h3>
+                            <div class="search-property">
+                                <input type="text" placeholder="e.g. "Hilton"" class="property-search">
+                                <i class="fas fa-search"></i>
+                            </div>
+                        </div>
+
+                        <!-- Hotel Star Level -->
+                        <div class="filter-group">
+                            <h3>Hotel Star Level <i class="fas fa-chevron-up"></i></h3>
+                            <div class="star-buttons">
+                                <button class="star-btn">1 <i class="fas fa-star"></i></button>
+                                <button class="star-btn">2 <i class="fas fa-star"></i></button>
+                                <button class="star-btn">3 <i class="fas fa-star"></i></button>
+                                <button class="star-btn">4 <i class="fas fa-star"></i></button>
+                                <button class="star-btn">5 <i class="fas fa-star"></i></button>
+                            </div>
+                        </div>
+
+                        <!-- Set Your Budget -->
+                        <div class="filter-group">
+                            <h3>Set Your Budget <i class="fas fa-chevron-up"></i></h3>
+                            <div class="budget-text">Per Night</div>
+                            <div class="price-range-slider">
+                                <input type="range" min="0" max="1000" value="200" class="slider">
+                                <div class="price-labels">
+                                    <span>$0</span>
+                                    <span>$1000+</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Guest Rating -->
+                        <div class="filter-group">
+                            <h3>Guest Rating <i class="fas fa-chevron-up"></i></h3>
+                            <div class="rating-buttons">
+                                <button class="rating-btn">5+</button>
+                                <button class="rating-btn">6+</button>
+                                <button class="rating-btn">7+</button>
+                                <button class="rating-btn">8+</button>
+                                <button class="rating-btn">9+</button>
+                            </div>
+                        </div>
+
+                        <!-- Property Types -->
+                        <div class="filter-group">
+                            <h3>Property Types <i class="fas fa-chevron-up"></i></h3>
+                            <div class="checkbox-list">
+                                <label class="checkbox-item">
+                                    <input type="checkbox">
+                                    <span>Hotels</span>
+                                    <span class="count">(229)</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox">
+                                    <span>Lodges</span>
+                                    <span class="count">(1)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Property Themes -->
+                        <div class="filter-group">
+                            <h3>Property Themes <i class="fas fa-chevron-up"></i></h3>
+                            <div class="theme-list">
+                                <div class="theme-item">
+                                    <i class="fas fa-star"></i>
+                                    <span>Luxury</span>
+                                </div>
+                                <div class="theme-item">
+                                    <i class="fas fa-heart"></i>
+                                    <span>Comfort</span>
+                                </div>
+                                <div class="theme-item">
+                                    <i class="fas fa-briefcase"></i>
+                                    <span>Business Friendly</span>
+                                </div>
+                                <div class="theme-item">
+                                    <i class="fas fa-spa"></i>
+                                    <span>Spa & Wellness</span>
+                                </div>
+                                <div class="theme-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>Family Friendly</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rate Options -->
+                        <div class="filter-group">
+                            <h3>Rate Options <i class="fas fa-chevron-up"></i></h3>
+                            <div class="checkbox-list">
+                                <label class="checkbox-item">
+                                    <input type="checkbox">
+                                    <span>Fully Refundable</span>
+                                    <span class="count">(9)</span>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox">
+                                    <span>Pay Later</span>
+                                    <span class="count">(9)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Guarantee Box -->
+                        <div class="guarantee-box">
+                            <h4>Our Best Price GUARANTEE.</h4>
+                            <p>Exclusively for Priceline members.</p>
+                            <p>We'll check today and ensure the difference if we find a lower price on Priceline. <a href="#">More info</a></p>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Right Content Area -->
+                <div class="right-content">
+                    <div class="content-header">
+                        <h1>Check prices on hotels in Pointe A Pitre, Guadeloupe</h1>
+                        
+                        <div class="date-options">
+                            <button class="date-option active">
+                                <i class="fas fa-calendar"></i>
+                                <div class="date-text">
+                                    <span class="date-label">Tonight</span>
+                                    <span class="date-range">Aug 02 - Aug 03</span>
+                                </div>
+                            </button>
+                            <button class="date-option">
+                                <i class="fas fa-calendar"></i>
+                                <div class="date-text">
+                                    <span class="date-label">Next Weekend</span>
+                                    <span class="date-range">Aug 08 - Aug 10</span>
+                                </div>
+                            </button>
+                            <button class="date-option">
+                                <i class="fas fa-calendar"></i>
+                                <div class="date-text">
+                                    <span class="date-label">Following Weekend</span>
+                                    <span class="date-range">Aug 15 - Aug 17</span>
+                                </div>
+                            </button>
+                        </div>
+
+                        <div class="results-info">
+                            <h2>290 hotels in Pointe A Pitre, Guadeloupe</h2>
+                            <p class="price-note">All Prices are in USD</p>
+                        </div>
+
+                        <div class="filter-tags">
+                            <button class="filter-tag active">Free Internet Access</button>
+                            <button class="filter-tag">
+                                <span>Price</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Hotel Listings -->
+                    <div class="hotel-listings">
+                        <!-- Hotel 1 -->
+                        <div class="hotel-card">
+                            <div class="hotel-image">
+                                <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=280&h=180&fit=crop" alt="Hotel Auberge de la Vieille Tour">
+                                <div class="best-deal-badge">Best Deal</div>
+                            </div>
+                            <div class="hotel-details">
+                                <h3 class="hotel-name">Hotel Auberge de la Vieille Tour</h3>
+                                <div class="hotel-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Le Gosier</span>
+                                </div>
+                                <div class="hotel-amenities">
+                                    <i class="fas fa-check"></i>
+                                    <span>Free Internet Access, Free Parking</span>
+                                    <a href="#" class="amenities-link">Amenities</a>
+                                </div>
+                                <div class="hotel-rating">
+                                    <div class="rating-score">7.3</div>
+                                    <div class="rating-info">
+                                        <span>15 Ratings</span>
+                                        <span class="separator">|</span>
+                                        <span>4-Star Hotel</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hotel-price">
+                                <div class="price-info">
+                                    <div class="starting-from">Starting From</div>
+                                    <div class="price">$179</div>
+                                    <div class="per-night">price per night</div>
+                                </div>
+                                <button class="choose-room-btn">Choose your room</button>
+                            </div>
+                        </div>
+
+                        <!-- Hotel 2 -->
+                        <div class="hotel-card">
+                            <div class="hotel-image">
+                                <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=280&h=180&fit=crop" alt="Magnifique studio vue sur mer au gosier">
+                            </div>
+                            <div class="hotel-details">
+                                <h3 class="hotel-name">Magnifique studio vue sur mer au gosier</h3>
+                                <div class="hotel-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Le Gosier</span>
+                                </div>
+                                <div class="hotel-amenities">
+                                    <i class="fas fa-check"></i>
+                                    <span>Free Internet Access, Free Parking</span>
+                                    <a href="#" class="amenities-link">Amenities</a>
+                                </div>
+                                <div class="hotel-amenities">
+                                    <i class="fas fa-check"></i>
+                                    <span>Instant Book</span>
+                                </div>
+                                <div class="property-type">Apartment</div>
+                            </div>
+                            <div class="hotel-price">
+                                <div class="price-info">
+                                    <div class="starting-from">Starting From</div>
+                                    <div class="price">$85</div>
+                                    <div class="per-night">price per night</div>
+                                </div>
+                                <button class="choose-room-btn">Choose your room</button>
+                            </div>
+                        </div>
+
+                        <!-- Hotel 3 -->
+                        <div class="hotel-card">
+                            <div class="hotel-image">
+                                <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=280&h=180&fit=crop" alt="Sea Side">
+                            </div>
+                            <div class="hotel-details">
+                                <h3 class="hotel-name">Sea Side</h3>
+                                <div class="hotel-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Le Gosier</span>
+                                </div>
+                                <div class="hotel-amenities">
+                                    <i class="fas fa-check"></i>
+                                    <span>Free Internet Access, Free Parking</span>
+                                    <a href="#" class="amenities-link">Amenities</a>
+                                </div>
+                                <div class="hotel-amenities">
+                                    <i class="fas fa-check"></i>
+                                    <span>Instant Book</span>
+                                </div>
+                                <div class="property-type">Holiday Home</div>
+                            </div>
+                            <div class="hotel-price">
+                                <div class="price-info">
+                                    <div class="starting-from">Starting From</div>
+                                    <div class="price">$197</div>
+                                    <div class="per-night">price per night</div>
+                                </div>
+                                <button class="choose-room-btn">Choose your room</button>
+                            </div>
+                        </div>
+
+                        <!-- Hotel 4 -->
+                        <div class="hotel-card">
+                            <div class="hotel-image">
+                                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=280&h=180&fit=crop" alt="Maison Victoire, boutique hôtel - Pointe-à-Pitre">
+                            </div>
+                            <div class="hotel-details">
+                                <h3 class="hotel-name">Maison Victoire, boutique hôtel - Pointe-à-Pitre</h3>
+                                <div class="hotel-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Pointe-A-Pitre</span>
+                                </div>
+                                <div class="hotel-amenities">
+                                    <i class="fas fa-check"></i>
+                                    <span>Free Internet Access</span>
+                                    <a href="#" class="amenities-link">Amenities</a>
+                                </div>
+                                <div class="hotel-rating">
+                                    <div class="rating-score">9.0</div>
+                                    <div class="rating-info">
+                                        <span>13 Ratings</span>
+                                        <span class="separator">|</span>
+                                        <span>Hotel</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hotel-price">
+                                <div class="price-info">
+                                    <div class="starting-from">Starting From</div>
+                                    <div class="price">$164</div>
+                                    <div class="per-night">price per night</div>
+                                </div>
+                                <button class="choose-room-btn">Choose your room</button>
+                            </div>
+                        </div>
+
+                        <!-- Hotel 5 -->
+                        <div class="hotel-card">
+                            <div class="hotel-image">
+                                <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=280&h=180&fit=crop" alt="EDEN FOREST Villas">
+                                <div class="very-clean-badge">Very Clean</div>
+                            </div>
+                            <div class="hotel-details">
+                                <h3 class="hotel-name">EDEN FOREST Villas</h3>
+                                <div class="hotel-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Pointe Noire</span>
+                                </div>
+                                <div class="hotel-amenities">
+                                    <i class="fas fa-check"></i>
+                                    <span>Free Internet Access, Free Parking</span>
+                                    <a href="#" class="amenities-link">Amenities</a>
+                                </div>
+                                <div class="hotel-amenities">
+                                    <i class="fas fa-check"></i>
+                                    <span>Instant Book</span>
+                                </div>
+                                <div class="hotel-rating">
+                                    <div class="rating-score">9.5</div>
+                                    <div class="rating-info">
+                                        <span>2 Ratings</span>
+                                        <span class="separator">|</span>
+                                        <span>4-Star Villa</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hotel-price">
+                                <div class="price-info">
+                                    <div class="starting-from">Starting From</div>
+                                    <div class="price">$92</div>
+                                    <div class="per-night">price per night</div>
+                                </div>
+                                <button class="choose-room-btn">Choose your room</button>
+                            </div>
+                        </div>
+
+                        <!-- Hotel 6 -->
+                        <div class="hotel-card">
+                            <div class="hotel-image">
+                                <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=280&h=180&fit=crop" alt="Eden Lodge 4 Villas avec piscine privée">
+                                <div class="very-clean-badge">Very Clean</div>
+                            </div>
+                            <div class="hotel-details">
+                                <h3 class="hotel-name">Eden Lodge 4 Villas avec piscine privée</h3>
+                                <div class="hotel-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Saint-François</span>
+                                </div>
+                                <div class="hotel-amenities">
+                                    <i class="fas fa-check"></i>
+                                    <span>Adults Only, Free Internet Access, Free Parking</span>
+                                    <a href="#" class="amenities-link">Amenities</a>
+                                </div>
+                                <div class="hotel-amenities">
+                                    <i class="fas fa-check"></i>
+                                    <span>Instant Book</span>
+                                </div>
+                                <div class="hotel-rating">
+                                    <div class="rating-score">9.0</div>
+                                    <div class="rating-info">
+                                        <span>2 Ratings</span>
+                                        <span class="separator">|</span>
+                                        <span>4-Star Villa</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hotel-price">
+                                <div class="price-info">
+                                    <div class="starting-from">Starting From</div>
+                                    <div class="price">$141</div>
+                                    <div class="per-night">price per night</div>
+                                </div>
+                                <button class="choose-room-btn">Choose your room</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Interactive functionality
+        document.querySelectorAll('.date-option').forEach(option => {
+            option.addEventListener('click', () => {
+                document.querySelectorAll('.date-option').forEach(opt => opt.classList.remove('active'));
+                option.classList.add('active');
+            });
+        });
+
+        document.querySelectorAll('.filter-tag').forEach(tag => {
+            tag.addEventListener('click', () => {
+                if (!tag.classList.contains('active')) {
+                    tag.classList.toggle('selected');
+                }
+            });
+        });
+
+        document.querySelector('.view-map-btn').addEventListener('click', () => {
+            alert('Opening map view...');
+        });
+    </script>
+</body>
+</html>

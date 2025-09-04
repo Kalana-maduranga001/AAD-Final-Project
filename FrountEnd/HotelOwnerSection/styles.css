@@ -1,0 +1,417 @@
+body {
+    background-color: #f8f9fa;
+    color: #003580;
+}
+
+/* Dashboard Panel Styles */
+.dashboard-panel {
+    background: linear-gradient(135deg, #003580 0%, #003580 100%);
+    padding: 20px 0;
+    box-shadow: 0 2px 10px #003580;
+    margin-bottom: 30px;
+}
+
+.dashboard-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.dashboard-btn {
+    background: #003580;
+    border: 2px solid #003580;
+    color: #ffffff;
+    padding: 15px 25px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-width: 120px;
+    text-align: center;
+}
+
+.dashboard-btn:hover {
+    background: #003580;
+    border-color: #003580;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px #003580;
+}
+
+.dashboard-btn.active {
+    background: #ffffff;
+    color: #212529;
+    border-color: #ffffff;
+    box-shadow: 0 4px 15px #003580;
+}
+
+.dashboard-btn i {
+    font-size: 20px;
+}
+
+.dashboard-btn span {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Section Animation */
+.form-section {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Form Sections */
+.form-section {
+    background: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px #003580;
+}
+
+.room-option {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background: #ffffff;
+    box-shadow: 0 1px 3px #003580;
+}
+
+.amenity-checkbox {
+    margin-bottom: 10px;
+}
+
+.price-input {
+    background: #fff3cd;
+    border: 2px solid #003580;
+}
+
+.image-upload {
+    border: 2px dashed #003580;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    background: #f8f9fa;
+}
+
+/* Button Styles */
+.btn-orange {
+    background-color: #003580;
+    border-color: #003580;
+    color: white;
+}
+
+.btn-orange:hover {
+    background-color: #003580;
+    border-color: #003580;
+    color: white;
+}
+
+.star-rating {
+    color: #003580;
+}
+
+/* Like Button Styles */
+.like-button {
+    background: none;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    padding: 8px 15px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.like-button:hover {
+    background-color: #ffffff;
+    color: #212529;
+    transform: scale(1.05);
+}
+
+.like-button.liked {
+    background-color: #003580;
+    border-color: #003580;
+    color: #ffffff;
+}
+
+.like-button.liked:hover {
+    background-color: #003580;
+    border-color: #003580;
+}
+
+.like-button i {
+    font-size: 16px;
+}
+
+/* Slideshow Styles */
+.slideshow-container {
+    position: relative;
+    max-width: 100%;
+    margin: auto;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px #003580;
+}
+
+.slide {
+    display: none;
+    width: 100%;
+    height: 400px;
+}
+
+.slide.active {
+    display: block;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(20%);
+}
+
+.slide-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #003580;
+    color: white;
+    border: none;
+    padding: 16px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 0;
+    transition: background-color 0.3s ease;
+}
+
+.slide-btn:hover {
+    background-color: #003580;
+}
+
+.prev-btn {
+    left: 0;
+}
+
+.next-btn {
+    right: 0;
+}
+
+.slide-indicators {
+    text-align: center;
+    padding: 20px;
+    background: #003580;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.indicator {
+    height: 15px;
+    width: 15px;
+    margin: 0 5px;
+    background-color: #003580;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.indicator.active {
+    background-color: #ffffff;
+}
+
+.indicator:hover {
+    background-color: rgba(255,255,255,0.8);
+}
+
+/* Black and White Theme Adjustments */
+.navbar-dark .navbar-brand,
+.navbar-dark .navbar-nav .nav-link {
+    color: #ffffff !important;
+}
+
+.form-control {
+    border: 1px solid #dee2e6;
+    background-color: #ffffff;
+    color: #003580;
+}
+
+.form-control:focus {
+    border-color: #003580;
+    box-shadow: 0 0 0 0.2rem #003580;
+}
+
+.btn-outline-primary {
+    color: #003580;
+    border-color: #003580;
+}
+
+.btn-outline-primary:hover {
+    background-color: #003580;
+    border-color: #003580;
+    color: #ffffff;
+}
+
+.btn-outline-secondary {
+    color: #003580;
+    border-color: #003580;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #003580;
+    border-color: #003580;
+    color: #ffffff;
+}
+
+.btn-outline-danger:hover {
+    background-color: #003580;
+    border-color: #003580;
+    color: #ffffff;
+}
+
+/* Form section headers */
+.form-section h4,
+.form-section h5 {
+    color: #003580;
+    border-bottom: 2px solid #dee2e6;
+    padding-bottom: 10px;
+}
+
+/* Checkbox and radio customization */
+.form-check-input:checked {
+    background-color: #003580;
+    border-color: #003580;
+}
+
+/* Room option styling */
+.room-option h5 {
+    color: #003580;
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 8px;
+}
+
+/* Sidebar styling */
+.col-lg-4 .form-section {
+    background: #ffffff;
+    border-left: 4px solid #003580;
+}
+
+/* Animation for like button */
+@keyframes heartPop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
+.like-button.liked i {
+    animation: heartPop 0.3s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .slide-btn {
+        padding: 12px 16px;
+        font-size: 16px;
+    }
+    
+    .like-button {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+    
+    .slide {
+        height: 250px;
+    }
+    
+    .slideshow-container {
+        margin-bottom: 20px;
+    }
+    
+    .form-section {
+        padding: 15px;
+    }
+    
+    .dashboard-buttons {
+        gap: 10px;
+    }
+    
+    .dashboard-btn {
+        min-width: 100px;
+        padding: 12px 20px;
+    }
+    
+    .dashboard-btn i {
+        font-size: 18px;
+    }
+    
+    .dashboard-btn span {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 576px) {
+    .dashboard-buttons {
+        justify-content: space-around;
+    }
+    
+    .dashboard-btn {
+        min-width: 80px;
+        padding: 10px 15px;
+    }
+}
+
+/* Additional Black & White Theme Enhancements */
+.text-primary {
+    color: #003580 !important;
+}
+
+.text-success {
+    color: #003580 !important;
+}
+
+/* Hover effects for form elements */
+.form-control:hover {
+    border-color: #003580;
+}
+
+.form-check-input:hover {
+    border-color:#003580;
+}
+
+/* Custom scrollbar for textarea */
+textarea::-webkit-scrollbar {
+    width: 8px;
+}
+
+textarea::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+textarea::-webkit-scrollbar-thumb {
+    background: #003580;
+    border-radius: 4px;
+}
+
+textarea::-webkit-scrollbar-thumb:hover {
+    background: #003580;
+}
