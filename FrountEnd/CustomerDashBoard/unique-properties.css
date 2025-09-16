@@ -1,0 +1,157 @@
+/* unique-properties.css - Designed for your provided markup */
+
+/* Base */
+.unique-properties {
+    padding: 28px 16px;
+    background: transparent;
+    color: #002e6b;
+    max-width: 1200px;
+    margin: 0 auto 32px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+}
+.unique-properties .container { width:100%; }
+
+/* Heading + subtitle */
+.unique-properties h2 {
+    font-size: 28px;
+    margin: 0 0 6px;
+    color: #003580;
+    font-weight: 700;
+}
+.unique-properties .subtitle {
+    color: #516b95;
+    font-size: 14.6px;
+    margin-bottom: 18px;
+}
+
+/* properties-scroll wrapper: left button | carousel | right button */
+.properties-scroll {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+}
+
+/* scroll buttons */
+.scroll-btn {
+    background: #003580;
+    color: #fff;
+    border: none;
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex: 0 0 auto;
+    box-shadow: 0 6px 18px rgba(3,53,128,0.12);
+}
+.scroll-btn svg { width: 18px; height: 18px; fill: none; stroke: #fff; stroke-width: 2; }
+.scroll-btn:disabled { opacity: .45; cursor: default; }
+
+/* main carousel container */
+.properties-container {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    padding: 6px 4px;
+    flex: 1 1 auto;
+}
+
+/* card */
+.property-card {
+    flex: 0 0 300px;           /* base card width */
+    max-width: 300px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 6px 22px rgba(8,38,84,0.06);
+    scroll-snap-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+/* image container with favorite button overlay */
+.property-image-container {
+    position: relative;
+    width: 100%;
+    height: 190px;
+    overflow: hidden;
+    background: #f3f7ff;
+}
+.property-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display:block;
+    transition: transform .35s ease;
+}
+.property-image-container:hover .property-image {
+    transform: scale(1.03);
+}
+.favorite-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 38px;
+    height: 38px;
+    background: rgba(255,255,255,0.92);
+    border: none;
+    border-radius: 50%;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+    transition: transform .12s ease, background .12s ease;
+}
+.favorite-btn svg { width:18px; height:18px; fill: #b0c3e6; stroke: none; }
+.favorite-btn:hover { transform: scale(1.05); }
+.favorite-btn.active { background: #e74c3c; }
+.favorite-btn.active svg { fill: #fff; }
+
+/* property info */
+.property-info {
+    padding: 12px 14px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+.property-name { font-weight: 600; color: #002e6b; font-size: 15px; }
+.property-location { color: #5b6f96; font-size: 13px; }
+.property-rating {
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+.rating-score {
+    background: #003580;
+    color:#fff;
+    padding:6px 8px;
+    border-radius:6px;
+    font-weight:700;
+    font-size: 13px;
+}
+.rating-text { font-size:12px; color:#6a7aa3; }
+
+/* responsive adjustments */
+@media (max-width: 900px) {
+    .property-card { flex: 0 0 260px; max-width: 260px; }
+    .property-image-container { height: 150px; }
+}
+@media (max-width: 600px) {
+    .properties-scroll { gap: 6px; }
+    .scroll-btn { width: 36px; height:36px; }
+    .property-card { flex: 0 0 220px; max-width: 220px; }
+    .property-image-container { height: 130px; }
+}
+
+/* Prevent parent overflow pushing page right - important */
+.unique-properties, .properties-scroll, .properties-container { max-width: 100%; box-sizing: border-box; }
+
+/* optional: small visual focus ring */
+.scroll-btn:focus, .favorite-btn:focus { outline: 3px solid rgba(3,53,128,0.12); outline-offset: 2px; }

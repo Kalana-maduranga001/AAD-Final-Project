@@ -6,6 +6,8 @@
     <title>290 hotels in Pointe A Pitre, Guadeloupe - Booking.com</title>
     <link rel="stylesheet" href="styles2.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <style></style>
 </head>
 <body>
     <!-- Header -->
@@ -69,7 +71,7 @@
                                 <i class="fas fa-map-marker-alt"></i>
                                 View Map
                             </button>
-                            <div class="map-label">Saint-François<br><span class="sub-label">Basse-Terre</span></div>
+                            <div class="map-label">Saint-François<br><span class="sub-label">Base-Terre</span></div>
                             <div class="google-logo">Google</div>
                             <div class="map-attribution">Map data ©2025 Google</div>
                         </div>
@@ -124,7 +126,7 @@
                         <div class="filter-group">
                             <h3>Property Name <i class="fas fa-chevron-up"></i></h3>
                             <div class="search-property">
-                                <input type="text" placeholder="e.g. "Hilton"" class="property-search">
+                                <input type="text" placeholder="e.g.Hilton" class="property-search">
                                 <i class="fas fa-search"></i>
                             </div>
                         </div>
@@ -502,25 +504,30 @@
     </main>
 
     <script>
-        // Interactive functionality
-        document.querySelectorAll('.date-option').forEach(option => {
-            option.addEventListener('click', () => {
-                document.querySelectorAll('.date-option').forEach(opt => opt.classList.remove('active'));
-                option.classList.add('active');
+        function initializeHotelCityPage() {
+            // Interactive functionality
+            document.querySelectorAll('.date-option').forEach(option => {
+                option.addEventListener('click', () => {
+                    document.querySelectorAll('.date-option').forEach(opt => opt.classList.remove('active'));
+                    option.classList.add('active');
+                });
             });
-        });
 
-        document.querySelectorAll('.filter-tag').forEach(tag => {
-            tag.addEventListener('click', () => {
-                if (!tag.classList.contains('active')) {
-                    tag.classList.toggle('selected');
-                }
+            document.querySelectorAll('.filter-tag').forEach(tag => {
+                tag.addEventListener('click', () => {
+                    if (!tag.classList.contains('active')) {
+                        tag.classList.toggle('selected');
+                    }
+                });
             });
-        });
 
-        document.querySelector('.view-map-btn').addEventListener('click', () => {
-            alert('Opening map view...');
-        });
+            const viewMapBtn = document.querySelector('.view-map-btn');
+            if (viewMapBtn) {
+                viewMapBtn.addEventListener('click', () => {
+                    alert('Opening map view...');
+                });
+            }
+        }
     </script>
 </body>
 </html>

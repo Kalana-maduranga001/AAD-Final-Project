@@ -6,13 +6,116 @@
     <title>BookStay - Hotel Booking</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="unique-properties.css">
+
 </head>
+<style>
+    .all-districts-section {
+        margin-top: 3rem;
+    }
+
+    .all-districts-section h3 {
+        font-size: 1.5rem;
+        color: #333;
+        margin-bottom: 2rem;
+        text-align: center;
+        font-weight: 600;
+    }
+
+    .districts-complete-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .district-item {
+        position: relative;
+        border-radius: 8px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .district-item:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+
+    .district-item img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .district-item:hover img {
+        transform: scale(1.05);
+    }
+
+    .district-name {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(transparent, rgba(0,0,0,0.8));
+        color: white;
+        padding: 2rem 1rem 1rem;
+        font-size: 1rem;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+        .districts-complete-grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .districts-complete-grid {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+        }
+
+        .district-item img {
+            height: 120px;
+        }
+
+        .district-name {
+            font-size: 0.9rem;
+            padding: 1.5rem 0.75rem 0.75rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .districts-complete-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+        }
+
+        .district-item img {
+            height: 100px;
+        }
+
+        .district-name {
+            font-size: 0.8rem;
+            padding: 1rem 0.5rem 0.5rem;
+        }
+
+        .all-districts-section h3 {
+            font-size: 1.3rem;
+        }
+    }
+</style>
 <body>
     <!-- Header -->
     <header class="header">
         <div class="container">
             <div class="nav-brand">
-                <h1>BookStay</h1>
+<!--                <h1>BookStay</h1>-->
             </div>
             <nav class="nav-menu">
                 <ul>
@@ -23,11 +126,16 @@
                 </ul>
             </nav>
             <div class="nav-auth">
-                <button class="btn-secondary">Register</button>
-                <button class="btn-primary">Sign In</button>
+<!--                <button class="btn-secondary">Register</button>-->
+<!--                <button class="btn-primary">Sign In</button>-->
             </div>
         </div>
     </header>
+
+    <main id="main-content-area">
+        <!-- Hotels list or details will be loaded here -->
+        <div id="properties-container"></div>
+    </main>
 
     <!-- Hero Section with Background Image -->
     <section class="hero">
@@ -235,15 +343,14 @@
     </section>
 
 
-     <!-- Trending Destinations Section -->
     <section class="trending-destinations">
         <div class="container">
             <h2>Trending destinations among travelers from Sri Lanka</h2>
-            
+
             <div class="destinations-grid">
                 <!-- Kandy - Large Card -->
                 <div class="destination-card large">
-                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=400&fit=crop" alt="Kandy">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=250&h=180&fit=crop" alt="Kandy">
                     <div class="destination-overlay">
                         <div class="destination-name">
                             Kandy
@@ -251,7 +358,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Colombo -->
                 <div class="destination-card">
                     <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=200&fit=crop" alt="Colombo">
@@ -262,9 +369,20 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- Small destinations row -->
+
+                <!-- Small destinations row - Changed to Sri Lankan districts -->
                 <div class="small-destinations">
+                    <!-- Galle -->
+                    <div class="destination-card">
+                        <img src="https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=200&h=150&fit=crop" alt="Galle">
+                        <div class="destination-overlay">
+                            <div class="destination-name" style="font-size: 1.1rem;">
+                                Galle
+                                <span class="country-flag sri-lanka-flag"></span>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Nuwara Eliya -->
                     <div class="destination-card">
                         <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=200&h=150&fit=crop" alt="Nuwara Eliya">
@@ -275,31 +393,139 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Dubai -->
+
+                    <!-- Anuradhapura -->
                     <div class="destination-card">
-                        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=200&h=150&fit=crop" alt="Dubai">
+                        <img src="https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?w=200&h=150&fit=crop" alt="Anuradhapura">
                         <div class="destination-overlay">
                             <div class="destination-name" style="font-size: 1.1rem;">
-                                Dubai
-                                <span class="country-flag uae-flag"></span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Ella -->
-                    <div class="destination-card">
-                        <img src="https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=200&h=150&fit=crop" alt="Ella">
-                        <div class="destination-overlay">
-                            <div class="destination-name" style="font-size: 1.1rem;">
-                                Ella
+                                Anuradhapura
                                 <span class="country-flag sri-lanka-flag"></span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
+            <!-- All 25 Districts Grid -->
+            <div class="all-districts-section">
+                <h3>Explore All 25 Districts of Sri Lanka</h3>
+                <div class="districts-complete-grid">
+                    <!-- Row 1 -->
+                    <div class="district-item">
+                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=250&h=180&fit=crop" alt="Colombo">
+                        <div class="district-name">Colombo</div>
+                    </div>
+                    <div class="district-item">
+                        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=250&h=180&fit=crop" alt="Gampaha">
+                        <div class="district-name">Gampaha</div>
+                    </div>
+                    <div class="district-item">
+                        <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=250&h=180&fit=crop" alt="Kalutara">
+                        <div class="district-name">Kalutara</div>
+                    </div>
+                    <div class="district-item">
+                        <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=250&h=180&fit=crop" alt="Kandy">
+                        <div class="district-name">Kandy</div>
+                    </div>
+                    <div class="district-item">
+                        <img src="https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=250&h=180&fit=crop" alt="Matale">
+                        <div class="district-name">Matale</div>
+                    </div>
+
+                    <!-- Row 2 -->
+                    <div class="district-item">
+                        <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=250&h=180&fit=crop" alt="Nuwara Eliya">
+                        <div class="district-name">Nuwara Eliya</div>
+                    </div>
+                    <div class="district-item">
+                        <img src="https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=250&h=180&fit=crop" alt="Galle">
+                        <div class="district-name">Galle</div>
+                    </div>
+                    <div class="district-item">
+                        <img src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=250&h=180&fit=crop" alt="Matara">
+                        <div class="district-name">Matara</div>
+                    </div>
+                    <div class="district-item">
+                        <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=250&h=180&fit=crop" alt="Hambantota">
+                        <div class="district-name">Hambantota</div>
+                    </div>
+                    <div class="district-item">
+                        <img src="https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?w=250&h=180&fit=crop" alt="Jaffna">
+                        <div class="district-name">Jaffna</div>
+                    </div>
+
+                    <!-- Row 3 -->
+                    <div class="district-item">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=250&h=180&fit=crop" alt="Kilinochchi">
+                        <div class="district-name">Kilinochchi</div>
+                    </div>
+                    <div class="district-item">
+                        <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=250&h=180&fit=crop" alt="Mannar">
+                        <div class="district-name">Mannar</div>
+                    </div>
+                    <div class="district-item">
+                        <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=250&h=180&fit=crop" alt="Mullaitivu">
+                        <div class="district-name">Mullaitivu</div>
+                    </div>
+                    <div class="district-item">
+                        <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=250&h=180&fit=crop" alt="Vavuniya">
+                        <div class="district-name">Vavuniya</div>
+                    </div>
+                    <div class="district-item">
+                        <img src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=250&h=180&fit=crop" alt="Batticaloa">
+                        <div class="district-name">Batticaloa</div>
+                    </div>
+
+                    <!-- Row 4 -->
+                    <div class="district-item">
+                        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=250&h=180&fit=crop" alt="Ampara">
+                        <div class="district-name">Ampara</div>
+                    </div>
+                    <div class="district-item">
+                        <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=250&h=180&fit=crop" alt="Trincomalee">
+                        <div class="district-name">Trincomalee</div>
+                    </div>
+                    <div class="district-item">
+                        <img src="https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?w=250&h=180&fit=crop" alt="Kurunegala">
+                        <div class="district-name">Kurunegala</div>
+                    </div>
+                    <div class="district-item">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=250&h=180&fit=crop" alt="Puttalam">
+                        <div class="district-name">Puttalam</div>
+                    </div>
+                    <div class="district-item">
+                        <img src="https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?w=250&h=180&fit=crop" alt="Anuradhapura">
+                        <div class="district-name">Anuradhapura</div>
+                    </div>
+
+                    <!-- Row 5 -->
+                    <div class="district-item">
+                        <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=250&h=180&fit=crop" alt="Polonnaruwa">
+                        <div class="district-name">Polonnaruwa</div>
+                    </div>
+                    <div class="district-item">
+                        <img src="https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=250&h=180&fit=crop" alt="Badulla">
+                        <div class="district-name">Badulla</div>
+                    </div>
+                    <div class="district-item">
+                        <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=250&h=180&fit=crop" alt="Monaragala">
+                        <div class="district-name">Monaragala</div>
+                    </div>
+                    <div class="district-item">
+                        <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=250&h=180&fit=crop" alt="Ratnapura">
+                        <div class="district-name">Ratnapura</div>
+                    </div>
+                    <div class="district-item">
+                        <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=250&h=180&fit=crop" alt="Kegalle">
+                        <div class="district-name">Kegalle</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
             <!-- Features Section -->
             <div class="features-section">
                 <div class="feature-item">
@@ -313,7 +539,7 @@
                         <p>FREE cancellation on most rooms</p>
                     </div>
                 </div>
-                
+
                 <div class="feature-item">
                     <div class="feature-icon blue">
                         <svg viewBox="0 0 24 24">
@@ -326,7 +552,7 @@
                         <p>Hotels, guest houses, apartments, and more...</p>
                     </div>
                 </div>
-                
+
                 <div class="feature-item">
                     <div class="feature-icon purple">
                         <svg viewBox="0 0 24 24">
@@ -341,6 +567,7 @@
             </div>
         </div>
     </section>
+
 
     <!-- Explore Destinations Section -->
    <section class="explore-destinations">
@@ -438,7 +665,7 @@
                 
                 <div class="homes-container" id="homesContainer">
                     <!-- Home 1 -->
-                    <div class="home-card">
+                    <div class="home-card" onclick="loadHotelDetails(101)">
                         <div class="home-image-container">
                             <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400&h=250&fit=crop" alt="Aparthotel Stare Miasto" class="home-image">
                             <button class="favorite-btn">
@@ -465,7 +692,7 @@
                     </div>
 
                     <!-- Home 2 -->
-                    <div class="home-card">
+                    <div class="home-card" onclick="loadHotelDetails(102)">
                         <div class="home-image-container">
                             <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=250&fit=crop" alt="7Seasons Apartments Budapest" class="home-image">
                             <button class="favorite-btn">
@@ -492,7 +719,7 @@
                     </div>
 
                     <!-- Home 3 -->
-                    <div class="home-card">
+                    <div class="home-card" onclick="loadHotelDetails(103)">
                         <div class="home-image-container">
                             <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=250&fit=crop" alt="Downtown Synagogue" class="home-image">
                             <button class="favorite-btn">
@@ -519,7 +746,7 @@
                     </div>
 
                     <!-- Home 4 -->
-                    <div class="home-card">
+                    <div class="home-card" onclick="loadHotelDetails(104)">
                         <div class="home-image-container">
                             <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400&h=250&fit=crop" alt="Oriente Palace Apartments" class="home-image">
                             <button class="favorite-btn">
@@ -546,7 +773,7 @@
                     </div>
 
                     <!-- Home 5 -->
-                    <div class="home-card">
+                    <div class="home-card" onclick="loadHotelDetails(105)">
                         <div class="home-image-container">
                             <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&h=250&fit=crop" alt="Alpine Retreat" class="home-image">
                             <button class="favorite-btn">
@@ -688,7 +915,7 @@
       <!-- Top Unique Properties Section -->
     <section class="unique-properties">
         <div class="container">
-            <h2>Stay at our top unique properties</h2>
+            <h2>Stay at our properties</h2>
             <p class="subtitle">From castles and villas to boats and igloos, we have it all</p>
             
             <div class="properties-scroll">
@@ -922,287 +1149,8 @@
     </footer>
 
     <script>
-        // BookStay Hotel Booking Website - Complete JavaScript Functions
 
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // Initialize all functionality when DOM is loaded
-    initializeFavorites();
-    initializeTabSwitching();
-    initializeExploreDestinations();
-    initializeTripPlanner();
-    initializeSearchFunctionality();
-    initializeCategoryButtons();
-    
-});
-
-// Add favorite functionality
-function initializeFavorites() {
-    document.querySelectorAll('.favorite-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            this.classList.toggle('active');
-            
-            // Optional: Add visual feedback
-            if (this.classList.contains('active')) {
-                this.style.color = '#e74c3c'; // Red heart when favorited
-            } else {
-                this.style.color = '#666'; // Gray when not favorited
-            }
-        });
-    });
-}
-
-// Simple tab switching functionality
-function initializeTabSwitching() {
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-        });
-    });
-}
-
-// Explore destinations in Sri Lanka scroll functionality
-function initializeExploreDestinations() {
-    const container = document.getElementById('exploreContainer');
-    const scrollLeftBtn = document.getElementById('scrollLeft');
-    const scrollRightBtn = document.getElementById('scrollRight');
-    
-    if (!container || !scrollLeftBtn || !scrollRightBtn) {
-        console.log('Explore destinations elements not found');
-        return;
-    }
-    
-    // Scroll amount (adjust as needed)
-    const scrollAmount = 320; // Width of one item plus gap
-    
-    scrollLeftBtn.addEventListener('click', function() {
-        container.scrollBy({
-            left: -scrollAmount,
-            behavior: 'smooth'
-        });
-    });
-    
-    scrollRightBtn.addEventListener('click', function() {
-        container.scrollBy({
-            left: scrollAmount,
-            behavior: 'smooth'
-        });
-    });
-    
-    // Update button states based on scroll position
-    function updateButtonStates() {
-        const isAtStart = container.scrollLeft <= 0;
-        const isAtEnd = container.scrollLeft >= (container.scrollWidth - container.clientWidth);
-        
-        scrollLeftBtn.style.opacity = isAtStart ? '0.5' : '1';
-        scrollRightBtn.style.opacity = isAtEnd ? '0.5' : '1';
-        
-        scrollLeftBtn.style.pointerEvents = isAtStart ? 'none' : 'auto';
-        scrollRightBtn.style.pointerEvents = isAtEnd ? 'none' : 'auto';
-    }
-    
-    // Update button states on scroll
-    container.addEventListener('scroll', updateButtonStates);
-    
-    // Initial state update
-    updateButtonStates();
-    
-    // Update on window resize
-    window.addEventListener('resize', updateButtonStates);
-}
-
-// Trip Planner functionality (NEW - this was missing)
-function initializeTripPlanner() {
-    const tripContainer = document.getElementById('tripDestinationsContainer');
-    const tripScrollLeft = document.getElementById('tripScrollLeft');
-    const tripScrollRight = document.getElementById('tripScrollRight');
-    
-    if (!tripContainer || !tripScrollLeft || !tripScrollRight) {
-        console.log('Trip planner elements not found - make sure IDs are correct'); 
-        return;
-    }
-    
-    const scrollAmount = 320;
-    
-    tripScrollLeft.addEventListener('click', function() {
-        tripContainer.scrollBy({
-            left: -scrollAmount,
-            behavior: 'smooth'
-        });
-    });
-    
-    tripScrollRight.addEventListener('click', function() {
-        tripContainer.scrollBy({
-            left: scrollAmount,
-            behavior: 'smooth'
-        });
-    });
-    
-    // Update button states for trip planner
-    function updateTripButtonStates() {
-        const isAtStart = tripContainer.scrollLeft <= 0;
-        const isAtEnd = tripContainer.scrollLeft >= (tripContainer.scrollWidth - tripContainer.clientWidth);
-        
-        tripScrollLeft.style.opacity = isAtStart ? '0.5' : '1';
-        tripScrollRight.style.opacity = isAtEnd ? '0.5' : '1';
-        
-        tripScrollLeft.style.pointerEvents = isAtStart ? 'none' : 'auto';
-        tripScrollRight.style.pointerEvents = isAtEnd ? 'none' : 'auto';
-    }
-    
-    tripContainer.addEventListener('scroll', updateTripButtonStates);
-    updateTripButtonStates(); // Initial state
-    window.addEventListener('resize', updateTripButtonStates);
-}
-
-// Category buttons functionality (NEW)
-function initializeCategoryButtons() {
-    document.querySelectorAll('.category-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            // Remove active class from all buttons
-            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-            // Add active class to clicked button
-            this.classList.add('active');
-            
-            // Optional: You can add functionality to filter destinations based on category
-            const category = this.textContent.trim();
-            console.log('Selected category:', category);
-            // Add your filtering logic here if needed
-        });
-    });
-}
-
-// Search functionality
-function initializeSearchFunctionality() {
-    const searchBtn = document.querySelector('.search-btn-hero');
-    const searchBtnRegular = document.querySelector('.search-btn');
-    
-    function handleSearch() {
-        const destination = document.querySelector('input[placeholder="Where are you going?"]')?.value || 'New York';
-        const dates = document.querySelector('.dates span')?.textContent || 'No dates selected';
-        const guests = document.querySelector('.guests span')?.textContent || 'No guests selected';
-        
-        alert(`Search Details:\nDestination: ${destination}\nDates: ${dates}\nGuests: ${guests}\n\nSearch functionality would be implemented here!`);
-    }
-    
-    if (searchBtn) {
-        searchBtn.addEventListener('click', handleSearch);
-    }
-    
-    if (searchBtnRegular) {
-        searchBtnRegular.addEventListener('click', handleSearch);
-    }
-}
-
-// Properties scroll functionality
-function scrollProperties(direction) {
-    const container = document.getElementById('propertiesContainer');
-    if (!container) {
-        console.log('Properties container not found');
-        return;
-    }
-    
-    const scrollAmount = 300;
-    
-    if (direction === 'left') {
-        container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-    } else {
-        container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    }
-}
-
-// Homes scroll functionality
-function scrollHomes(direction) {
-    const container = document.getElementById('homesContainer');
-    if (!container) {
-        console.log('Homes container not found');
-        return;
-    }
-    
-    const scrollAmount = 300;
-    
-    if (direction === 'left') {
-        container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-    } else {
-        container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    }
-}
-
-// Destination item click functionality (NEW)
-function initializeDestinationClicks() {
-    document.querySelectorAll('.destination-item').forEach(item => {
-        item.addEventListener('click', function() {
-            const destinationName = this.querySelector('h4').textContent;
-            const distance = this.querySelector('p').textContent;
-            
-            alert(`You selected: ${destinationName}\nDistance: ${distance}\n\nThis would redirect to ${destinationName} hotels page.`);
-        });
-    });
-}
-
-// Input focus effects (NEW)
-function initializeInputEffects() {
-    document.querySelectorAll('.input-group-hero').forEach(group => {
-        group.addEventListener('click', function() {
-            // Remove focus from other input groups
-            document.querySelectorAll('.input-group-hero').forEach(g => g.classList.remove('focused'));
-            // Add focus to clicked group
-            this.classList.add('focused');
-            
-            // Focus the input if it exists
-            const input = this.querySelector('input');
-            if (input) {
-                input.focus();
-            }
-        });
-    });
-    
-    // Remove focus when clicking outside
-    document.addEventListener('click', function(e) {
-        if (!e.target.closest('.input-group-hero')) {
-            document.querySelectorAll('.input-group-hero').forEach(g => g.classList.remove('focused'));
-        }
-    });
-}
-
-// Initialize additional functionality
-document.addEventListener('DOMContentLoaded', function() {
-    initializeDestinationClicks();
-    initializeInputEffects();
-});
-
-// Utility function to handle smooth scrolling
-function smoothScrollTo(element, to, duration) {
-    const start = element.scrollLeft;
-    const change = to - start;
-    const startTime = performance.now();
-    
-    function animateScroll(currentTime) {
-        const timeElapsed = currentTime - startTime;
-        const run = easeInOutQuad(timeElapsed, start, change, duration);
-        element.scrollLeft = run;
-        
-        if (timeElapsed < duration) {
-            requestAnimationFrame(animateScroll);
-        }
-    }
-    
-    requestAnimationFrame(animateScroll);
-}
-
-// Easing function for smooth scrolling
-function easeInOutQuad(t, b, c, d) {
-    t /= d / 2;
-    if (t < 1) return c / 2 * t * t + b;
-    t--;
-    return -c / 2 * (t * (t - 2) - 1) + b;
-}
-
-// Console log for debugging
-console.log('BookStay JavaScript loaded successfully!');
-        
     </script>
+
 </body>
 </html>

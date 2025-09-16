@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "hotels")
-public class Hotel{
+public class Hotel {
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
      private Integer id;
@@ -28,6 +28,12 @@ public class Hotel{
      private String description;
 
      private String status; // ACTIVE / INACTIVE
+
+     // 🟢 New Fields
+     private String propertyType;   // Hotel / Villa / Apartment / etc.
+     private String city;           // Colombo / Kandy / etc.
+     private Double startingPrice;  // Base starting price
+     private Double averageRating = 0.0; // Default 0, updated from reviews later
 
      // Relations
      @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -44,6 +50,7 @@ public class Hotel{
      )
      private List<Amenity> amenities;
 
+     // Hotel owns no relation for Policy
      @OneToOne(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
      private Policy policy;
 }

@@ -6,55 +6,512 @@
     <title>Hotel Admin Panel - Add Hotel Details</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="styles02.css">
 
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e468e 0%, #1e468e 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard-panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .dashboard-btn {
+            background: rgba(251, 250, 250, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            min-width: 120px;
+        }
+
+        .dashboard-btn:hover, .dashboard-btn.active {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .dashboard-btn i {
+            font-size: 24px;
+        }
+
+        .dashboard-btn span {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .form-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .form-section h4 {
+            color: #1e468e;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            padding: 12px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #091e7a;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+
+        .btn-orange {
+            background: linear-gradient(45deg, #fbfafa, #ffffff);
+            border: none;
+            color: rgb(4, 3, 3);
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-orange:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(238, 90, 36, 0.3);
+            color: rgb(9, 3, 3);
+        }
+
+        .room-option {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 2px solid #e9ecef;
+        }
+
+        .amenity-checkbox {
+            margin-bottom: 10px;
+        }
+
+        .amenity-checkbox label {
+            margin-left: 8px;
+            font-weight: 500;
+        }
+
+        .slideshow-container {
+            position: relative;
+            max-width: 100%;
+            margin: auto;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .slide {
+            display: none;
+            position: relative;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .slide-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .prev-btn {
+            left: 10px;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .next-btn {
+            right: 10px;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .slide-btn:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .slide-indicators {
+            text-align: center;
+            padding: 20px;
+            background: white;
+        }
+
+        .indicator {
+            height: 15px;
+            width: 15px;
+            margin: 0 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator.active, .indicator:hover {
+            background-color: #717171;
+        }
+
+        .like-button {
+            background: none;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .like-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .like-button.liked {
+            color: #ff6b6b;
+            border-color: #ff6b6b;
+        }
+
+        .image-upload {
+            border: 3px dashed #dee2e6;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .image-upload:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .price-input {
+            font-weight: 600;
+            color: #000000;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-buttons {
+                justify-content: center;
+            }
+
+            .dashboard-btn {
+                min-width: 100px;
+                padding: 12px 20px;
+            }
+
+            .dashboard-btn i {
+                font-size: 20px;
+            }
+
+            .dashboard-btn span {
+                font-size: 12px;
+            }
+        }
+
+        .crud-buttons {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .crud-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .crud-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-1px);
+        }
+
+
+        /* Hotel Images Gallery Styles */
+        #hotelImagesGallery {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .section-title {
+            color: white;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hotel-image-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hotel-image-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+            border-color: rgba(30, 70, 142, 0.5);
+        }
+
+        .hotel-img {
+            /*width: 100%;*/
+            /*height: 200px;*/
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .hotel-name {
+            color: #000205;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .hotel-location {
+            color: #0e0101;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .hotel-price {
+            color: #010712;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+
+        /*hotel btn System*/
+
+        .btn-view-hotel {
+            background: linear-gradient(45deg, #01040b, #0b1119);
+            border: none;
+            color: white;
+            border-radius: 10px;
+            padding: 8px 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-view-hotel:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(30, 70, 142, 0.3);
+            color: white;
+        }
+
+        .hotel-list {
+            max-height: 300px;
+            overflow-y: auto;
+            border-radius: 10px;
+        }
+
+        .hotel-item {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .hotel-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .hotel-item.selected {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        /*search bar */
+        /* Search Bar Styles */
+        .search-container {
+            position: relative;
+        }
+
+        #hotelSearchInput {
+            border-radius: 10px 0 0 10px;
+            border: 2px solid #e9ecef;
+            padding: 8px 12px;
+            transition: all 0.3s ease;
+        }
+
+        #hotelSearchInput:focus {
+            border-color: #1e468e;
+            box-shadow: 0 0 0 0.2rem rgba(30, 70, 142, 0.25);
+        }
+
+        #clearSearchBtn {
+            border-radius: 0 10px 10px 0;
+            border: 2px solid #e9ecef;
+            border-left: none;
+            background: #f8f9fa;
+            color: #6c757d;
+            transition: all 0.3s ease;
+        }
+
+        #clearSearchBtn:hover {
+            background: #e9ecef;
+            color: #495057;
+        }
+
+        .hotel-item.hidden {
+            display: none;
+        }
+
+        .search-highlight {
+            background-color: yellow;
+            padding: 1px 2px;
+            border-radius: 2px;
+        }
+
+        .no-results {
+            text-align: center;
+            color: #6c757d;
+            font-style: italic;
+            padding: 20px;
+        }
+
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(30,70,142);">
-    <div class="container">
-        <a class="navbar-brand" href="#"><i class="fas fa-hotel"></i> Hotel Admin Panel</a>
-        <div class="navbar-nav ms-auto d-flex align-items-center">
-            <button class="like-button me-3" id="likeBtn">
-                <i class="far fa-heart" id="heartIcon"></i>
-                <span id="likeCount">0</span>
-            </button>
-            <a class="nav-link" href="#"><i class="fas fa-user"></i> Admin</a>
-        </div>
+            <div class="container">
+                <a class="navbar-brand" href="#"><i class="fas fa-hotel"></i> Hotel Admin Panel</a>
+                <div class="navbar-nav ms-auto d-flex align-items-center">
+                    <button class="like-button me-3" id="likeBtn">
+                        <i class="far fa-heart" id="heartIcon"></i>
+                        <span id="likeCount">0</span>
+                    </button>
+                    <a class="nav-link" href="#"><i class="fas fa-user"></i> Admin</a>
+                    <a class="nav-link" href="#" onclick="logoutUser()">
+                        <i class="fas fa-sign-out-alt"></i> LogOut
+                    </a>
+                </div>
+            </div>
+            </nav>
+            <!-- CRUD Operations Panel -->
+            <div class="crud-buttons">
+                <div class="container">
+                    <button class="crud-btn" id="createNewBtn">
+                        <i class="fas fa-plus"></i> Create New Hotel
+        </button>
+        <button class="crud-btn" id="loadAllBtn">
+            <i class="fas fa-list"></i> Load All Hotels
+        </button>
+        <button class="crud-btn" id="updateBtn" disabled>
+            <i class="fas fa-edit"></i> Update Hotel
+        </button>
+        <button class="crud-btn" id="deleteBtn" disabled>
+            <i class="fas fa-trash"></i> Delete Hotel
+        </button>
     </div>
-</nav>
+</div>
 
 <!-- Dashboard Panel -->
 <div class="dashboard-panel">
     <div class="container">
         <div class="dashboard-buttons">
-            <button class="dashboard-btn active" onclick="showSection('slideshow')">
+            <button class="dashboard-btn" onclick="showSection('gallery', event)">
                 <i class="fas fa-images"></i>
                 <span>Gallery</span>
             </button>
-            <button class="dashboard-btn" onclick="showSection('basic-info')">
+            <button class="dashboard-btn" onclick="showSection('basic-info', event)">
                 <i class="fas fa-info-circle"></i>
                 <span>Basic Info</span>
             </button>
-            <button class="dashboard-btn" onclick="showSection('room-types')">
+            <button class="dashboard-btn" onclick="showSection('room-types', event)">
                 <i class="fas fa-bed"></i>
                 <span>Room Types</span>
             </button>
-            <button class="dashboard-btn" onclick="showSection('amenities')">
+            <button class="dashboard-btn" onclick="showSection('amenities', event)">
                 <i class="fas fa-swimming-pool"></i>
                 <span>Amenities</span>
             </button>
-            <button class="dashboard-btn" onclick="showSection('policies')">
+            <button class="dashboard-btn" onclick="showSection('policies', event)">
                 <i class="fas fa-clipboard-list"></i>
                 <span>Policies</span>
             </button>
-            <button class="dashboard-btn" onclick="showSection('all')">
+            <button class="dashboard-btn" onclick="showSection('all', event)">
                 <i class="fas fa-th-large"></i>
                 <span>Show All</span>
             </button>
         </div>
     </div>
 </div>
+
 
 <div class="container my-4">
     <!-- Image Slideshow Section -->
@@ -71,11 +528,11 @@
         <div class="slide">
             <img src="https://images.unsplash.com/photo-1455587734955-081b22074882?w=800&h=400&fit=crop" alt="Hotel Pool 4">
         </div>
-        
+
         <!-- Navigation arrows -->
         <button class="slide-btn prev-btn" onclick="changeSlide(-1)">&#10094;</button>
         <button class="slide-btn next-btn" onclick="changeSlide(1)">&#10095;</button>
-        
+
         <!-- Slide indicators -->
         <div class="slide-indicators">
             <span class="indicator active" onclick="currentSlide(1)"></span>
@@ -87,26 +544,62 @@
 
     <div class="row">
         <div class="col-lg-8">
-            <h2 class="mb-4"><i class="fas fa-plus-circle"></i> Add Hotel Details</h2>
+            <h2 class="mb-4" style="color: white;">
+                <i class="fas fa-plus-circle"></i>
+                <span id="formTitle">Add Hotel Details</span>
+            </h2>
+
+            <!-- Hotel Images Gallery Section -->
+            <div id="hotelImagesGallery" class="container my-5">
+                <h2 class="section-title text-center mb-3">
+                    <i class="fas fa-images"></i> Hotel Gallery
+                </h2>
+                <div id="hotelImagesContainer" class="row g-4"></div>
+            </div>
+
 
             <form id="hotelForm">
+                <input type="hidden" id="hotelId" value="">
+
                 <!-- Hotel Basic Information -->
                 <div class="form-section" id="basic-info-section">
                     <h4 class="mb-3"><i class="fas fa-info-circle"></i> Basic Information</h4>
                     <div class="row">
                         <div class="col-md-6">
                             <label class="form-label">Hotel Name</label>
-                            <input type="text" class="form-control" placeholder="e.g., The Leela Palace New Delhi" required>
+                            <label for="hotelName"></label><input type="text" id="hotelName" class="form-control" placeholder="e.g., The Leela Palace New Delhi" required>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Location</label>
-                            <input type="text" class="form-control" placeholder="e.g., Safdarjung, New Delhi" required>
+                            <label for="hotelLocation"></label><input type="text" id="hotelLocation" class="form-control" placeholder="e.g., Safdarjung, New Delhi" required>
                         </div>
+
+                        <div class="col-md-6">
+                            <label for="propertyType">Property Type</label>
+                            <select id="propertyType" class="form-control" required>
+                                <option value="">-- Select Type --</option>
+                                <option value="Hotel">Hotel</option>
+                                <option value="Villa">Villa</option>
+                                <option value="Apartment">Apartment</option>
+                                <option value="Resort">Resort</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="city">City</label>
+                            <input type="text" id="city" class="form-control" placeholder="City (e.g. Colombo, Kandy)" required>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label for="startingPrice">Starting Price (LKR)</label>
+                            <input type="number" id="startingPrice" class="form-control" placeholder="Ex: 5000" min="0" step="100" required>
+                        </div>
+
                     </div>
                     <div class="row mt-3">
                         <div class="col-md-6">
                             <label class="form-label">Star Rating</label>
-                            <select class="form-select">
+                            <select id="hotelStarRating" class="form-select">
                                 <option value="">Select Rating</option>
                                 <option value="3">3 Star</option>
                                 <option value="4">4 Star</option>
@@ -115,203 +608,98 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Contact Number</label>
-                            <input type="tel" class="form-control" placeholder="+91 9876543210" required>
+                            <input type="tel" id="hotelContact" class="form-control" placeholder="+91 9876543210" required>
                         </div>
                     </div>
                     <div class="mt-3">
                         <label class="form-label">Hotel Description</label>
-                        <textarea class="form-control" rows="3" placeholder="Brief description of your hotel..."></textarea>
+                        <textarea id="hotelDescription" class="form-control" rows="3" placeholder="Brief description of your hotel..."></textarea>
                     </div>
                 </div>
 
-                <!-- Hotel Images -->
+<!--                Image-->
                 <div class="form-section" id="images-section" style="display: none;">
                     <h4 class="mb-3"><i class="fas fa-images"></i> Hotel Images</h4>
                     <div class="image-upload">
                         <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i>
-                        <p>Drag and drop images here or click to upload</p>
-                        <input type="file" class="form-control" multiple accept="image/*">
+                        <p>Click here to upload images</p>
+                        <input type="file" id="hotelImagesInput" class="form-control" multiple accept="image/*">
                         <small class="text-muted">Upload high-quality images (Max 10 images, 5MB each)</small>
                     </div>
+                    <!-- Preview Container -->
+                    <div id="hotelImagePreview" class="mt-3"></div>
                 </div>
 
                 <!-- Room Types -->
                 <div class="form-section" id="room-types-section" style="display: none;">
                     <h4 class="mb-3"><i class="fas fa-bed"></i> Room Types</h4>
-
-                    <!-- Standard Room -->
-                    <div class="room-option">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h5><i class="fas fa-bed"></i> Standard Room</h5>
-                            <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeRoom(this)">
-                                <i class="fas fa-trash"></i> Remove
-                            </button>
-                        </div>
-
-                        <!-- Room Options -->
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h6>Option 1</h6>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <label class="form-label">Base Price (₹)</label>
-                                        <input type="number" class="form-control price-input" placeholder="75,108">
-                                    </div>
-                                    <div class="col-6">
-                                        <label class="form-label">Per Night</label>
-                                        <input type="number" class="form-control" value="2" readonly>
-                                    </div>
-                                </div>
-                                <div class="mt-2">
-                                    <label class="form-label">Inclusions</label>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="roomOnly1">
-                                        <label class="form-check-label" for="roomOnly1">Room Only</label>
-                                    </div>
-                                </div>
+                    <div id="roomTypesContainer">
+                        <!-- Standard Room -->
+                        <div class="room-option">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5><i class="fas fa-bed"></i> Standard Room</h5>
+                                <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeRoom(this)">
+                                    <i class="fas fa-trash"></i> Remove
+                                </button>
                             </div>
 
-                            <div class="col-md-6">
-                                <h6>Option 2</h6>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <label class="form-label">Base Price (₹)</label>
-                                        <input type="number" class="form-control price-input" placeholder="76,150">
-                                    </div>
-                                    <div class="col-6">
-                                        <label class="form-label">Per Night</label>
-                                        <input type="number" class="form-control" value="2" readonly>
-                                    </div>
-                                </div>
-                                <div class="mt-2">
-                                    <label class="form-label">Inclusions</label>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="breakfast1" checked>
-                                        <label class="form-check-label" for="breakfast1">Free Breakfast</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="cancellation1" checked>
-                                        <label class="form-check-label" for="cancellation1">Free Cancellation (till 4th Aug)</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Room Amenities -->
-                        <div class="mt-3">
-                            <h6>Room Amenities</h6>
                             <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-check amenity-checkbox">
-                                        <input class="form-check-input" type="checkbox" id="doubleBed1" checked>
-                                        <label class="form-check-label" for="doubleBed1">Double Bed</label>
-                                    </div>
-                                    <div class="form-check amenity-checkbox">
-                                        <input class="form-check-input" type="checkbox" id="sqft1" checked>
-                                        <label class="form-check-label" for="sqft1">380 Sq Ft</label>
-                                    </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Room Name</label>
+                                    <input type="text" class="form-control room-name" value="Standard Room" placeholder="Room name">
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="form-check amenity-checkbox">
-                                        <input class="form-check-input" type="checkbox" id="gardenView1" checked>
-                                        <label class="form-check-label" for="gardenView1">Garden View</label>
-                                    </div>
-                                    <div class="form-check amenity-checkbox">
-                                        <input class="form-check-input" type="checkbox" id="wifi1" checked>
-                                        <label class="form-check-label" for="wifi1">WiFi</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-check amenity-checkbox">
-                                        <input class="form-check-input" type="checkbox" id="kettle1" checked>
-                                        <label class="form-check-label" for="kettle1">Electric Kettle</label>
-                                    </div>
-                                    <div class="form-check amenity-checkbox">
-                                        <input class="form-check-input" type="checkbox" id="ironBoard1" checked>
-                                        <label class="form-check-label" for="ironBoard1">Iron Board</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Deluxe Room -->
-                    <div class="room-option">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h5><i class="fas fa-crown"></i> Deluxe Room</h5>
-                            <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeRoom(this)">
-                                <i class="fas fa-trash"></i> Remove
-                            </button>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h6>Option 1</h6>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <label class="form-label">Base Price (₹)</label>
-                                        <input type="number" class="form-control price-input" placeholder="75,800">
-                                    </div>
-                                    <div class="col-6">
-                                        <label class="form-label">Pay at Hotel</label>
-                                        <div class="form-check mt-2">
-                                            <input class="form-check-input" type="checkbox" checked>
-                                            <label class="form-check-label">Available</label>
-                                        </div>
-                                    </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Base Price (₹)</label>
+                                    <input type="number" class="form-control price-input room-base" placeholder="75000">
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
-                                <h6>Option 2</h6>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <label class="form-label">Corporate Rate (₹)</label>
-                                        <input type="number" class="form-control price-input" placeholder="76,445">
-                                    </div>
-                                    <div class="col-6">
-                                        <label class="form-label">Special Rate</label>
-                                        <div class="form-check mt-2">
-                                            <input class="form-check-input" type="checkbox">
-                                            <label class="form-check-label">Corporate</label>
-                                        </div>
-                                    </div>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Room Size (Sq Ft)</label>
+                                    <input type="number" class="form-control room-size" placeholder="380">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Availability</label>
+                                    <select class="form-control room-availability">
+                                        <option value="Available">Available</option>
+                                        <option value="Unavailable">Unavailable</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="mt-3">
-                            <h6>Deluxe Room Amenities</h6>
+                        <!-- Deluxe Room -->
+                        <div class="room-option">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5><i class="fas fa-crown"></i> Deluxe Room</h5>
+                                <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeRoom(this)">
+                                    <i class="fas fa-trash"></i> Remove
+                                </button>
+                            </div>
+
                             <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-check amenity-checkbox">
-                                        <input class="form-check-input" type="checkbox" checked>
-                                        <label class="form-check-label">Double Bed</label>
-                                    </div>
-                                    <div class="form-check amenity-checkbox">
-                                        <input class="form-check-input" type="checkbox" checked>
-                                        <label class="form-check-label">380 Sq Ft</label>
-                                    </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Room Name</label>
+                                    <input type="text" class="form-control room-name" value="Deluxe Room" placeholder="Room name">
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="form-check amenity-checkbox">
-                                        <input class="form-check-input" type="checkbox" checked>
-                                        <label class="form-check-label">Garden View</label>
-                                    </div>
-                                    <div class="form-check amenity-checkbox">
-                                        <input class="form-check-input" type="checkbox" checked>
-                                        <label class="form-check-label">WiFi</label>
-                                    </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Base Price (₹)</label>
+                                    <input type="number" class="form-control price-input room-base" placeholder="85000">
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="form-check amenity-checkbox">
-                                        <input class="form-check-input" type="checkbox" checked>
-                                        <label class="form-check-label">Electric Kettle</label>
-                                    </div>
-                                    <div class="form-check amenity-checkbox">
-                                        <input class="form-check-input" type="checkbox" checked>
-                                        <label class="form-check-label">Iron Board</label>
-                                    </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Room Size (Sq Ft)</label>
+                                    <input type="number" class="form-control room-size" placeholder="450">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Availability</label>
+                                    <select class="form-control room-availability">
+                                        <option value="Available">Available</option>
+                                        <option value="Unavailable">Unavailable</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -395,31 +783,28 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label class="form-label">Check-in Time</label>
-                            <input type="time" class="form-control" value="14:00">
+                            <input type="time" id="checkInTime" class="form-control" value="14:00">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Check-out Time</label>
-                            <input type="time" class="form-control" value="12:00">
+                            <input type="time" id="checkOutTime" class="form-control" value="12:00">
                         </div>
                     </div>
                     <div class="mt-3">
                         <label class="form-label">Cancellation Policy</label>
-                        <textarea class="form-control" rows="3" placeholder="Free cancellation till 4th Aug. View Cancellation Policy for details."></textarea>
+                        <textarea id="cancellationPolicy" class="form-control" rows="3" placeholder="Free cancellation till 4th Aug. View Cancellation Policy for details."></textarea>
                     </div>
                     <div class="mt-3">
                         <label class="form-label">Additional Information</label>
-                        <textarea class="form-control" rows="3" placeholder="Mandatory tax payable at hotel. Price Per Room Night inclusive of taxes. Contact the property in advance to make arrangements."></textarea>
+                        <textarea id="additionalInfo" class="form-control" rows="3" placeholder="Mandatory tax payable at hotel. Price Per Room Night inclusive of taxes. Contact the property in advance to make arrangements."></textarea>
                     </div>
                 </div>
 
                 <div class="d-flex gap-2">
                     <button type="submit" class="btn btn-orange btn-lg">
-                        <i class="fas fa-save"></i> Save Hotel Details
+                        <i class="fas fa-save"></i> <span id="submitBtnText">Save Hotel Details</span>
                     </button>
-                    <button type="button" class="btn btn-outline-secondary btn-lg">
-                        <i class="fas fa-eye"></i> Preview
-                    </button>
-                    <button type="reset" class="btn btn-outline-danger btn-lg">
+                    <button style="background-color: rgb(30,70,142);  color: #dee2e6; border-color:#dee2e6;" type="button" class="btn btn-outline-secondary btn-lg" id="resetBtn">
                         <i class="fas fa-undo"></i> Reset Form
                     </button>
                 </div>
@@ -436,9 +821,28 @@
                         <small>Room Types</small>
                     </div>
                     <div class="col-6">
-                        <h4 class="text-success" id="amenityCount">9</h4>
+                        <h4 class="text-success" id="amenityCount">6</h4>
                         <small>Amenities</small>
                     </div>
+                </div>
+            </div>
+
+            <!-- Hotels List -->
+            <div class="form-section">
+                <h5><i class="fas fa-list"></i> Hotels List</h5>
+
+                <!-- Search Bar -->
+                <div class="search-container mb-3">
+                    <div class="input-group">
+                        <input type="text" id="hotelSearchInput" class="form-control" placeholder="Search hotels by name...">
+                        <button class="btn btn-outline-secondary" type="button" id="clearSearchBtn">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="hotelsList" class="hotel-list">
+                    <p class="text-muted text-center">Click "Load All Hotels" to view hotels</p>
                 </div>
             </div>
 
@@ -464,136 +868,748 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    // Dashboard functionality
-    function showSection(sectionName) {
-        // Hide all sections first
-        const sections = ['slideshow-section', 'basic-info-section', 'images-section', 'room-types-section', 'amenities-section', 'policies-section'];
-        
-        sections.forEach(id => {
-            const element = document.getElementById(id);
-            if (element) {
-                element.style.display = 'none';
+
+    $(document).ready(function () {
+        const token = localStorage.getItem("accessToken");
+
+        if (!token) {
+            window.location.href = "../loging.html";
+            return;
+        }
+
+        $.ajax({
+            url: "http://localhost:8080/hello/admin",
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + token
+            },
+            success: function (response) {
+                console.log("Response:", response);
+                const payload = parseJwt(token);
+                alert("Welcome, " + payload.sub);
+            },
+            error: function (xhr) {
+                if (xhr.status === 403) {
+                    window.location.href = "user-dashboard.html";
+                } else if (xhr.status === 401) {
+                    localStorage.removeItem("accessToken");
+                    window.location.href = "../loging.html";
+                } else {
+                    alert("Error: " + xhr.responseText);
+                }
             }
         });
 
-        // Remove active class from all dashboard buttons
-        document.querySelectorAll('.dashboard-btn').forEach(btn => {
-            btn.classList.remove('active');
-        });
+        function parseJwt(token) {
+            try {
+                return JSON.parse(atob(token.split('.')[1]));
+            } catch (e) {
+                return null;
+            }
+        }
 
-        // Show selected section(s) and set active button
-        if (sectionName === 'all') {
-            sections.forEach(id => {
-                const element = document.getElementById(id);
-                if (element) {
-                    element.style.display = 'block';
+        $("#logOut").on("click", function (e) {
+            e.preventDefault();
+            localStorage.removeItem("accessToken");
+            window.location.href = "signin.html";
+        });
+    })
+
+    // ===========================
+    // Global Variables
+    // ===========================
+
+    let currentHotelId = null;
+    let editingMode = false;
+    let roomCounter = 2;
+    let currentSlideIndex = 0;
+    let likeCount = 0;
+
+    // ===========================
+    // Form Data Collection
+    // ===========================
+    // Add these global variables at the top of your script
+    let currentPolicyId = null;
+    let currentRoomTypeIds = [];
+    let currentAmenityIds = [];
+    let allHotels = [];
+    let currentHotelImages = []; // <-- ADD THIS
+
+    async function collectFormData() {
+        console.log('=== DEBUG collectFormData ===');
+
+        const roomTypes = Array.from(document.querySelectorAll('.room-option')).map((room, index) => ({
+            id: currentRoomTypeIds[index] || null,
+            name: room.querySelector('.room-name')?.value || "Room",
+            basePrice: parseFloat(room.querySelector('.room-base')?.value) || 0,
+            roomSize: parseInt(room.querySelector('.room-size')?.value) || null,
+            availability: room.querySelector('.room-availability')?.value || "Available"
+        }));
+
+        const amenities = Array.from(document.querySelectorAll('#amenities-section input[type="checkbox"]:checked'))
+            .map((el, index) => ({
+                id: currentAmenityIds[index] || null,
+                name: el.nextElementSibling?.innerText.trim().replace(/^.*?\s/, '') || ""
+            }));
+
+        const policy = {
+            id: currentPolicyId,
+            checkInTime: document.getElementById('checkInTime')?.value || null,
+            checkOutTime: document.getElementById('checkOutTime')?.value || null,
+            cancellationPolicy: document.getElementById('cancellationPolicy')?.value || "",
+            additionalInfo: document.getElementById('additionalInfo')?.value || ""
+        };
+
+        // Core data stays same
+        const hotelData = {
+            id: currentHotelId,
+            name: document.getElementById('hotelName')?.value || "",
+            location: document.getElementById('hotelLocation')?.value || "",
+            propertyType: document.getElementById('propertyType')?.value || "",   // ✅ added
+            city: document.getElementById('city')?.value || "",                   // ✅ added
+            startingPrice: parseFloat(document.getElementById('startingPrice')?.value) || 0, // ✅ added
+            starRating: parseInt(document.getElementById('hotelStarRating')?.value) || 0,
+            contactNumber: document.getElementById('hotelContact')?.value || "",
+            description: document.getElementById('hotelDescription')?.value || "",
+            status: "ACTIVE",
+            amenities,
+            images: [],
+            roomTypes,
+            policy
+        };
+
+        console.log('Collected hotel data (without image yet):', hotelData);
+
+        // Handle image upload (only if file selected)
+        // === inside collectFormData(), replace images: [], and the upload block ===
+
+// initialize images from currentHotelImages (copy) so existing images are preserved on update
+        hotelData.images = currentHotelImages ? currentHotelImages.slice() : [];
+
+// Handle image upload (only if file selected)
+        const imageInput = document.getElementById('hotelImagesInput');
+        if (imageInput && imageInput.files.length > 0) {
+            // You currently only take the first file — keep that or iterate all files:
+            const file = imageInput.files[0];
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("upload_preset", "hotels_photos");
+            formData.append("folder", "hotels_photos");
+
+            try {
+                const res = await fetch("https://api.cloudinary.com/v1_1/dkuamo2lg/image/upload", {
+                    method: "POST",
+                    body: formData
+                });
+                const cloudinaryData = await res.json();
+                if (cloudinaryData.secure_url) {
+                    // push the new URL alongside existing ones
+                    hotelData.images.push({
+                        id: null,
+                        imageUrl: cloudinaryData.secure_url
+                    });
+                    // also update client copy so UI reflects selection even before server returns
+                    currentHotelImages.push({
+                        id: null,
+                        imageUrl: cloudinaryData.secure_url
+                    });
+                }
+            } catch (err) {
+                console.error("Error uploading image:", err);
+            }
+        }
+
+
+        console.log('Final hotel data (with image):', hotelData);
+        console.log('=== END DEBUG ===');
+
+        return hotelData;
+    }
+
+    // ===========================
+    // Hotel Images Gallery
+    // ===========================
+    function loadHotelImages() {
+        $.ajax({
+            url: "http://localhost:8080/api/hotels",
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("accessToken")
+            },
+            success: function(response) {
+                const container = $("#hotelImagesContainer");
+                container.empty();
+
+                const hotels = response.data || [];
+
+                if (hotels.length === 0) {
+                    container.html('<div class="col-12"><p class="text-center text-white">No hotels found</p></div>');
+                    return;
+                }
+
+                hotels.forEach(hotel => {
+                    const imageUrl = hotel.images && hotel.images.length > 0
+                        ? hotel.images[0].imageUrl
+                        : 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop';
+
+                    const card = `
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="hotel-image-card">
+                            <img src="${imageUrl}" alt="${hotel.name}" class="hotel-img" />
+                            <h3 class="hotel-name">${hotel.name || 'Unnamed Hotel'}</h3>
+                            <p class="hotel-location">
+                                <i class="fas fa-map-marker-alt"></i> ${hotel.location || 'Location not set'}
+                            </p>
+                            <p class="hotel-price">
+                                ${hotel.roomTypes && hotel.roomTypes.length > 0
+                        ? `₹${hotel.roomTypes[0].basePrice || 0}`
+                        : 'Price on request'}
+                            </p>
+                            <button class="btn btn-view-hotel w-100 mb-2" onclick="loadHotelById(${hotel.id})">
+    <i class="fas fa-eye me-2"></i> Edit
+</button>
+
+<button class="btn btn-danger w-100" onclick="deleteHotelById(${hotel.id})">
+    <i class="fas fa-trash me-2"></i> Delete
+</button>
+
+                        </div>
+                    </div>
+                `;
+                    container.append(card);
+                });
+            },
+            error: function(err) {
+                console.error("Failed to load hotel images", err);
+                $("#hotelImagesContainer").html('<div class="col-12"><p class="text-center text-white">Failed to load hotels</p></div>');
+            }
+        });
+    }
+
+
+
+    // ===========================
+    // CRUD Operations
+    // ===========================
+    async function saveOrUpdateHotel() {
+        const hotelData = await collectFormData();
+
+        console.log(hotelData)
+
+        if (!hotelData.name || !hotelData.location) {
+            alert('Please fill in all required fields (Hotel Name and Location)');
+            return;
+        }
+
+        // FIXED: Corrected API endpoints to match controller
+        const url = editingMode ? `http://localhost:8080/api/hotels/${currentHotelId}`
+            : "http://localhost:8080/api/hotels/create";
+        const method = editingMode ? "PUT" : "POST";
+
+        console.log('Sending hotel data:', hotelData);
+
+        try {
+            const response = await fetch(url, {
+                method: method,
+                headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("accessToken"),
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(hotelData)
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                const message = result.message || "Hotel saved successfully!";
+                alert(message);
+
+                const hotelResponse = result.data;
+                currentHotelId = hotelResponse?.id || currentHotelId;
+                editingMode = true;
+
+                // existing UI updates...
+                document.getElementById('formTitle').textContent = 'Edit Hotel Details';
+                document.getElementById('submitBtnText').textContent = 'Update Hotel Details';
+                document.getElementById('updateBtn').disabled = false;
+                document.getElementById('deleteBtn').disabled = false;
+
+                // NEW: re-load this hotel so the form previews are in sync with the DB
+                if (currentHotelId) {
+                    await loadHotelById(currentHotelId);
+                } else {
+                    loadAllHotels();
+                }
+            }
+
+
+        } catch (error) {
+            console.error('Error saving hotel:', error);
+            alert("Error saving hotel: " + error.message);
+        }
+    }
+
+    function createNewHotel() {
+        clearForm();
+        editingMode = false;
+        currentHotelId = null;
+        document.getElementById('formTitle').textContent = 'Add Hotel Details';
+        document.getElementById('submitBtnText').textContent = 'Save Hotel Details';
+        document.getElementById('updateBtn').disabled = true;
+        document.getElementById('deleteBtn').disabled = true;
+        clearHotelSelection();
+    }
+
+    async function loadAllHotels() {
+        try {
+            const response = await fetch("http://localhost:8080/api/hotels", {
+                method: "GET",
+                headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("accessToken"),
+                    "Content-Type": "application/json"
                 }
             });
-            event.target.closest('.dashboard-btn').classList.add('active');
-        } else {
-            const targetSection = document.getElementById(sectionName + '-section');
-            if (targetSection) {
-                targetSection.style.display = 'block';
+
+            const result = await response.json();
+
+            if (response.ok) {
+                // FIXED: Handle ApiResponse structure - data is in result.data
+                const hotels = result.data || [];
+                displayHotelsList(hotels);
+            } else {
+                throw new Error(result.message || "Failed to load hotels");
             }
-            event.target.closest('.dashboard-btn').classList.add('active');
+
+        } catch (error) {
+            console.error('Error loading hotels:', error);
+            alert("Error loading hotels: " + error.message);
         }
     }
 
-    // Initialize - show slideshow by default
-    document.addEventListener('DOMContentLoaded', function() {
-        showSection('slideshow');
-    });
+    async function updateCurrentHotel() {
+        if (!currentHotelId) {
+            alert("Please select a hotel to update");
+            return;
+        }
+        await saveOrUpdateHotel();
+    }
 
-    let roomCounter = 2;
-    let likeCount = 0;
-    let isLiked = false;
-    let currentSlideIndex = 0;
-    const slides = document.querySelectorAll('.slide');
-    const indicators = document.querySelectorAll('.indicator');
+    async function deleteCurrentHotel() {
+        if (!currentHotelId) {
+            alert("Please select a hotel to delete");
+            return;
+        }
 
-    // Like button functionality
-    document.getElementById('likeBtn').addEventListener('click', function() {
-        const heartIcon = document.getElementById('heartIcon');
-        const likeCountElement = document.getElementById('likeCount');
-        
-        if (!isLiked) {
-            likeCount++;
-            heartIcon.className = 'fas fa-heart';
-            this.classList.add('liked');
-            isLiked = true;
+        if (!confirm("Are you sure you want to delete this hotel? This action cannot be undone.")) {
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:8080/api/hotels/${currentHotelId}`, {
+                method: "DELETE",
+                headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("accessToken"),
+                    "Content-Type": "application/json"
+                }
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                alert(result.message || "Hotel deleted successfully!");
+                createNewHotel();
+                loadAllHotels();
+            } else {
+                throw new Error(result.message || "Failed to delete hotel");
+            }
+
+        } catch (error) {
+            console.error('Error deleting hotel:', error);
+            alert("Error deleting hotel: " + error.message);
+        }
+    }
+      // meka Edit button eke fuction eka image ekaka
+    async function loadHotelById(hotelId) {
+        console.log('Loading hotel with ID:', hotelId);
+
+        try {
+            const response = await fetch(`http://localhost:8080/api/hotels/${hotelId}`, {
+                method: "GET",
+                headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("accessToken"),
+                    "Content-Type": "application/json"
+                }
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                const hotel = result.data;
+                currentHotelId = Number(hotel.id) || null;   // ✅ always numeric
+                console.log('Set currentHotelId to:', currentHotelId, typeof currentHotelId);
+
+                populateForm(hotel);
+                selectHotelInList(currentHotelId);
+
+                showSection('all');
+            } else {
+                throw new Error(result.message || "Failed to load hotel");
+            }
+        } catch (error) {
+            console.error('Error loading hotel:', error);
+            alert("Error loading hotel: " + error.message);
+        }
+    }
+
+    // meka delete button eke fuction eka image ekaka
+    async function deleteHotelById(hotelId) {
+        if (!confirm("Are you sure you want to delete this hotel? This action cannot be undone.")) {
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:8080/api/hotels/${hotelId}`, {
+                method: "DELETE",
+                headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("accessToken"),
+                    "Content-Type": "application/json"
+                }
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                alert(result.message || "Hotel deleted successfully!");
+                // Reload gallery after delete
+                loadHotelImages();
+                // Reload sidebar list if available
+                loadAllHotels();
+            } else {
+                throw new Error(result.message || "Failed to delete hotel");
+            }
+
+        } catch (error) {
+            console.error('Error deleting hotel:', error);
+            alert("Error deleting hotel: " + error.message);
+        }
+    }
+
+    // ===========================
+    // Form Population
+    // ===========================
+    function populateForm(hotel) {
+        currentHotelId = hotel.id;
+        currentPolicyId = hotel.policy?.id || null;
+        editingMode = true;
+
+        document.getElementById('formTitle').textContent = 'Edit Hotel Details';
+        document.getElementById('submitBtnText').textContent = 'Update Hotel Details';
+        document.getElementById('updateBtn').disabled = false;
+        document.getElementById('deleteBtn').disabled = false;
+
+        document.getElementById('hotelId').value = hotel.id || '';
+        document.getElementById('hotelName').value = hotel.name || '';
+        document.getElementById('hotelLocation').value = hotel.location || '';
+        document.getElementById('propertyType').value = hotel.propertyType || "";
+        document.getElementById('city').value = hotel.city || "";
+        document.getElementById('startingPrice').value = hotel.startingPrice || 0;
+        document.getElementById('hotelStarRating').value = hotel.starRating || '';
+        document.getElementById('hotelContact').value = hotel.contactNumber || '';
+        document.getElementById('hotelDescription').value = hotel.description || '';
+
+
+        // Populate policies
+        if (hotel.policy) {
+            currentPolicyId = hotel.policy.id; // Also add this line for safety
+            document.getElementById('checkInTime').value = hotel.policy.checkInTime || '14:00';
+            document.getElementById('checkOutTime').value = hotel.policy.checkOutTime || '12:00';
+            document.getElementById('cancellationPolicy').value = hotel.policy.cancellationPolicy || '';
+            document.getElementById('additionalInfo').value = hotel.policy.additionalInfo || '';
+        }
+
+        document.getElementById('hotelId').value = hotel.id || '';
+        document.getElementById('hotelName').value = hotel.name || '';
+        document.getElementById('hotelLocation').value = hotel.location || '';
+        document.getElementById('hotelStarRating').value = hotel.starRating || '';
+        document.getElementById('hotelContact').value = hotel.contactNumber || '';
+        document.getElementById('hotelDescription').value = hotel.description || '';
+
+        // Clear and populate room types
+        const roomContainer = document.getElementById('roomTypesContainer');
+        roomContainer.innerHTML = '';
+        roomCounter = 0;
+
+        if (hotel.roomTypes && hotel.roomTypes.length > 0) {
+            hotel.roomTypes.forEach(room => {
+                addRoomType(room);
+            });
         } else {
-            likeCount--;
-            heartIcon.className = 'far fa-heart';
-            this.classList.remove('liked');
-            isLiked = false;
+            addRoomType({ name: 'Standard Room', basePrice: 0, roomSize: 380, availability: 'Available' });
         }
-        
-        likeCountElement.textContent = likeCount;
-    });
 
-    // Slideshow functionality
-    function showSlide(index) {
-        slides.forEach((slide, i) => {
-            slide.classList.toggle('active', i === index);
+        // Populate amenities
+        document.querySelectorAll('#amenities-section input[type="checkbox"]').forEach(checkbox => {
+            checkbox.checked = false;
         });
-        
-        indicators.forEach((indicator, i) => {
-            indicator.classList.toggle('active', i === index);
-        });
-    }
 
-    function changeSlide(direction) {
-        currentSlideIndex += direction;
-        
-        if (currentSlideIndex >= slides.length) {
-            currentSlideIndex = 0;
-        } else if (currentSlideIndex < 0) {
-            currentSlideIndex = slides.length - 1;
+        if (hotel.amenities) {
+            hotel.amenities.forEach(amenity => {
+                const checkbox = Array.from(document.querySelectorAll('#amenities-section input[type="checkbox"]'))
+                    .find(cb => cb.nextElementSibling?.innerText.includes(amenity.name));
+                if (checkbox) checkbox.checked = true;
+            });
         }
-        
-        showSlide(currentSlideIndex);
+
+        // Populate policies
+        if (hotel.policy) {
+            document.getElementById('checkInTime').value = hotel.policy.checkInTime || '14:00';
+            document.getElementById('checkOutTime').value = hotel.policy.checkOutTime || '12:00';
+            document.getElementById('cancellationPolicy').value = hotel.policy.cancellationPolicy || '';
+            document.getElementById('additionalInfo').value = hotel.policy.additionalInfo || '';
+
+        }
+
+        // --- Robust image preview for populateForm(hotel) ---
+        const imagePreview = document.getElementById('hotelImagePreview');
+        imagePreview.innerHTML = '';
+
+// Debug output so we can inspect the object returned by the single-hotel API:
+        console.log('populateForm: received hotel (single fetch):', hotel);
+
+// Helper to normalize possible image entries into an array of URLs
+        function extractImageUrls(obj) {
+            const urls = [];
+
+            if (!obj) return urls;
+
+            // 1) hotel.images as array of objects [{ imageUrl: '...' }, { url: '...' }, ...]
+            if (Array.isArray(obj.images) && obj.images.length) {
+                obj.images.forEach(it => {
+                    if (!it) return;
+                    if (typeof it === 'string') urls.push(it);
+                    else if (it.imageUrl) urls.push(it.imageUrl);
+                    else if (it.url) urls.push(it.url);
+                    else if (it.secure_url) urls.push(it.secure_url);
+                    else if (it.image) urls.push(it.image);
+                });
+            }
+
+            // 2) hotel.imageUrl (string)
+            if (obj.imageUrl && typeof obj.imageUrl === 'string') urls.push(obj.imageUrl);
+
+            // 3) hotel.image could be an object or string
+            if (obj.image) {
+                if (typeof obj.image === 'string') urls.push(obj.image);
+                else if (obj.image.imageUrl) urls.push(obj.image.imageUrl);
+                else if (obj.image.url) urls.push(obj.image.url);
+                else if (obj.image.secure_url) urls.push(obj.image.secure_url);
+            }
+
+            // 4) sometimes backend wraps images inside .data or .images.data
+            if (obj.images && obj.images.data && Array.isArray(obj.images.data)) {
+                obj.images.data.forEach(it => {
+                    if (!it) return;
+                    if (it.imageUrl) urls.push(it.imageUrl);
+                    else if (it.url) urls.push(it.url);
+                    else if (it.secure_url) urls.push(it.secure_url);
+                });
+            }
+
+            // 5) very defensive: check top-level keys which might be image urls
+            ['imageUrl', 'url', 'secure_url', 'photo', 'photoUrl'].forEach(k => {
+                if (obj[k] && typeof obj[k] === 'string') urls.push(obj[k]);
+            });
+
+            // Remove falsy and dedupe
+            return Array.from(new Set(urls.filter(Boolean)));
+        }
+
+// Try to extract URLs from the hotel object we received
+        let imageUrls = extractImageUrls(hotel);
+
+// If nothing found, try to find the hotel inside allHotels (populated by loadAllHotels)
+        if ((!imageUrls || imageUrls.length === 0) && Array.isArray(allHotels) && allHotels.length > 0) {
+            const fallback = allHotels.find(h => Number(h.id) === Number(hotel.id));
+            console.log('populateForm: no images in single fetch — checking allHotels fallback:', fallback);
+            if (fallback) {
+                imageUrls = extractImageUrls(fallback);
+            }
+        }
+
+// If still nothing, try other places from the API response (defensive)
+        if ((!imageUrls || imageUrls.length === 0) && hotel.data) {
+            console.log('populateForm: trying hotel.data for images:', hotel.data);
+            imageUrls = extractImageUrls(hotel.data);
+        }
+
+        // AFTER you calculate imageUrls (inside populateForm)
+        currentHotelImages = []; // reset
+        if (imageUrls && imageUrls.length > 0) {
+            imageUrls.forEach(src => {
+                // keep the same preview code you already have...
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = hotel.name || 'Hotel Image';
+                img.style.maxWidth = '200px';
+                img.style.marginRight = '10px';
+                img.style.marginBottom = '10px';
+                img.style.borderRadius = '8px';
+                img.onerror = function() { this.style.display = 'none'; };
+                imagePreview.appendChild(img);
+
+                // also store in currentHotelImages in the shape backend expects
+                currentHotelImages.push({
+                    id: null,           // if you have stored image ids, put them here (hotel.images may have id)
+                    imageUrl: src
+                });
+            });
+        } else {
+            imagePreview.innerHTML = '<p class="text-muted">No images available for this hotel</p>';
+            currentHotelImages = [];
+        }
+
+
+
+
+// Make images section visible so user sees the preview immediately
+        const imagesSection = document.getElementById('images-section');
+        if (imagesSection) imagesSection.style.display = 'block';
+
+        updateRoomCount();
+        updateAmenityCount();
     }
 
-    function currentSlide(index) {
-        currentSlideIndex = index - 1;
-        showSlide(currentSlideIndex);
+    // ===========================
+    // Form Utilities
+    // ===========================
+    function clearForm() {
+        currentPolicyId = null;
+        document.getElementById('hotelForm').reset();
+        document.getElementById('hotelId').value = '';
+
+        const roomContainer = document.getElementById('roomTypesContainer');
+        roomContainer.innerHTML = '';
+        roomCounter = 0;
+
+        addRoomType({ name: 'Standard Room', basePrice: '', roomSize: '', availability: 'Available' });
+        addRoomType({ name: 'Deluxe Room', basePrice: '', roomSize: '', availability: 'Available' });
+
+        document.querySelectorAll('#amenities-section input[type="checkbox"]').forEach((checkbox, index) => {
+            checkbox.checked = index < 6;
+        });
+
+        document.getElementById('checkInTime').value = '14:00';
+        document.getElementById('checkOutTime').value = '12:00';
+
+        // clear image previews and reset currentHotelImages
+        document.getElementById("hotelImagePreview").innerHTML = "";
+        currentHotelImages = [];
+
+        updateRoomCount();
+        updateAmenityCount();
     }
 
-    // Auto-play slideshow
-    setInterval(() => {
-        changeSlide(1);
-    }, 5000);
+    // ===========================
+    // Hotel List Display
+    // ===========================
+    function displayHotelsList(hotels) {
+        const hotelsList = document.getElementById('hotelsList');
+        allHotels = hotels;
+        if (!hotels || hotels.length === 0) {
+            hotelsList.innerHTML = '<p class="text-muted text-center">No hotels found</p>';
+            return;
+        }
 
+        hotelsList.innerHTML = hotels.map(hotel => `
+        <div class="hotel-item" onclick="loadHotelById(${hotel.id})" data-hotel-id="${hotel.id}">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <h6 class="mb-1">${hotel.name || 'Unnamed Hotel'}</h6>
+                    <small class="text-muted">
+                        <i class="fas fa-map-marker-alt"></i> ${hotel.location || 'Location not set'}
+                    </small>
+                    <br>
+                    <small class="text-muted">
+                        <i class="fas fa-star"></i> ${hotel.starRating || 0} Star
+                    </small>
+                </div>
+                <span class="badge bg-success">${hotel.status || 'ACTIVE'}</span>
+            </div>
+        </div>
+    `).join('');
+    }
+
+    function selectHotelInList(hotelId) {
+        document.querySelectorAll('.hotel-item').forEach(item => {
+            item.classList.remove('selected');
+        });
+        const selectedItem = document.querySelector(`[data-hotel-id="${hotelId}"]`);
+        if (selectedItem) {
+            selectedItem.classList.add('selected');
+        }
+    }
+
+    function clearHotelSelection() {
+        document.querySelectorAll('.hotel-item').forEach(item => {
+            item.classList.remove('selected');
+        });
+    }
+
+    // ===========================
+    // Room Management
+    // ===========================
     function addNewRoom() {
+        addRoomType({
+            name: `Room Type ${roomCounter + 1}`,
+            basePrice: 0,
+            roomSize: 380,
+            availability: 'Available'
+        });
+    }
+
+    function addRoomType(roomData = {}) {
         roomCounter++;
-        const addButton = document.querySelector('button[onclick="addNewRoom()"]');
+        const roomContainer = document.getElementById('roomTypesContainer');
+
         const newRoom = document.createElement('div');
         newRoom.className = 'room-option';
         newRoom.innerHTML = `
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h5><i class="fas fa-bed"></i> Room Type ${roomCounter}</h5>
-                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeRoom(this)">
-                        <i class="fas fa-trash"></i> Remove
-                    </button>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <label class="form-label">Room Type Name</label>
-                        <input type="text" class="form-control mb-3" placeholder="e.g., Executive Suite">
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Base Price (₹)</label>
-                        <input type="number" class="form-control price-input" placeholder="Enter price">
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Room Size (Sq Ft)</label>
-                        <input type="number" class="form-control" placeholder="e.g., 380">
-                    </div>
-                </div>
-            `;
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5><i class="fas fa-bed"></i> ${roomData.name || `Room Type ${roomCounter}`}</h5>
+            <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeRoom(this)">
+                <i class="fas fa-trash"></i> Remove
+            </button>
+        </div>
 
-        addButton.parentNode.insertBefore(newRoom, addButton);
+        <div class="row">
+            <div class="col-md-6">
+                <label class="form-label">Room Name</label>
+                <input type="text" class="form-control room-name" value="${roomData.name || `Room Type ${roomCounter}`}" placeholder="Room name">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Base Price (₹)</label>
+                <input type="number" class="form-control price-input room-base" value="${roomData.basePrice || ''}" placeholder="Enter price">
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <label class="form-label">Room Size (Sq Ft)</label>
+                <input type="number" class="form-control room-size" value="${roomData.roomSize || ''}" placeholder="380">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Availability</label>
+                <select class="form-control room-availability">
+                    <option value="Available" ${roomData.availability === 'Available' ? 'selected' : ''}>Available</option>
+                    <option value="Unavailable" ${roomData.availability === 'Unavailable' ? 'selected' : ''}>Unavailable</option>
+                </select>
+            </div>
+        </div>
+    `;
+
+        roomContainer.appendChild(newRoom);
         updateRoomCount();
     }
 
@@ -607,33 +1623,404 @@
         }
     }
 
+    // ===========================
+    // Slideshow Functions
+    // ===========================
+    function changeSlide(direction) {
+        const slides = document.querySelectorAll('.slide');
+        const indicators = document.querySelectorAll('.indicator');
+
+        slides[currentSlideIndex].classList.remove('active');
+        indicators[currentSlideIndex].classList.remove('active');
+
+        currentSlideIndex += direction;
+
+        if (currentSlideIndex >= slides.length) {
+            currentSlideIndex = 0;
+        } else if (currentSlideIndex < 0) {
+            currentSlideIndex = slides.length - 1;
+        }
+
+        slides[currentSlideIndex].classList.add('active');
+        indicators[currentSlideIndex].classList.add('active');
+    }
+
+    function currentSlide(slideIndex) {
+        const slides = document.querySelectorAll('.slide');
+        const indicators = document.querySelectorAll('.indicator');
+
+        slides[currentSlideIndex].classList.remove('active');
+        indicators[currentSlideIndex].classList.remove('active');
+
+        currentSlideIndex = slideIndex - 1;
+
+        slides[currentSlideIndex].classList.add('active');
+        indicators[currentSlideIndex].classList.add('active');
+    }
+
+    // ===========================
+    // Section Display Functions
+    // ===========================
+    function showSection(sectionName, event = null) {
+        // Remove active class from all buttons
+        document.querySelectorAll('.dashboard-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+
+        // Add active class to clicked button
+        if (event && event.target) {
+            const btn = event.target.closest('.dashboard-btn');
+            if (btn) btn.classList.add('active');
+        } else if (sectionName === 'gallery') {
+            // Default page load → gallery button mark as active
+            const galleryBtn = document.querySelector('.dashboard-btn[onclick*="gallery"]');
+            if (galleryBtn) galleryBtn.classList.add('active');
+        }
+
+        // Sections list
+        const sections = [
+            'basic-info-section',
+            'room-types-section',
+            'amenities-section',
+            'policies-section',
+            'images-section',
+            'slideshow-section',
+            'hotelImagesGallery'
+        ];
+
+        // Hide all sections
+        sections.forEach(section => {
+            const el = document.getElementById(section);
+            if (el) el.style.display = 'none';
+        });
+
+        // Show only requested section
+        if (sectionName === 'gallery') {
+            document.getElementById('hotelImagesGallery').style.display = 'block';
+            loadHotelImages(); // 🖼 auto load images
+        } else if (sectionName === 'all') {
+            // Show all EXCEPT gallery
+            sections.forEach(section => {
+                if (section !== 'hotelImagesGallery') {
+                    const el = document.getElementById(section);
+                    if (el) el.style.display = 'block';
+                }
+            });
+        } else if (sectionName === 'slideshow') {
+            document.getElementById('slideshow-section').style.display = 'block';
+        } else if (sectionName === 'basic-info') {
+            document.getElementById('basic-info-section').style.display = 'block';
+        } else if (sectionName === 'room-types') {
+            document.getElementById('room-types-section').style.display = 'block';
+        } else if (sectionName === 'amenities') {
+            document.getElementById('amenities-section').style.display = 'block';
+        } else if (sectionName === 'policies') {
+            document.getElementById('policies-section').style.display = 'block';
+        }
+    }
+
+    // ===========================
+    // Default Load → Gallery only
+    // ===========================
+    document.addEventListener("DOMContentLoaded", function () {
+        showSection('gallery');  // 🖼 show only gallery on start
+        initializeSearch();
+    });
+
+
+    // ===========================
+    // Helper Functions
+    // ===========================
     function updateRoomCount() {
-        document.getElementById('roomCount').textContent = roomCounter;
+        const roomCountElement = document.getElementById('roomCount');
+        if (roomCountElement) roomCountElement.textContent = roomCounter;
     }
 
     function updateAmenityCount() {
-        const checkedAmenities = document.querySelectorAll('input[type="checkbox"]:checked').length;
-        document.getElementById('amenityCount').textContent = checkedAmenities;
+        const checkedAmenities = document.querySelectorAll('#amenities-section input[type="checkbox"]:checked').length;
+        const amenityCountElement = document.getElementById('amenityCount');
+        if (amenityCountElement) amenityCountElement.textContent = checkedAmenities;
     }
 
-    // Update amenity count when checkboxes change
-    document.addEventListener('change', function(e) {
-        if (e.target.type === 'checkbox') {
-            updateAmenityCount();
+    // ===========================
+    // Like Button Function
+    // ===========================
+    function toggleLike() {
+        const likeBtn = document.getElementById('likeBtn');
+        const heartIcon = document.getElementById('heartIcon');
+        const likeCountElement = document.getElementById('likeCount');
+
+        if (likeBtn.classList.contains('liked')) {
+            likeBtn.classList.remove('liked');
+            heartIcon.classList.remove('fas');
+            heartIcon.classList.add('far');
+            likeCount--;
+        } else {
+            likeBtn.classList.add('liked');
+            heartIcon.classList.remove('far');
+            heartIcon.classList.add('fas');
+            likeCount++;
         }
+
+        likeCountElement.textContent = likeCount;
+    }
+
+    // ===========================
+    // Event Listeners Setup
+    // ===========================
+    document.addEventListener('DOMContentLoaded', function() {
+        // CRUD Button Event Listeners
+        document.getElementById('createNewBtn').addEventListener('click', createNewHotel);
+        document.getElementById('loadAllBtn').addEventListener('click', loadAllHotels);
+        document.getElementById('updateBtn').addEventListener('click', updateCurrentHotel);
+        document.getElementById('deleteBtn').addEventListener('click', deleteCurrentHotel);
+        document.getElementById('resetBtn').addEventListener('click', clearForm);
+
+        // Like Button Event Listener
+        document.getElementById('likeBtn').addEventListener('click', toggleLike);
+
+        // Form Submission Handler
+        document.getElementById('hotelForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            await saveOrUpdateHotel();
+        });
+
+        // Room name input change handler
+        document.addEventListener('input', function(e) {
+            if (e.target.matches('.room-name')) {
+                const roomTitle = e.target.closest('.room-option').querySelector('h5');
+                const icon = roomTitle.querySelector('i').outerHTML;
+                roomTitle.innerHTML = `${icon} ${e.target.value}`;
+            }
+        });
+
+        // Update amenity count on checkbox change
+        document.addEventListener('change', function(e) {
+            if (e.target.matches('#amenities-section input[type="checkbox"]')) {
+                updateAmenityCount();
+            }
+        });
+
+        // Image upload handler
+        document.getElementById('hotelImagesInput').addEventListener('change', function(e) {
+            const files = e.target.files;
+            if (files.length > 10) {
+                alert('Maximum 10 images allowed');
+                e.target.value = '';
+                return;
+            }
+
+            for (let file of files) {
+                if (file.size > 5 * 1024 * 1024) { // 5MB limit
+                    alert('Each image must be less than 5MB');
+                    e.target.value = '';
+                    return;
+                }
+            }
+        });
+
+        // Auto slideshow (optional)
+        setInterval(() => {
+            changeSlide(1);
+        }, 5000);
+
+        // Keyboard navigation for slideshow
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (e.key === 'ArrowRight') {
+                changeSlide(1);
+            }
+        });
+
+        // Form validation on input
+        document.addEventListener('input', function(e) {
+            if (e.target.matches('#hotelName, #hotelLocation')) {
+                e.target.classList.remove('is-invalid');
+                if (e.target.value.trim()) {
+                    e.target.classList.add('is-valid');
+                } else {
+                    e.target.classList.remove('is-valid');
+                }
+            }
+        });
+
+        // Price input formatting
+        document.addEventListener('input', function(e) {
+            if (e.target.matches('.price-input')) {
+                let value = e.target.value.replace(/[^\d]/g, '');
+                if (value) {
+                    e.target.value = value;
+                }
+            }
+        });
+
+        // Contact number formatting
+        document.getElementById('hotelContact').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/[^\d+\-\s]/g, '');
+            e.target.value = value;
+        });
+
+        // Initialize tooltips if Bootstrap tooltips are needed
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+
+        // Window resize handler for responsive adjustments
+        window.addEventListener('resize', function() {
+            // Adjust slideshow height if needed
+            const slideshow = document.getElementById('slideshow-section');
+            if (window.innerWidth < 768) {
+                slideshow.style.marginBottom = '20px';
+            } else {
+                slideshow.style.marginBottom = '30px';
+            }
+        });
+
+        // Prevent form submission on Enter key in input fields (except textarea)
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA' && e.target.type !== 'submit') {
+                e.preventDefault();
+            }
+        });
+
+        // Initialize the form with default values
+        clearForm();
+        showSection('slideshow');
+
+        // Load hotels on initial page load
+        loadAllHotels();
+
+        // Load hotel images gallery
+        loadHotelImages();
+
+        // Add confirmation for page refresh/close when form has unsaved changes
+        let formChanged = false;
+        document.addEventListener('input', function(e) {
+            if (e.target.closest('#hotelForm')) {
+                formChanged = true;
+            }
+        });
+
+        window.addEventListener('beforeunload', function(e) {
+            if (formChanged) {
+                e.preventDefault();
+                e.returnValue = 'You have unsaved changes. Are you sure you want to leave?';
+            }
+        });
+
+        // Reset formChanged flag after successful save
+        document.getElementById('hotelForm').addEventListener('submit', function() {
+            formChanged = false;
+        });
     });
 
-    // Form submission
-    document.getElementById('hotelForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert('Hotel details saved successfully! This would normally save to your database.');
-    });
+    function logoutUser() {
+        // ✅ Clear JWT token
+        localStorage.removeItem("jwtToken");
 
-    // Initialize counts
-    updateAmenityCount();
+        // ✅ Redirect to login page
+        window.location.href = "../loging.html"; // change if file is login.html or signin.html
+    }
+
+    //Advance Search System Here
+
+    // Search functionality
+    function initializeSearch() {
+        const searchInput = document.getElementById('hotelSearchInput');
+        const clearBtn = document.getElementById('clearSearchBtn');
+
+        // Real-time search as user types
+        searchInput.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.trim().toLowerCase();
+            filterHotels(searchTerm);
+
+            // Show/hide clear button
+            clearBtn.style.display = searchTerm ? 'block' : 'none';
+        });
+
+        // Clear search
+        clearBtn.addEventListener('click', function() {
+            searchInput.value = '';
+            filterHotels('');
+            clearBtn.style.display = 'none';
+            searchInput.focus();
+        });
+
+        // Enter key to search
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const searchTerm = e.target.value.trim().toLowerCase();
+                filterHotels(searchTerm);
+            }
+        });
+    }
+
+    // Filter hotels based on search term
+    function filterHotels(searchTerm) {
+        const hotelItems = document.querySelectorAll('.hotel-item');
+        let visibleCount = 0;
+
+        hotelItems.forEach(item => {
+            const hotelName = item.querySelector('h6').textContent.toLowerCase();
+            const hotelLocation = item.querySelector('small').textContent.toLowerCase();
+
+            // Check if search term matches name or location
+            const matches = hotelName.includes(searchTerm) || hotelLocation.includes(searchTerm);
+
+            if (matches || searchTerm === '') {
+                item.style.display = 'block';
+                item.classList.remove('hidden');
+                visibleCount++;
+
+                // Highlight matching text
+                highlightSearchTerm(item, searchTerm);
+            } else {
+                item.style.display = 'none';
+                item.classList.add('hidden');
+            }
+        });
+
+        // Show "no results" message
+        showNoResultsMessage(visibleCount === 0 && searchTerm !== '');
+    }
+
+    // Highlight search term in hotel name
+    function highlightSearchTerm(item, searchTerm) {
+        const nameElement = item.querySelector('h6');
+        const originalName = nameElement.getAttribute('data-original-name') || nameElement.textContent;
+
+        if (!nameElement.getAttribute('data-original-name')) {
+            nameElement.setAttribute('data-original-name', originalName);
+        }
+
+        if (searchTerm) {
+            const regex = new RegExp(`(${searchTerm})`, 'gi');
+            const highlightedName = originalName.replace(regex, '<span class="search-highlight">$1</span>');
+            nameElement.innerHTML = highlightedName;
+        } else {
+            nameElement.innerHTML = originalName;
+        }
+    }
+
+    // Show/hide no results message
+    function showNoResultsMessage(show) {
+        const hotelsList = document.getElementById('hotelsList');
+        let noResultsMsg = hotelsList.querySelector('.no-results');
+
+        if (show && !noResultsMsg) {
+            noResultsMsg = document.createElement('div');
+            noResultsMsg.className = 'no-results';
+            noResultsMsg.innerHTML = '<i class="fas fa-search"></i><br>No hotels found matching your search.';
+            hotelsList.appendChild(noResultsMsg);
+        } else if (!show && noResultsMsg) {
+            noResultsMsg.remove();
+        }
+    }
+
+
 </script>
-
-
 </body>
-
 </html>

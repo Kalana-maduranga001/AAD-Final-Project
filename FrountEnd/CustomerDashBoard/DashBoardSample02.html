@@ -6,277 +6,25 @@
   <title>Booking.com Business Dashboard</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="dashboard.css">
+<!--  <link rel="stylesheet" href="unique-properties.css">-->
   <style>
-    :root {
-      --booking-blue: #013b94;
-      --booking-dark-blue: #003580;
-      --booking-light-blue: #0077cc;
-      --sidebar-width: 280px;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f5f7fa;
-      overflow-x: hidden;
-    }
-
-    /* Sidebar Styles */
-    .sidebar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: var(--sidebar-width);
-      height: 100vh;
-      background: linear-gradient(180deg, var(--booking-blue) 0%, var(--booking-dark-blue) 100%);
-      color: white;
-      z-index: 1000;
-      overflow-y: auto;
-      transition: all 0.3s ease;
-    }
-
-    .sidebar::-webkit-scrollbar {
-      width: 4px;
-    }
-
-    .sidebar::-webkit-scrollbar-track {
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .sidebar::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.3);
-      border-radius: 2px;
-    }
-
-    .sidebar-header {
-      padding: 20px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .sidebar-header img {
-      height: 32px;
-      filter: brightness(0) invert(1);
-    }
-
-    .business-text {
-      background: rgba(255, 255, 255, 0.2);
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 12px;
-      font-weight: 600;
-      margin-left: 8px;
-    }
-
-    .sidebar-menu {
-      padding: 20px 0;
-    }
-
-    .menu-section {
-      margin-bottom: 30px;
-    }
-
-    .menu-section-title {
-      font-size: 11px;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.6);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      padding: 0 20px 10px 20px;
-    }
-
-    .menu-item {
-      position: relative;
-      display: flex;
-      align-items: center;
-      padding: 12px 20px;
-      color: rgba(255, 255, 255, 0.9);
-      text-decoration: none;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      border: none;
-      background: none;
-      width: 100%;
-      text-align: left;
-    }
-
-    .menu-item:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: white;
-      transform: translateX(5px);
-    }
-
-    .menu-item.active {
-      background: rgba(255, 255, 255, 0.2);
-      color: white;
-      border-right: 3px solid #ffd700;
-    }
-
-    .menu-item.active::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 3px;
-      background: #ffd700;
-    }
-
-    .menu-item i {
-      width: 20px;
-      margin-right: 12px;
-      font-size: 16px;
-    }
-
-    .menu-item span {
-      font-size: 14px;
-      font-weight: 500;
-    }
-
-    .notification-badge {
-      background: #ff4444;
-      color: white;
-      border-radius: 10px;
-      padding: 2px 6px;
-      font-size: 11px;
-      font-weight: 600;
-      margin-left: auto;
-    }
-
-    /* Main Content */
-    .main-content {
-      margin-left: var(--sidebar-width);
-      min-height: 100vh;
-      padding: 0;
-      transition: all 0.3s ease;
-    }
-
-    .content-area {
-      padding: 30px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .page-header {
-      background: white;
-      border-radius: 12px;
-      padding: 30px;
-      margin-bottom: 30px;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-    }
-
-    .page-title {
-      font-size: 28px;
-      font-weight: 700;
-      color: var(--booking-dark-blue);
-      margin-bottom: 8px;
-    }
-
-    .page-subtitle {
-      color: #6b7280;
-      font-size: 16px;
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      margin-bottom: 30px;
-    }
-
-    .stat-card {
-      background: white;
-      border-radius: 12px;
-      padding: 24px;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-      transition: transform 0.3s ease;
-    }
-
-    .stat-card:hover {
-      transform: translateY(-2px);
-    }
-
-    .stat-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      margin-bottom: 16px;
-    }
-
-    .stat-icon.blue {
-      background: linear-gradient(135deg, var(--booking-blue), var(--booking-light-blue));
-      color: white;
-    }
-
-    .stat-icon.green {
-      background: linear-gradient(135deg, #10b981, #34d399);
-      color: white;
-    }
-
-    .stat-icon.orange {
-      background: linear-gradient(135deg, #f59e0b, #fbbf24);
-      color: white;
-    }
-
-    .stat-icon.purple {
-      background: linear-gradient(135deg, #8b5cf6, #a78bfa);
-      color: white;
-    }
-
-    .stat-value {
-      font-size: 32px;
-      font-weight: 700;
-      color: var(--booking-dark-blue);
-      margin-bottom: 4px;
-    }
-
-    .stat-label {
-      color: #6b7280;
-      font-size: 14px;
-      font-weight: 500;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .sidebar {
-        transform: translateX(-100%);
-      }
-
-      .sidebar.active {
-        transform: translateX(0);
-      }
-
-      .main-content {
-        margin-left: 0;
-      }
-
-      .content-area {
-        padding: 20px;
-      }
-    }
   </style>
 </head>
 <body>
+
+<button class="mobile-menu-toggle" id="mobileMenuToggle">
+  <i class="fas fa-bars"></i>
+</button>
+
 <!-- Sidebar -->
 <div class="sidebar" id="sidebar">
   <div class="sidebar-header">
     <div class="d-flex align-items-center">
       <svg width="100" height="24" viewBox="0 0 100 24" fill="white">
-        <text x="0" y="18" font-family="Arial, sans-serif" font-size="16" font-weight="bold">Booking.com</text>
+        <text x="0" y="18" font-family="Arial, sans-serif" font-size="16" font-weight="bold">BOOKING ME</text>
       </svg>
-      <span class="business-text">business</span>
+      <span class="business-text">WEB</span>
     </div>
   </div>
 
@@ -290,7 +38,7 @@
 
       <button class="menu-item" data-page="bookings">
         <i class="fas fa-suitcase"></i>
-        <span>Bookings</span>
+        <span>Home Page</span>
         <span class="notification-badge">1</span>
       </button>
 
@@ -315,18 +63,18 @@
       </button>
     </div>
 
-    <!-- People Section -->
+    <!-- Booking Section -->
     <div class="menu-section">
-      <div class="menu-section-title">People</div>
+      <div class="menu-section-title">Booking</div>
 
-      <button class="menu-item" data-page="invite-team">
-        <i class="fas fa-user-plus"></i>
-        <span>Invite Team</span>
+      <button class="menu-item" data-page="invite-team" onclick="refreshCityHotels()">
+        <i class="fas fa-city"></i>
+        <span>City wise Hotels Booking</span>
       </button>
 
-      <button class="menu-item" data-page="manage-team">
-        <i class="fas fa-users-cog"></i>
-        <span>Manage Team</span>
+      <button class="menu-item" data-page="manage-team" onclick="openChooseRoomFromHotel()">
+        <i class="fas fa-home"></i>
+        <span>Hotel Booking</span>
       </button>
     </div>
 
@@ -372,243 +120,718 @@
   </div>
 </div>
 
+
 <!-- Main Content -->
 <div class="main-content">
-  <div class="content-area">
-    <!-- Dashboard Page (Default) -->
-    <div id="dashboard-page" class="page-content">
-      <div class="page-header">
-        <h1 class="page-title">Dashboard</h1>
-        <p class="page-subtitle">Welcome to your Booking.com Business dashboard</p>
-      </div>
-
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-icon blue">
-            <i class="fas fa-suitcase"></i>
-          </div>
-          <div class="stat-value">47</div>
-          <div class="stat-label">Total Bookings</div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-icon green">
-            <i class="fas fa-users"></i>
-          </div>
-          <div class="stat-value">12</div>
-          <div class="stat-label">Team Members</div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-icon orange">
-            <i class="fas fa-chart-line"></i>
-          </div>
-          <div class="stat-value">€24,580</div>
-          <div class="stat-label">Total Spent</div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-icon purple">
-            <i class="fas fa-calendar"></i>
-          </div>
-          <div class="stat-value">3</div>
-          <div class="stat-label">Upcoming Trips</div>
-        </div>
-      </div>
+  <!-- Top Header -->
+  <div class="top-header">
+    <div class="greeting">
+      <h1 id="greeting-text">Good morning, User</h1>
     </div>
-
-    <!-- Other pages will be loaded here -->
-    <div id="bookings-page" class="page-content hidden">
-      <div class="page-header">
-        <h1 class="page-title">Bookings</h1>
-        <p class="page-subtitle">Manage all your company bookings</p>
-      </div>
-      <div style="background: white; border-radius: 12px; padding: 30px; text-align: center;">
-        <i class="fas fa-suitcase" style="font-size: 48px; color: var(--booking-blue); margin-bottom: 20px;"></i>
-        <h3>Bookings Management</h3>
-        <p>View and manage all your company's travel bookings here.</p>
-      </div>
-    </div>
-
-    <div id="profiles-page" class="page-content hidden">
-      <div class="page-header">
-        <h1 class="page-title">Profiles</h1>
-        <p class="page-subtitle">Manage user profiles and permissions</p>
-      </div>
-      <div style="background: white; border-radius: 12px; padding: 30px; text-align: center;">
-        <i class="fas fa-users" style="font-size: 48px; color: var(--booking-blue); margin-bottom: 20px;"></i>
-        <h3>User Profiles</h3>
-        <p>Configure user profiles and access permissions.</p>
-      </div>
-    </div>
-
-    <div id="travel-policy-page" class="page-content hidden">
-      <div class="page-header">
-        <h1 class="page-title">Travel Policy</h1>
-        <p class="page-subtitle">Configure your company's travel policies</p>
-      </div>
-      <div style="background: white; border-radius: 12px; padding: 30px; text-align: center;">
-        <i class="fas fa-file-alt" style="font-size: 48px; color: var(--booking-blue); margin-bottom: 20px;"></i>
-        <h3>Travel Policy Settings</h3>
-        <p>Set up and manage your company's travel policies and guidelines.</p>
-      </div>
-    </div>
-
-    <div id="support-page" class="page-content hidden">
-      <div class="page-header">
-        <h1 class="page-title">Support</h1>
-        <p class="page-subtitle">Get help and support for your account</p>
-      </div>
-      <div style="background: white; border-radius: 12px; padding: 30px; text-align: center;">
-        <i class="fas fa-headset" style="font-size: 48px; color: var(--booking-blue); margin-bottom: 20px;"></i>
-        <h3>Customer Support</h3>
-        <p>Contact our support team for assistance with your account.</p>
-      </div>
-    </div>
-
-    <div id="notifications-page" class="page-content hidden">
-      <div class="page-header">
-        <h1 class="page-title">Notifications</h1>
-        <p class="page-subtitle">Manage your notification preferences</p>
-      </div>
-      <div style="background: white; border-radius: 12px; padding: 30px; text-align: center;">
-        <i class="fas fa-bell" style="font-size: 48px; color: var(--booking-blue); margin-bottom: 20px;"></i>
-        <h3>Notification Center</h3>
-        <p>View and configure your notification settings.</p>
-      </div>
-    </div>
-
-    <div id="invite-team-page" class="page-content hidden">
-      <div class="page-header">
-        <h1 class="page-title">Invite Team</h1>
-        <p class="page-subtitle">Add new team members to your account</p>
-      </div>
-      <div style="background: white; border-radius: 12px; padding: 30px; text-align: center;">
-        <i class="fas fa-user-plus" style="font-size: 48px; color: var(--booking-blue); margin-bottom: 20px;"></i>
-        <h3>Invite Team Members</h3>
-        <p>Send invitations to new team members to join your company account.</p>
-      </div>
-    </div>
-
-    <div id="manage-team-page" class="page-content hidden">
-      <div class="page-header">
-        <h1 class="page-title">Manage Team</h1>
-        <p class="page-subtitle">Manage existing team members and their roles</p>
-      </div>
-      <div style="background: white; border-radius: 12px; padding: 30px; text-align: center;">
-        <i class="fas fa-users-cog" style="font-size: 48px; color: var(--booking-blue); margin-bottom: 20px;"></i>
-        <h3>Team Management</h3>
-        <p>Manage roles, permissions, and settings for your team members.</p>
-      </div>
-    </div>
-
-    <div id="details-page" class="page-content hidden">
-      <div class="page-header">
-        <h1 class="page-title">Company Details</h1>
-        <p class="page-subtitle">View and edit your company information</p>
-      </div>
-      <div style="background: white; border-radius: 12px; padding: 30px; text-align: center;">
-        <i class="fas fa-building" style="font-size: 48px; color: var(--booking-blue); margin-bottom: 20px;"></i>
-        <h3>Company Information</h3>
-        <p>Update your company details and business information.</p>
-      </div>
-    </div>
-
-    <div id="countries-regions-page" class="page-content hidden">
-      <div class="page-header">
-        <h1 class="page-title">Countries and Regions</h1>
-        <p class="page-subtitle">Configure regional settings and preferences</p>
-      </div>
-      <div style="background: white; border-radius: 12px; padding: 30px; text-align: center;">
-        <i class="fas fa-globe" style="font-size: 48px; color: var(--booking-blue); margin-bottom: 20px;"></i>
-        <h3>Regional Settings</h3>
-        <p>Configure your preferred countries and regions for travel.</p>
-      </div>
-    </div>
-
-    <div id="payment-page" class="page-content hidden">
-      <div class="page-header">
-        <h1 class="page-title">Payment</h1>
-        <p class="page-subtitle">Manage payment methods and billing</p>
-      </div>
-      <div style="background: white; border-radius: 12px; padding: 30px; text-align: center;">
-        <i class="fas fa-credit-card" style="font-size: 48px; color: var(--booking-blue); margin-bottom: 20px;"></i>
-        <h3>Payment Methods</h3>
-        <p>Manage your payment methods and view billing history.</p>
-      </div>
-    </div>
-
-    <div id="general-settings-page" class="page-content hidden">
-      <div class="page-header">
-        <h1 class="page-title">General Settings</h1>
-        <p class="page-subtitle">Configure your account settings and preferences</p>
-      </div>
-      <div style="background: white; border-radius: 12px; padding: 30px; text-align: center;">
-        <i class="fas fa-cog" style="font-size: 48px; color: var(--booking-blue); margin-bottom: 20px;"></i>
-        <h3>Account Settings</h3>
-        <p>Customize your account settings and preferences.</p>
-      </div>
-    </div>
-
-    <div id="faq-page" class="page-content hidden">
-      <div class="page-header">
-        <h1 class="page-title">FAQ</h1>
-        <p class="page-subtitle">Frequently asked questions and answers</p>
-      </div>
-      <div style="background: white; border-radius: 12px; padding: 30px; text-align: center;">
-        <i class="fas fa-question-circle" style="font-size: 48px; color: var(--booking-blue); margin-bottom: 20px;"></i>
-        <h3>Help Center</h3>
-        <p>Find answers to frequently asked questions about your account.</p>
+    <div class="header-right">
+      <div class="user-profile">
+        <i class="fas fa-user-circle fa-2x"></i>
       </div>
     </div>
   </div>
-</div>
+
+  <!-- Search Section -->
+  <div class="search-section">
+    <div class="search-tabs">
+      <button class="tab active">
+        <i class="fas fa-bed"></i>
+        Stays
+      </button>
+      <button class="tab">
+        <i class="fas fa-plane"></i>
+        Flights
+      </button>
+      <button class="tab">
+        <i class="fas fa-car"></i>
+        Rental cars
+      </button>
+    </div>
+
+    <div class="search-form">
+      <div class="search-inputs">
+        <label>
+          <input type="text" placeholder="Where are you going?" class="location-input">
+        </label>
+        <label>
+          <input type="date" class="date-input" placeholder="Check-in">
+        </label>
+        <label>
+          <input type="date" class="date-input" placeholder="Check-out">
+        </label>
+        <label>
+          <select class="guest-select">
+            <option>1 adult • 1 room</option>
+          </select>
+        </label>
+        <button class="search-btn">Search</button>
+      </div>
+      <div class="work-travel">
+        <input type="checkbox" id="work-travel" checked>
+        <label for="work-travel">I'm travelling for work</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard Content -->
+  <div class="dashboard-content">
+    <!-- Bookings Section -->
+    <div class="bookings-section">
+      <div class="section-header">
+        <h2>Bookings</h2>
+        <a href="" class="view-all">View all 12 bookings</a>
+      </div>
+
+      <div class="booking-cards">
+        <div class="booking-card">
+          <div class="booking-info">
+            <div class="route">
+              <i class="fas fa-hotel"></i>
+              <span class="cities">Booking Success</span>
+            </div>
+            <div class="trip-type">Details Booking</div>
+          </div>
+          <div class="booking-dates">
+            <div class="date-range">18 Feb – 23 Feb</div>
+            <div class="status in-progress">In progress</div>
+          </div>
+        </div>
+
+        <div class="booking-card">
+          <div class="booking-info">
+            <div class="route">
+              <i class="fas fa-bed"></i>
+              <span class="cities">Room Details</span>
+            </div>
+            <div class="trip-type">2 adults · 0 children · 1 room</div>
+          </div>
+          <div class="booking-dates">
+            <div class="date-range">11 Apr – 13 Apr</div>
+            <div class="status upcoming">In 51 days</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Section -->
+    <div class="bottom-section">
+      <!-- Spend Overview -->
+      <div class="spend-overview">
+        <div class="section-header">
+          <h3>Spend overview</h3>
+          <div class="step-indicator">4</div>
+        </div>
+        <div class="spend-filter">
+          <label>
+            <select>
+              <option>Travel date</option>
+            </select>
+          </label>
+        </div>
+        <div class="spend-chart">
+          <div class="chart-container">
+            <div class="donut-chart">
+              <div class="chart-center">
+                <div class="travelled">Travelled</div>
+                <div class="amount">$1,830</div>
+                <div class="upcoming">Upcoming</div>
+                <div class="upcoming-amount">$1,503</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Traveller Activity Map -->
+      <div class="traveller-map">
+        <div class="section-header">
+          <h3>Traveller activity map</h3>
+          <div class="step-indicator">5</div>
+        </div>
+        <div class="map-filters">
+          <button class="filter-btn active">All (1)</button>
+          <button class="filter-btn">In progress (0)</button>
+        </div>
+        <div class="map-container">
+          <div class="search-map">
+            <label>
+              <input type="text" placeholder="Search by traveller" class="map-search">
+            </label>
+          </div>
+          <div class="map-locations">
+            <div class="location-item">
+              <span class="location-name">Incheon</span>
+              <div class="location-marker green">1</div>
+            </div>
+            <div class="location-item">
+              <span class="location-name">Seoul</span>
+              <div class="location-marker black">2</div>
+            </div>
+            <div class="location-item">
+              <span class="location-name">Busan</span>
+              <div class="location-marker black">2</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Other pages will be loaded here -->
+  <div id="bookings-page" class="page-content hidden">
+    <div style="background: white; border-radius: 12px; padding: 30px; text-align: center;">
+      <div id="main-content-area"></div>
+    </div>
+  </div>
+
+  <div id="profiles-page" class="page-content hidden">
+    <div class="page-header">
+      <h1 class="page-title">Profiles</h1>
+      <p class="page-subtitle">Manage user profiles and permissions</p>
+    </div>
+    <div style="background: white; border-radius: 12px; padding: 30px; text-align: center;">
+      <i class="fas fa-users" style="font-size: 48px; color: var(--booking-blue); margin-bottom: 20px;"></i>
+      <h3>User Profiles</h3>
+      <p>Configure user profiles and access permissions.</p>
+    </div>
+  </div>
+
+  <div id="travel-policy-page" class="page-content hidden">
+    <div class="page-header">
+      <h1 class="page-title">Travel Policy</h1>
+      <p class="page-subtitle">Configure your company's travel policies</p>
+    </div>
+    <div style="background: white; border-radius: 12px; padding: 30px; text-align: center;">
+      <i class="fas fa-file-alt" style="font-size: 48px; color: var(--booking-blue); margin-bottom: 20px;"></i>
+      <h3>Travel Policy Settings</h3>
+      <p>Set up and manage your company's travel policies and guidelines.</p>
+    </div>
+  </div>
+
+  <div id="support-page" class="page-content hidden">
+    <div class="page-header">
+      <h1 class="page-title">Support</h1>
+      <p class="page-subtitle">Get help and support for your account</p>
+    </div>
+    <div style="background: white; border-radius: 12px; padding: 30px; text-align: center;">
+      <i class="fas fa-headset" style="font-size: 48px; color: var(--booking-blue); margin-bottom: 20px;"></i>
+      <h3>Customer Support</h3>
+      <p>Contact our support team for assistance with your account.</p>
+    </div>
+  </div>
+
+  <div id="notifications-page" class="page-content hidden">
+    <div class="page-header">
+      <h1 class="page-title">Notifications</h1>
+      <p class="page-subtitle">Manage your notification preferences</p>
+    </div>
+    <div style="background: white; border-radius: 12px; padding: 30px; text-align: center;">
+      <i class="fas fa-bell" style="font-size: 48px; color: var(--booking-blue); margin-bottom: 20px;"></i>
+      <h3>Notification Center</h3>
+      <p>View and configure your notification settings.</p>
+    </div>
+  </div>
+
+  <!-- Invite-team loads HotelBookingPage.html here -->
+  <div id="invite-team-page" class="page-content hidden">
+    <div id="hotel-booking-content-area"></div>
+  </div>
+
+  <!-- Keep manage-team-page unchanged (you asked not to rename) -->
+  <div id="manage-team-page" class="page-content hidden">
+    <div class="page-header">
+      <h1 class="page-title">Start Hotel Wise Booking</h1>
+    </div>
+    <!-- keep any inner markup you had here -->
+  </div>
+
+  <!-- New choose-room page (minimal, follows your pattern) -->
+  <div id="choose-room-page" class="page-content hidden">
+    <div id="choose-room-content-area"></div>
+  </div>
+
+  <div id="details-page" class="page-content hidden">
+    <div class="page-header">
+      <h1 class="page-title">Company Details</h1>
+      <p class="page-subtitle">View and edit your company information</p>
+    </div>
+    <div style="background: white; border-radius: 12px; padding: 30px; text-align: center;">
+      <i class="fas fa-building" style="font-size: 48px; color: var(--booking-blue); margin-bottom: 20px;"></i>
+      <h3>Company Information</h3>
+      <p>Update your company details and business information.</p>
+    </div>
+  </div>
+
+
+  <div id="countries-regions-page" class="page-content hidden">
+    <div class="page-header">
+      <h1 class="page-title">Countries and Regions</h1>
+      <p class="page-subtitle">Configure regional settings and preferences</p>
+    </div>
+    <div style="background: white; border-radius: 12px; padding: 30px; text-align: center;">
+      <i class="fas fa-globe" style="font-size: 48px; color: var(--booking-blue); margin-bottom: 20px;"></i>
+      <h3>Regional Settings</h3>
+      <p>Configure your preferred countries and regions for travel.</p>
+    </div>
+  </div>
+
+  <div id="payment-page" class="page-content hidden">
+    <div class="page-header">
+      <h1 class="page-title">Payment</h1>
+      <p class="page-subtitle">Manage payment methods and billing</p>
+    </div>
+    <div style="background: white; border-radius: 12px; padding: 30px; text-align: center;">
+      <i class="fas fa-credit-card" style="font-size: 48px; color: var(--booking-blue); margin-bottom: 20px;"></i>
+      <h3>Payment Methods</h3>
+      <p>Manage your payment methods and view billing history.</p>
+    </div>
+  </div>
+
+  <div id="general-settings-page" class="page-content hidden">
+    <div class="page-header">
+      <h1 class="page-title">General Settings</h1>
+      <p class="page-subtitle">Configure your account settings and preferences</p>
+    </div>
+    <div style="background: white; border-radius: 12px; padding: 30px; text-align: center;">
+      <i class="fas fa-cog" style="font-size: 48px; color: var(--booking-blue); margin-bottom: 20px;"></i>
+      <h3>Account Settings</h3>
+      <p>Customize your account settings and preferences.</p>
+    </div>
+  </div>
+
+  <div id="faq-page" class="page-content hidden">
+    <div class="page-header">
+      <h1 class="page-title">FAQ</h1>
+      <p class="page-subtitle">Frequently asked questions and answers</p>
+    </div>
+    <div style="background: white; border-radius: 12px; padding: 30px; text-align: center;">
+      <i class="fas fa-question-circle" style="font-size: 48px; color: var(--booking-blue); margin-bottom: 20px;"></i>
+      <h3>Help Center</h3>
+      <p>Find answers to frequently asked questions about your account.</p>
+    </div>
+  </div>
+
+</div> <!-- end .main-content -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="customer.js"></script>
+<script src="Hotel_City.js"></script>
 
 <script>
-  // Navigation functionality
+  // ====== Scroll Helpers for Dynamic Pages ======
+  function scrollProperties(direction) {
+    const container = document.getElementById("propertiesContainer");
+    if (container) {
+      const amount = (direction === "left" ? -300 : 300);
+      container.scrollBy({ left: amount, behavior: "smooth" });
+    } else {
+      console.warn("propertiesContainer not found");
+    }
+  }
+
+  // Scroll helper for Homes
+  function scrollHomes(direction) {
+    const container = document.getElementById("homesContainer");
+    if (container) {
+      const amount = (direction === "left" ? -300 : 300);
+      container.scrollBy({ left: amount, behavior: "smooth" });
+    } else {
+      console.warn("homesContainer not found");
+    }
+  }
+
+  // ====== Helper to load external HTML (with CSS/JS) into a container ======
+  async function loadHtmlIntoContainer(url, container) {
+    try {
+      const absoluteUrl = new URL(url, window.location.origin).href;
+      const res = await fetch(absoluteUrl);
+      if (!res.ok) throw new Error(`Failed to load ${url}: ${res.status}`);
+      const text = await res.text();
+
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(text, "text/html");
+
+      // --- Stylesheets ---
+      doc.querySelectorAll("link[rel='stylesheet']").forEach(link => {
+        const href = new URL(link.getAttribute("href"), absoluteUrl).href;
+        if (!document.querySelector(`link[href="${href}"]`)) {
+          const newLink = document.createElement("link");
+          newLink.rel = "stylesheet";
+          newLink.href = href;
+          document.head.appendChild(newLink);
+        }
+      });
+
+      // --- Inline Styles ---
+      doc.querySelectorAll("style").forEach(style => {
+        const exists = Array.from(document.head.querySelectorAll("style"))
+                .some(s => s.textContent === style.textContent);
+        if (!exists) {
+          document.head.appendChild(style.cloneNode(true));
+        }
+      });
+
+      // --- Replace content ---
+      container.innerHTML = doc.body.innerHTML;
+
+      // --- Execute scripts ---
+      doc.querySelectorAll("script").forEach(oldScript => {
+        const s = document.createElement("script");
+        if (oldScript.src) {
+          s.src = new URL(oldScript.getAttribute("src"), absoluteUrl).href;
+          s.async = false;
+        } else {
+          s.textContent = oldScript.textContent;
+        }
+        container.appendChild(s);
+      });
+
+    } catch (err) {
+      console.error("Error loading HTML into container:", err);
+      throw err;
+    }
+  }
+
+  // ====== Helper to open Choose Room from Hotel ======
+  async function openChooseRoomFromHotel() {
+    try {
+      // Prefer simulating the sidebar click (keeps existing flow/active state)
+      const chooseMenu = Array.from(document.querySelectorAll('.menu-item'))
+              .find(m => m.dataset.page === 'choose-room');
+
+      if (chooseMenu) {
+        chooseMenu.click();
+        return;
+      }
+
+      // Fallback: manually load the chooseRoom page if sidebar entry not present
+      const chooseRoomContent = document.getElementById("choose-room-content-area");
+      const chooseRoomPage = document.getElementById("choose-room-page");
+
+      if (!chooseRoomContent || !chooseRoomPage) {
+        console.warn("Choose Room container not found. Make sure choose-room-page and choose-room-content-area exist.");
+        return;
+      }
+
+      await loadHtmlIntoContainer(
+              "../../FrountEnd/CustomerSection/ChooseROOM/chooseRoom.html",
+              chooseRoomContent
+      );
+
+      // hide other pages similar to the menu handler
+      document.querySelectorAll('.page-content').forEach(p => p.classList.add('hidden'));
+      if (document.querySelector('.dashboard-content')) {
+        document.querySelector('.dashboard-content').style.display = 'none';
+      }
+
+      // show the choose-room page
+      chooseRoomPage.classList.remove('hidden');
+
+      // set sidebar active state if menu exists
+      document.querySelectorAll('.menu-item').forEach(mi => mi.classList.remove('active'));
+      const sidebarChoose = Array.from(document.querySelectorAll('.menu-item'))
+              .find(m => m.dataset.page === 'choose-room');
+      if (sidebarChoose) sidebarChoose.classList.add('active');
+
+    } catch (err) {
+      console.error("openChooseRoomFromHotel error:", err);
+    }
+  }
+
+  // ====== Helper: refresh a section's dynamic content immediately ======
+  function refreshSectionContent(previousPage) {
+    try {
+      if (!previousPage) return;
+
+      if (previousPage === 'invite-team') {
+        const hotelBookingContent = document.getElementById("hotel-booking-content-area");
+        if (hotelBookingContent) {
+          const url = "../../FrountEnd/CustomerSection/AboutHotelBooking/HotelBookingPage.html?_=" + Date.now();
+          loadHtmlIntoContainer(url, hotelBookingContent)
+                  .then(() => {
+                    if (typeof initializeHotelCityPage === "function") initializeHotelCityPage();
+                    // re-attach choose-room handler after reload
+                    try {
+                      const hotelContainer = document.getElementById("hotel-booking-content-area");
+                      if (hotelContainer) {
+                        const chooseBtn = hotelContainer.querySelector(".choose-room-btn");
+                        if (chooseBtn) {
+                          chooseBtn.onclick = function (e) {
+                            e.preventDefault();
+                            if (typeof openChooseRoomFromHotel === 'function') openChooseRoomFromHotel();
+                          };
+                        }
+                      }
+                    } catch (err) {
+                      console.error("Error re-attaching choose-room handler during refresh:", err);
+                    }
+                  })
+                  .catch(err => console.error("Error refreshing invite-team content:", err));
+        }
+      } else if (previousPage === 'bookings') {
+        const mainContent = document.getElementById("main-content-area");
+        if (mainContent) {
+          const url = "../../FrountEnd/HomePage/CustomerInterFace.html?_=" + Date.now();
+          loadHtmlIntoContainer(url, mainContent)
+                  .then(() => {
+                    if (typeof initializeFavorites === "function") initializeFavorites();
+                    if (typeof initializeTabSwitching === "function") initializeTabSwitching();
+                    if (typeof initializeExploreDestinations === "function") initializeExploreDestinations();
+                    if (typeof initializeTripPlanner === "function") initializeTripPlanner();
+                    if (typeof initializeSearchFunctionality === "function") initializeSearchFunctionality();
+                    if (typeof initializeCategoryButtons === "function") initializeCategoryButtons();
+                    if (typeof initializeDestinationClicks === "function") initializeDestinationClicks();
+                    if (typeof initializeInputEffects === "function") initializeInputEffects();
+                    if (typeof loadHotels === "function") loadHotels();
+                  })
+                  .catch(err => console.error("Error refreshing bookings content:", err));
+        }
+      } else if (previousPage === 'choose-room') {
+        const chooseRoomContent = document.getElementById("choose-room-content-area");
+        if (chooseRoomContent) {
+          const url = "../../FrountEnd/CustomerSection/ChooseROOM/chooseRoom.html?_=" + Date.now();
+          loadHtmlIntoContainer(url, chooseRoomContent)
+                  .then(() => {
+                    if (typeof initializeChooseRoomPage === "function") initializeChooseRoomPage();
+                  })
+                  .catch(err => console.error("Error refreshing choose-room content:", err));
+        }
+      }
+      // extend with other dynamic pages if necessary
+    } catch (err) {
+      console.error("refreshSectionContent error:", err);
+    }
+  }
+
+  // ====== Navigation Functionality (keeps your structure intact) ======
   const menuItems = document.querySelectorAll('.menu-item');
   const pageContents = document.querySelectorAll('.page-content');
+  const dashboardContent = document.querySelector('.dashboard-content');
+  const topHeader = document.querySelector('.top-header');
+  const searchSection = document.querySelector('.search-section');
 
   menuItems.forEach(item => {
-    item.addEventListener('click', function() {
-      const targetPage = this.getAttribute('data-page');
+    item.addEventListener('click', function () {
+      const targetPage = this.dataset.page;
 
-      // Remove active class from all menu items
-      menuItems.forEach(menuItem => {
-        menuItem.classList.remove('active');
-      });
+      // Determine currently visible page (before switching)
+      const visiblePageEl = Array.from(pageContents).find(p => !p.classList.contains('hidden'));
+      const visiblePage = visiblePageEl ? visiblePageEl.id.replace(/-page$/, '') : (dashboardContent && getComputedStyle(dashboardContent).display !== 'none' ? 'dashboard' : null);
 
-      // Add active class to clicked item
+      // If leaving invite-team, mark it so coming back will force refresh
+      if (visiblePage === 'invite-team' && targetPage !== 'invite-team') {
+        try { sessionStorage.setItem('inviteLeft', 'true'); } catch (e) { /* ignore */ }
+      }
+
+      // Remove active class and set current
+      menuItems.forEach(menuItem => menuItem.classList.remove('active'));
       this.classList.add('active');
 
-      // Hide all page contents
-      pageContents.forEach(page => {
-        page.classList.add('hidden');
-      });
+      // Hide all pages
+      pageContents.forEach(page => page.classList.add('hidden'));
+      if (dashboardContent) dashboardContent.style.display = 'none';
 
-      // Show target page
-      const targetPageElement = document.getElementById(targetPage + '-page');
-      if (targetPageElement) {
-        targetPageElement.classList.remove('hidden');
+      // Dashboard special-case: show and refresh previous section when coming from it
+      if (targetPage === 'dashboard') {
+        if (dashboardContent) dashboardContent.style.display = 'block';
+        if (topHeader) topHeader.style.display = 'flex';
+        if (searchSection) searchSection.style.display = 'block';
+
+        // If we came from a dynamic page (e.g. invite-team), refresh it now
+        try {
+          if (visiblePage && visiblePage !== 'dashboard') {
+            refreshSectionContent(visiblePage);
+          }
+        } catch (err) {
+          console.error("Error refreshing previous section on dashboard entry:", err);
+        }
+
+        return;
       }
+
+      // hide header/search for subpages
+      if (topHeader) topHeader.style.display = 'none';
+      if (searchSection) searchSection.style.display = 'none';
+      if (dashboardContent) dashboardContent.style.display = 'none';
+
+      const targetPageElement = document.getElementById(targetPage + '-page');
+      if (targetPageElement) targetPageElement.classList.remove('hidden');
+
+      // bookings (home)
+      if (targetPage === 'bookings') {
+        const mainContent = document.getElementById("main-content-area");
+        if (mainContent) {
+          loadHtmlIntoContainer("../../FrountEnd/HomePage/CustomerInterFace.html", mainContent)
+                  .then(() => {
+                    if (typeof initializeFavorites === "function") initializeFavorites();
+                    if (typeof initializeTabSwitching === "function") initializeTabSwitching();
+                    if (typeof initializeExploreDestinations === "function") initializeExploreDestinations();
+                    if (typeof initializeTripPlanner === "function") initializeTripPlanner();
+                    if (typeof initializeSearchFunctionality === "function") initializeSearchFunctionality();
+                    if (typeof initializeCategoryButtons === "function") initializeCategoryButtons();
+                    if (typeof initializeDestinationClicks === "function") initializeDestinationClicks();
+                    if (typeof initializeInputEffects === "function") initializeInputEffects();
+                    if (typeof loadHotels === "function") loadHotels();
+                  })
+                  .catch(err => console.error("Error loading bookings content:", err));
+        }
+        return;
+      }
+
+      // invite-team (Hotel Booking city page) - reload on return
+      if (targetPage === 'invite-team') {
+        const inviteTeamPage = document.getElementById("invite-team-page");
+        if (inviteTeamPage) {
+          const hotelBookingContent = document.getElementById("hotel-booking-content-area");
+          if (hotelBookingContent) {
+            const inviteLeft = sessionStorage.getItem('inviteLeft') === 'true';
+
+            // Clear previous content if returning
+            if (inviteLeft) hotelBookingContent.innerHTML = '';
+
+            // Cache-buster when returning so choose-room styles/state reset
+            const url = "../../FrountEnd/CustomerSection/AboutHotelBooking/HotelBookingPage.html" + (inviteLeft ? "?_=" + Date.now() : "");
+
+            loadHtmlIntoContainer(url, hotelBookingContent)
+                    .then(() => {
+                      if (typeof initializeHotelCityPage === "function") {
+                        initializeHotelCityPage();
+                      }
+
+                      // Attach handler to choose-room button inside loaded hotel page
+                      try {
+                        const hotelContainer = document.getElementById("hotel-booking-content-area");
+                        if (hotelContainer) {
+                          const chooseBtn = hotelContainer.querySelector(".choose-room-btn");
+                          if (chooseBtn) {
+                            // overwrite any previous handler to be safe
+                            chooseBtn.onclick = function (e) {
+                              e.preventDefault();
+                              if (typeof openChooseRoomFromHotel === 'function') openChooseRoomFromHotel();
+                            };
+                          }
+                        }
+                      } catch (err) {
+                        console.error("Error attaching choose-room handler:", err);
+                      }
+
+                      // reset the left flag
+                      try { sessionStorage.setItem('inviteLeft', 'false'); } catch (e) { /* ignore */ }
+                    })
+                    .catch(err => {
+                      console.error("Error loading hotel booking content:", err);
+                      hotelBookingContent.innerHTML = '<div style="padding:20px">Failed to load hotel booking content. Please try again.</div>';
+                    });
+          }
+          inviteTeamPage.classList.remove('hidden');
+        }
+        return;
+      }
+
+      // choose-room (loads chooseRoom.html)
+      if (targetPage === 'choose-room') {
+        const chooseRoomPage = document.getElementById("choose-room-page");
+        const chooseRoomContent = document.getElementById("choose-room-content-area");
+        if (chooseRoomPage && chooseRoomContent) {
+          loadHtmlIntoContainer("../../FrountEnd/CustomerSection/ChooseROOM/chooseRoom.html", chooseRoomContent)
+                  .then(() => {
+                    if (typeof initializeChooseRoomPage === "function") initializeChooseRoomPage();
+                  })
+                  .catch(err => console.error("Error loading choose-room content:", err));
+          chooseRoomPage.classList.remove('hidden');
+        } else {
+          console.warn("choose-room page or content area missing");
+        }
+        return;
+      }
+
+      // other pages: default behavior (already revealed above)
     });
   });
 
-  // Mobile menu toggle (for responsive design)
-  function toggleMobileMenu() {
-    const sidebar = document.getElementById('sidebar');
-    sidebar.classList.toggle('active');
+  // ====== Mobile Menu Toggle ======
+  const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+  if (mobileMenuToggle) {
+    mobileMenuToggle.addEventListener('click', function (e) {
+      e.stopPropagation();
+      const sidebar = document.getElementById('sidebar');
+      if (sidebar) sidebar.classList.toggle('active');
+    });
   }
 
   // Close mobile menu when clicking outside
-  document.addEventListener('click', function(event) {
+  document.addEventListener('click', function (event) {
     const sidebar = document.getElementById('sidebar');
-    const isClickInsideSidebar = sidebar.contains(event.target);
-
-    if (!isClickInsideSidebar && window.innerWidth <= 768) {
-      sidebar.classList.remove('active');
+    const toggleButton = document.getElementById('mobileMenuToggle');
+    if (toggleButton && sidebar && window.innerWidth <= 768) {
+      const isClickInsideSidebar = sidebar.contains(event.target);
+      const isClickOnToggle = toggleButton.contains(event.target);
+      if (!isClickInsideSidebar && !isClickOnToggle) sidebar.classList.remove('active');
     }
   });
+
+  // ====== Greeting Method ======
+  function parseJwt(token) {
+    try {
+      return JSON.parse(atob(token.split('.')[1]));
+    } catch (e) {
+      console.error("Invalid JWT:", e);
+      return null;
+    }
+  }
+
+  function updateGreeting() {
+    const greetingElement = document.getElementById('greeting-text');
+    const token = localStorage.getItem("accessToken");
+
+    if (!greetingElement) return;
+
+    // Greeting by time
+    const now = new Date();
+    const hour = now.getHours();
+    let timeGreeting = "Good day";
+    if (hour >= 5 && hour < 12) timeGreeting = "Good morning";
+    else if (hour >= 12 && hour < 18) timeGreeting = "Good afternoon";
+    else timeGreeting = "Good evening";
+
+    if (token) {
+      $.ajax({
+        url: "http://localhost:8080/hello/user",
+        method: "GET",
+        headers: { "Authorization": "Bearer " + token },
+        success: function () {
+          const payload = parseJwt(token);
+          if (payload && payload.sub) {
+            greetingElement.textContent = `${timeGreeting}, ${payload.sub}`;
+          } else {
+            greetingElement.textContent = `${timeGreeting}, User`;
+          }
+        },
+        error: function (xhr) {
+          if (xhr.status === 403) {
+            window.location.href = "admin-dashboard.html";
+          } else if (xhr.status === 401) {
+            localStorage.removeItem("accessToken");
+            window.location.href = "../loging.html";
+          } else {
+            greetingElement.textContent = `${timeGreeting}, User`;
+            console.error("Error fetching greeting:", xhr.responseText);
+          }
+        }
+      });
+    } else {
+      greetingElement.textContent = `${timeGreeting}, User`;
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", updateGreeting);
+
+
 </script>
+
 </body>
 </html>

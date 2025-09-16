@@ -10,13 +10,20 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class HotelDTO {
+
     private Integer id;
     private String name;
     private String location;
     private Integer starRating;
     private String contactNumber;
     private String description;
-    private String status;   // ACTIVE / INACTIVE
+    private String status;
+
+    // 🟢 New fields
+    private String propertyType;
+    private String city;
+    private Double startingPrice;
+    private Double averageRating;
 
     private List<HotelImageDTO> images;
     private List<RoomTypeDTO> roomTypes;
