@@ -3,7 +3,6 @@ package com.springproject.hospitalitymanagnet.backend.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.List;
 
 @AllArgsConstructor
@@ -11,12 +10,12 @@ import java.util.List;
 @Data
 public class RoomTypeDTO {
     private Integer id;
-    private String name;       // Standard Room, Deluxe Room
+    private String name;
     private Double basePrice;
     private Double specialPrice;
-    private Integer roomSize;  // Sq Ft
-    private String availability; // Available / Pay at Hotel / Corporate
-
-    private List<String> inclusions; // e.g., Free Breakfast, Room Only
-    private List<String> amenities;  // e.g., WiFi, Double Bed, Garden View
+    private Integer roomSize;
+    private String availability;
+    private Integer hotelId;
+    private List<String> inclusions;
+    private List<String> amenities;
 }

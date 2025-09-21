@@ -1,68 +1,19 @@
-<script>
-        function processPayment() {
-            // Get form data to validate (basic validation)
-            const firstName = document.querySelector('input[placeholder="First name *"]').value;
-            const lastName = document.querySelector('input[placeholder="Last name *"]').value;
-            const cardName = document.querySelector('input[placeholder="Name on card *"]').value;
-            const cardNumber = document.querySelector('input[placeholder="Card number *"]').value;
-            const email = document.querySelector('input[placeholder="Email address *"]').value;
-            
-            // Basic validation
-            if (!firstName || !lastName || !cardName || !cardNumber || !email) {
-                alert('Please fill in all required fields before booking.');
-                return;
-            }
-            
-            // Simulate payment processing with loading
-            const bookButton = document.querySelector('.book-button');
-            bookButton.innerHTML = 'Processing Payment...';
-            bookButton.disabled = true;
-            
-            setTimeout(() => {
-                // Hide booking form and show confirmation page
-                document.getElementById('booking-form').style.display = 'none';
-                document.getElementById('confirmation-page').style.display = 'block';
-                
-                // Update progress bar to step 3
-                updateProgressBar();
-                
-                // Hide price alert
-                document.querySelector('.price-alert').style.display = 'none';
-                
-            }, 2000); // 2 second delay to simulate processing
-        }
-        
-        function updateProgressBar() {
-            // Update step 2 to completed
-            document.getElementById('step-2').className = 'step-circle completed';
-            document.getElementById('step-2-text').className = 'step-text';
-            
-            // Update step 3 to current
-            document.getElementById('step-3').className = 'step-circle current';
-            document.getElementById('step-3-text').className = 'step-text';
-            
-            // Update progress lines
-            document.getElementById('progress-line-1').className = 'progress-line';
-            document.getElementById('progress-line-2').className = 'progress-line';
-        }
-    </script>
-</body><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Booking.com - Hotel Reservation</title>
-    <link rel="stylesheet" href="bookingSuccess.css">
+    <link rel="stylesheet" href="payment.css">
 </head>
 <body>
     <!-- Header -->
     <header class="header">
         <div class="header-content">
             <div class="logo-section">
-                <div class="logo">Booking.com</div>
+                <div class="logo">Booking ME</div>
                 <div class="logo-subtitle">Packages at Booking.com provided by Priceline</div>
             </div>
-            <div class="currency">$ USD</div>
         </div>
     </header>
 
@@ -92,15 +43,15 @@
                 <div class="step-circle completed">1</div>
                 <div class="step-text">Choose Room</div>
             </div>
-            <div class="progress-line" id="progress-line-1"></div>
+            <div class="progress-line"></div>
             <div class="progress-step">
-                <div class="step-circle" id="step-2">2</div>
-                <div class="step-text" id="step-2-text">Guest & Payment Details</div>
+                <div class="step-circle current">2</div>
+                <div class="step-text">Guest & Payment Details</div>
             </div>
-            <div class="progress-line" id="progress-line-2"></div>
+            <div class="progress-line inactive"></div>
             <div class="progress-step">
-                <div class="step-circle" id="step-3">3</div>
-                <div class="step-text" id="step-3-text">Booking Confirmation</div>
+                <div class="step-circle inactive">3</div>
+                <div class="step-text inactive">Booking Confirmation</div>
             </div>
         </div>
 
@@ -111,8 +62,8 @@
 
         <!-- Main Content -->
         <div class="main-content">
-            <!-- Left Side - Booking Form (Step 2) -->
-            <div class="left-content" id="booking-form">
+            <!-- Left Side - Hotel Details and Form -->
+            <div class="left-content">
                 <div class="booking-header">
                     <strong>Almost done!</strong> Enter your details and complete your booking now.
                 </div>
@@ -120,7 +71,7 @@
                 <!-- Hotel Card -->
                 <div class="hotel-card">
                     <div class="hotel-image">
-                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDIwMCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMTUwIiBmaWxsPSIjRjVGNUY1Ii8+CjxyZWN0IHg9IjEwIiB5PSI0MCIgd2lkdGg9IjE4MCIgaGVpZ2h0PSI3MCIgZmlsbD0iI0UwRTBFMCIvPgo8cmVjdCB4PSI2MCIgeT0iODAiIHdpZHRoPSI4MCIgaGVpZ2h0PSI0MCIgZmlsbD0iI0MwMDAwMCIvPgo8L3N2Zz4=" alt="Hotel Room">
+                         <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=400&h=300&fit=crop" alt="Villa View">
                     </div>
                     <div class="hotel-info">
                         <h2 class="hotel-name">Hotel La Maison Creole</h2>
@@ -241,89 +192,8 @@
                 </div>
 
                 <!-- Book Button -->
-                <button class="book-button" onclick="processPayment()">Book & Pay</button>
+                <button class="book-button">Book & Pay</button>
             </div>
-
-            <!-- Left Side - Confirmation Page (Step 3) -->
-            <div class="left-content" id="confirmation-page" style="display: none;">
-                <div class="confirmation-header-page">
-                    <div class="success-check">✓</div>
-                    <h1>Almost done!</h1>
-                    <p>Your booking has been confirmed and payment processed successfully.</p>
-                </div>
-
-                <div class="confirmation-details">
-                    <div class="confirmation-card">
-                        <h2>Booking Confirmation</h2>
-                        <div class="confirmation-number-display">
-                            <span class="label">Confirmation Number:</span>
-                            <span class="number">BK-2025-789456123</span>
-                        </div>
-                    </div>
-
-                    <div class="payment-success">
-                        <div class="payment-icon">💳</div>
-                        <div class="payment-info">
-                            <h3>Payment Successful</h3>
-                            <p>Amount Charged: <strong>$771.75</strong></p>
-                            <p>Payment Method: <strong>**** **** **** 4532</strong></p>
-                            <p>Transaction Date: <strong>August 2, 2025</strong></p>
-                        </div>
-                    </div>
-
-                    <div class="hotel-summary">
-                        <h3>Hotel La Maison Creole</h3>
-                        <p class="location">Le Gosier</p>
-                        <div class="stay-details">
-                            <div class="detail-item">
-                                <span class="label">Check-in:</span>
-                                <span>Saturday, August 9, 2025 (3:00 PM)</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="label">Check-out:</span>
-                                <span>Saturday, August 16, 2025 (12:00 PM)</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="label">Duration:</span>
-                                <span>7 nights</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="label">Room:</span>
-                                <span>Twin Room (2 Adults)</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="next-steps-page">
-                        <h3>What's Next?</h3>
-                        <div class="steps-grid">
-                            <div class="step-item">
-                                <div class="step-icon">📧</div>
-                                <p>Confirmation email sent</p>
-                            </div>
-                            <div class="step-item">
-                                <div class="step-icon">🆔</div>
-                                <p>Bring valid ID & credit card</p>
-                            </div>
-                            <div class="step-item">
-                                <div class="step-icon">⏰</div>
-                                <p>Check-in starts at 3:00 PM</p>
-                            </div>
-                            <div class="step-item">
-                                <div class="step-icon">📱</div>
-                                <p>Download Booking.com app</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="action-buttons">
-                        <button class="primary-action-btn">View Full Details</button>
-                        <button class="secondary-action-btn">Download Receipt</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Booking Confirmation Modal (Removed - replaced with page transition) -->
 
             <!-- Right Side - Price Summary -->
             <div class="price-summary">
@@ -380,38 +250,7 @@
             </div>
         </div>
     </footer>
-    <script>
-        function showBookingConfirmation() {
-            // Get form data to validate (basic validation)
-            const firstName = document.querySelector('input[placeholder="First name *"]').value;
-            const lastName = document.querySelector('input[placeholder="Last name *"]').value;
-            const cardName = document.querySelector('input[placeholder="Name on card *"]').value;
-            const cardNumber = document.querySelector('input[placeholder="Card number *"]').value;
-            const email = document.querySelector('input[placeholder="Email address *"]').value;
-            
-            // Basic validation
-            if (!firstName || !lastName || !cardName || !cardNumber || !email) {
-                alert('Please fill in all required fields before booking.');
-                return;
-            }
-            
-            // Show confirmation modal
-            document.getElementById('confirmationModal').style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
-        }
-        
-        function closeModal() {
-            document.getElementById('confirmationModal').style.display = 'none';
-            document.body.style.overflow = 'auto'; // Restore scrolling
-        }
-        
-        // Close modal when clicking outside of it
-        window.onclick = function(event) {
-            const modal = document.getElementById('confirmationModal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        }
-    </script>
+
+    <script src="payment.js"></script>
 </body>
 </html>

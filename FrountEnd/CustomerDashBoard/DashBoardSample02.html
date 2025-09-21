@@ -9,6 +9,21 @@
   <link rel="stylesheet" href="dashboard.css">
 <!--  <link rel="stylesheet" href="unique-properties.css">-->
   <style>
+<<<<<<< HEAD
+=======
+    #notifications-booking-table {
+      font-size: 14px;
+    }
+    #notifications-booking-table th {
+      background: #0071c2;
+      color: white;
+    }
+    #notifications-booking-table td,
+    #notifications-booking-table th {
+      text-align: center;
+      vertical-align: middle;
+    }
+>>>>>>> 0eb3d42 (commit 1)
   </style>
 </head>
 <body>
@@ -30,6 +45,8 @@
 
   <div class="sidebar-menu">
     <!-- Main Menu -->
+
+
     <div class="menu-section">
       <button class="menu-item active" data-page="dashboard">
         <i class="fas fa-th-large"></i>
@@ -47,9 +64,12 @@
         <span>Profiles</span>
       </button>
 
-      <button class="menu-item" data-page="travel-policy">
-        <i class="fas fa-file-alt"></i>
-        <span>Travel Policy</span>
+      <!-- Also update your menu section to include a booking details menu item -->
+      <!-- Add this to your Booking section in the sidebar -->
+
+      <button class="menu-item" data-page="booking-details">
+        <i class="fas fa-file-invoice"></i>
+        <span>Booking Details</span>
       </button>
 
       <button class="menu-item" data-page="support">
@@ -58,8 +78,8 @@
       </button>
 
       <button class="menu-item" data-page="notifications">
-        <i class="fas fa-bell"></i>
-        <span>Notifications</span>
+        <i class="fas fa-close"></i>
+        <span>Cancellation</span>
       </button>
     </div>
 
@@ -214,6 +234,10 @@
             <div class="status upcoming">In 51 days</div>
           </div>
         </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0eb3d42 (commit 1)
       </div>
     </div>
 
@@ -300,6 +324,7 @@
     </div>
   </div>
 
+<<<<<<< HEAD
   <div id="travel-policy-page" class="page-content hidden">
     <div class="page-header">
       <h1 class="page-title">Travel Policy</h1>
@@ -312,6 +337,17 @@
     </div>
   </div>
 
+=======
+  <!-- Add this new page section to your DashBoardSample02.html -->
+  <!-- Place this with your other page-content divs -->
+
+  <div id="booking-details-page" class="page-content hidden">
+    <div id="booking-details-content-area"></div>
+  </div>
+
+
+
+>>>>>>> 0eb3d42 (commit 1)
   <div id="support-page" class="page-content hidden">
     <div class="page-header">
       <h1 class="page-title">Support</h1>
@@ -327,12 +363,36 @@
   <div id="notifications-page" class="page-content hidden">
     <div class="page-header">
       <h1 class="page-title">Notifications</h1>
+<<<<<<< HEAD
       <p class="page-subtitle">Manage your notification preferences</p>
     </div>
     <div style="background: white; border-radius: 12px; padding: 30px; text-align: center;">
       <i class="fas fa-bell" style="font-size: 48px; color: var(--booking-blue); margin-bottom: 20px;"></i>
       <h3>Notification Center</h3>
       <p>View and configure your notification settings.</p>
+=======
+      <p class="page-subtitle">Your latest booking updates</p>
+    </div>
+    <div style="background: white; border-radius: 12px; padding: 20px;">
+      <table class="table table-striped" id="notifications-booking-table">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Hotel</th>
+          <th>Room</th>
+          <th>Check-In</th>
+          <th>Check-Out</th>
+          <th>Status</th>
+          <th>Guests</th>
+          <th>Total Price</th>
+          <th>Booking cancel</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Rows will be loaded via JS -->
+        </tbody>
+      </table>
+>>>>>>> 0eb3d42 (commit 1)
     </div>
   </div>
 
@@ -380,6 +440,7 @@
   </div>
 
   <div id="payment-page" class="page-content hidden">
+<<<<<<< HEAD
     <div class="page-header">
       <h1 class="page-title">Payment</h1>
       <p class="page-subtitle">Manage payment methods and billing</p>
@@ -389,6 +450,11 @@
       <h3>Payment Methods</h3>
       <p>Manage your payment methods and view billing history.</p>
     </div>
+=======
+
+<!--    load payment html here-->
+
+>>>>>>> 0eb3d42 (commit 1)
   </div>
 
   <div id="general-settings-page" class="page-content hidden">
@@ -420,6 +486,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="customer.js"></script>
 <script src="Hotel_City.js"></script>
+<<<<<<< HEAD
 
 <script>
   // ====== Scroll Helpers for Dynamic Pages ======
@@ -770,10 +837,618 @@
     if (toggleButton && sidebar && window.innerWidth <= 768) {
       const isClickInsideSidebar = sidebar.contains(event.target);
       const isClickOnToggle = toggleButton.contains(event.target);
+=======
+<script src="chooseRoom.js"></script>
+<script src="BookingDetailsLoader.js"></script>
+<script src="payment.js"></script>
+<script src="PaymentAllMostDone.js"></script>
+
+<script>
+  /* Dashboard Enhanced Script
+   - Safe drop-in: does not rename or remove existing IDs/classes
+   - Adds defensive checks, robust booking-details flow, and fixes for previous errors
+*/
+
+  // ---------- Small helpers ----------
+  function el(id) { return document.getElementById(id); }
+  function elAll(sel) { return Array.from(document.querySelectorAll(sel)); }
+  function safeLog(...args) { console.log('[Dashboard]', ...args); }
+
+  // ---------- loadHtmlIntoContainer (keeps CSS/JS, avoids duplicates) ----------
+  async function loadHtmlIntoContainer(url, container) {
+    try {
+      const absoluteUrl = new URL(url, window.location.href).href;
+      const res = await fetch(absoluteUrl);
+      if (!res.ok) throw new Error(`Failed to load ${url}: ${res.status}`);
+      const text = await res.text();
+
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(text, 'text/html');
+
+      // Add stylesheets if not already added
+      doc.querySelectorAll('link[rel="stylesheet"]').forEach(link => {
+        try {
+          const href = new URL(link.getAttribute('href'), absoluteUrl).href;
+          if (!document.querySelector(`link[href="${href}"]`)) {
+            const newLink = document.createElement('link');
+            newLink.rel = 'stylesheet';
+            newLink.href = href;
+            document.head.appendChild(newLink);
+          }
+        } catch (err) { console.warn('Invalid stylesheet href', err); }
+      });
+
+      // Append inline <style> blocks if not duplicate
+      doc.querySelectorAll('style').forEach(style => {
+        const exists = Array.from(document.head.querySelectorAll('style')).some(s => s.textContent === style.textContent);
+        if (!exists) document.head.appendChild(style.cloneNode(true));
+      });
+
+      // Inject content
+      container.innerHTML = doc.body.innerHTML;
+
+      // Execute scripts: inline scripts + external ones (insert to container)
+      // We use synchronous insertion (no async) to preserve order
+      const scripts = doc.querySelectorAll('script');
+      for (const oldScript of scripts) {
+        const s = document.createElement('script');
+        if (oldScript.src) {
+          // absolute src
+          s.src = new URL(oldScript.getAttribute('src'), absoluteUrl).href;
+          s.async = false;
+        } else {
+          s.textContent = oldScript.textContent;
+        }
+        container.appendChild(s);
+      }
+    } catch (err) {
+      console.error('Error loading HTML into container:', err);
+      throw err;
+    }
+  }
+
+  // ---------- Scrolling helpers (preserve your element IDs) ----------
+  function scrollProperties(direction) {
+    const container = el('propertiesContainer');
+    if (container) {
+      const amount = (direction === 'left' ? -300 : 300);
+      container.scrollBy({ left: amount, behavior: 'smooth' });
+    } else {
+      console.warn('propertiesContainer not found');
+    }
+  }
+  function scrollHomes(direction) {
+    const container = el('homesContainer');
+    if (container) {
+      const amount = (direction === 'left' ? -300 : 300);
+      container.scrollBy({ left: amount, behavior: 'smooth' });
+    } else {
+      console.warn('homesContainer not found');
+    }
+  }
+
+  // ---------- Refresh dynamic section content (used when returning to dashboard) ----------
+  function refreshSectionContent(previousPage) {
+    try {
+      if (!previousPage) return;
+      if (previousPage === 'invite-team') {
+        const hotelBookingContent = el('hotel-booking-content-area');
+        if (!hotelBookingContent) return;
+        const url = '../../FrountEnd/CustomerSection/AboutHotelBooking/HotelBookingPage.html?_=' + Date.now();
+        loadHtmlIntoContainer(url, hotelBookingContent)
+                .then(() => {
+                  if (typeof initializeHotelCityPage === 'function') initializeHotelCityPage();
+                  // reattach choose button if it exists inside loaded content
+                  try {
+                    const chooseBtn = hotelBookingContent.querySelector('.choose-room-btn');
+                    if (chooseBtn) {
+                      chooseBtn.onclick = function (e) {
+                        e.preventDefault();
+                        if (typeof openChooseRoomFromHotel === 'function') openChooseRoomFromHotel();
+                      };
+                    }
+                  } catch (err) {
+                    console.error('Error re-attaching choose-room handler: ', err);
+                  }
+                })
+                .catch(err => console.error('Error refreshing invite-team content:', err));
+      } else if (previousPage === 'bookings') {
+        const mainContent = el('main-content-area');
+        if (!mainContent) return;
+        const url = '../../FrountEnd/HomePage/CustomerInterFace.html?_=' + Date.now();
+        loadHtmlIntoContainer(url, mainContent)
+                .then(() => {
+                  // re-init functions if they exist
+                  if (typeof initializeFavorites === 'function') initializeFavorites();
+                  if (typeof initializeTabSwitching === 'function') initializeTabSwitching();
+                  if (typeof initializeExploreDestinations === 'function') initializeExploreDestinations();
+                  if (typeof initializeTripPlanner === 'function') initializeTripPlanner();
+                  if (typeof initializeSearchFunctionality === 'function') initializeSearchFunctionality();
+                  if (typeof initializeCategoryButtons === 'function') initializeCategoryButtons();
+                  if (typeof initializeDestinationClicks === 'function') initializeDestinationClicks();
+                  if (typeof initializeInputEffects === 'function') initializeInputEffects();
+                  if (typeof loadHotels === 'function') loadHotels();
+                })
+                .catch(err => console.error('Error refreshing bookings content:', err));
+      } else if (previousPage === 'choose-room') {
+        const chooseRoomContent = el('choose-room-content-area');
+        if (!chooseRoomContent) return;
+        const url = '../../FrountEnd/CustomerSection/ChooseROOM/chooseRoom.html?_=' + Date.now();
+        loadHtmlIntoContainer(url, chooseRoomContent)
+                .then(() => { if (typeof initializeChooseRoomPage === 'function') initializeChooseRoomPage(); })
+                .catch(err => console.error('Error refreshing choose-room content:', err));
+      }
+    } catch (err) {
+      console.error('refreshSectionContent error:', err);
+    }
+  }
+
+  // ---------- Navigation handler (menu) ----------
+  // We'll only attach if .menu-item elements exist
+  (function setupMenuNavigation() {
+    const menuItems = elAll('.menu-item');
+    const pageContents = elAll('.page-content');
+    const dashboardContent = document.querySelector('.dashboard-content') || null;
+    const topHeader = document.querySelector('.top-header') || null;
+    const searchSection = document.querySelector('.search-section') || null;
+
+    if (!menuItems || menuItems.length === 0) {
+      safeLog('No menu items found; skipping menu wiring');
+      return;
+    }
+
+    menuItems.forEach(item => {
+      item.addEventListener('click', function () {
+        // ensure dataset.page exists
+        const targetPage = this.dataset ? this.dataset.page : undefined;
+        if (!targetPage) {
+          console.warn('Clicked menu item has no data-page attribute; ignoring');
+          return;
+        }
+
+        // Determine currently visible page id (if any)
+        const visiblePageEl = pageContents.find(p => !p.classList.contains('hidden')) || null;
+        const visiblePage = visiblePageEl ? visiblePageEl.id.replace(/-page$/, '') : (dashboardContent && getComputedStyle(dashboardContent).display !== 'none' ? 'dashboard' : null);
+
+        // If leaving invite-team mark for refresh on return
+        if (visiblePage === 'invite-team' && targetPage !== 'invite-team') {
+          try { sessionStorage.setItem('inviteLeft', 'true'); } catch (e) { /* ignore */ }
+        }
+
+        // Update active UI classes
+        menuItems.forEach(mi => mi.classList.remove('active'));
+        this.classList.add('active');
+
+        // Hide all page containers
+        pageContents.forEach(p => p.classList.add('hidden'));
+        if (dashboardContent) dashboardContent.style.display = 'none';
+
+        // Dashboard special-case -> show and refresh previous section
+        if (targetPage === 'dashboard') {
+          if (dashboardContent) dashboardContent.style.display = 'block';
+          if (topHeader) topHeader.style.display = 'flex';
+          if (searchSection) searchSection.style.display = 'block';
+          try {
+            if (visiblePage && visiblePage !== 'dashboard') refreshSectionContent(visiblePage);
+          } catch (err) { console.error('Error refreshing previous section on dashboard entry:', err); }
+          return;
+        }
+
+        // Hide header/search on subpages
+        if (topHeader) topHeader.style.display = 'none';
+        if (searchSection) searchSection.style.display = 'none';
+        if (dashboardContent) dashboardContent.style.display = 'none';
+
+        // Reveal the target page element if exists
+        const targetPageElement = el(targetPage + '-page');
+        if (targetPageElement) targetPageElement.classList.remove('hidden');
+
+        // Special handling for booking-details page
+        if (targetPage === 'booking-details') {
+          const bookingDetailsPage = el('booking-details-page');
+          const bookingDetailsContent = el('booking-details-content-area');
+
+          if (bookingDetailsPage && bookingDetailsContent) {
+            const bookingDetailsJson = sessionStorage.getItem('currentBookingDetails');
+            if (bookingDetailsJson) {
+              const bookingCandidates = [
+                'BookingDetailsLoader.html',
+                './BookingDetailsLoader.html',
+                '../BookingDetailsLoader.html',
+                '../../BookingDetailsLoader.html',
+                '../../FrountEnd/CustomerSection/BookingDetails/BookingDetailsLoader.html',
+                '../CustomerSection/BookingDetails/BookingDetailsLoader.html',
+                '/FrountEnd/CustomerSection/BookingDetails/BookingDetailsLoader.html',
+                window.location.origin + '/AAD-Final-Project/FrountEnd/CustomerSection/BookingDetails/BookingDetailsLoader.html'
+              ];
+
+              (function tryCandidatesAndLoad(candidates, container) {
+                let tried = [];
+                const tryOne = (idx) => {
+                  if (idx >= candidates.length) {
+                    const msg = 'None of the candidate paths worked. Tried: ' + JSON.stringify(tried);
+                    console.error(msg);
+                    container.innerHTML = '<div style="padding:20px">Failed to load booking details page. (tried multiple paths)</div>';
+                    return Promise.reject(new Error(msg));
+                  }
+                  const p = candidates[idx];
+                  tried.push(p);
+                  const absolute = new URL(p, window.location.href).href;
+                  return fetch(absolute, { method: 'GET', cache: 'no-store' })
+                          .then(res => {
+                            if (res.ok) {
+                              return loadHtmlIntoContainer(absolute, container).then(() => absolute);
+                            } else {
+                              console.debug('tryCandidatesAndLoad: not ok', res.status, absolute);
+                              return tryOne(idx + 1);
+                            }
+                          })
+                          .catch(err => {
+                            console.debug('tryCandidatesAndLoad fetch failed for', absolute, err);
+                            return tryOne(idx + 1);
+                          });
+                };
+
+                return tryOne(0)
+                        .then(found => {
+                          console.log('Loaded booking details from', found);
+                          if (typeof window.initializeBookingDetailsPage === 'function') {
+                            try { window.initializeBookingDetailsPage(); } catch (e) { console.warn(e); }
+                          } else {
+                            setTimeout(() => { if (typeof window.initializeBookingDetailsPage === 'function') window.initializeBookingDetailsPage(); }, 150);
+                          }
+                        })
+                        .catch(err => {
+                          console.error('Error loading booking details content:', err);
+                        });
+              })(bookingCandidates, bookingDetailsContent);
+            } else {
+              bookingDetailsContent.innerHTML = `
+        <div style="padding: 40px; text-align: center; background: white; border-radius: 8px; margin: 20px;">
+          <i class="fas fa-file-invoice" style="font-size: 48px; color: #0071c2; margin-bottom: 20px;"></i>
+          <h3 style="color: #262626; margin-bottom: 16px;">No Booking Details Available</h3>
+          <p style="color: #6b6b6b; margin-bottom: 32px;">Complete a booking to view details here.</p>
+          <button onclick="document.querySelector('[data-page=\\'manage-team\\']') && document.querySelector('[data-page=\\'manage-team\\']').click()"
+                  style="background: #0071c2; color: white; border: none; padding: 12px 24px; border-radius: 4px; margin-top: 16px; cursor: pointer;">
+            Start Booking
+          </button>
+        </div>`;
+            }
+            bookingDetailsPage.classList.remove('hidden');
+          }
+          return;
+        }
+
+        // bookings page -> load main content module
+        if (targetPage === 'bookings') {
+          const mainContent = el('main-content-area');
+          if (mainContent) {
+            loadHtmlIntoContainer('../../FrountEnd/HomePage/CustomerInterFace.html', mainContent)
+                    .then(() => {
+                      if (typeof initializeFavorites === 'function') initializeFavorites();
+                      if (typeof initializeTabSwitching === 'function') initializeTabSwitching();
+                      if (typeof initializeExploreDestinations === 'function') initializeExploreDestinations();
+                      if (typeof initializeTripPlanner === 'function') initializeTripPlanner();
+                      if (typeof initializeSearchFunctionality === 'function') initializeSearchFunctionality();
+                      if (typeof initializeCategoryButtons === 'function') initializeCategoryButtons();
+                      if (typeof initializeDestinationClicks === 'function') initializeDestinationClicks();
+                      if (typeof initializeInputEffects === 'function') initializeInputEffects();
+                      if (typeof loadHotels === 'function') loadHotels();
+                    })
+                    .catch(err => console.error('Error loading bookings content:', err));
+          }
+          return;
+        }
+
+        // invite-team -> load hotel booking page (with cache-buster when returning)
+        if (targetPage === 'invite-team') {
+          const inviteTeamPage = el('invite-team-page');
+          const hotelBookingContent = el('hotel-booking-content-area');
+          if (inviteTeamPage && hotelBookingContent) {
+            const inviteLeft = sessionStorage.getItem('inviteLeft') === 'true';
+            if (inviteLeft) hotelBookingContent.innerHTML = '';
+            const url = '../../FrountEnd/CustomerSection/AboutHotelBooking/HotelBookingPage.html' + (inviteLeft ? '?_=' + Date.now() : '');
+            loadHtmlIntoContainer(url, hotelBookingContent)
+                    .then(() => {
+                      if (typeof initializeHotelCityPage === 'function') initializeHotelCityPage();
+                      // Attach choose-room button handler if exists
+                      try {
+                        const chooseBtn = hotelBookingContent.querySelector('.choose-room-btn');
+                        if (chooseBtn) {
+                          chooseBtn.onclick = function (e) {
+                            e.preventDefault();
+                            if (typeof openChooseRoomFromHotel === 'function') openChooseRoomFromHotel();
+                          };
+                        }
+                      } catch (err) { console.error('Error attaching choose-room handler:', err); }
+                      try { sessionStorage.setItem('inviteLeft', 'false'); } catch (e) {}
+                    })
+                    .catch(err => {
+                      console.error('Error loading hotel booking content:', err);
+                      hotelBookingContent.innerHTML = '<div style="padding:20px">Failed to load hotel booking content. Please try again.</div>';
+                    });
+            inviteTeamPage.classList.remove('hidden');
+          }
+          return;
+        }
+
+        // choose-room page -> load chooseRoom.html
+        if (targetPage === 'choose-room') {
+          const chooseRoomPage = el('choose-room-page');
+          const chooseRoomContent = el('choose-room-content-area');
+          if (chooseRoomPage && chooseRoomContent) {
+            loadHtmlIntoContainer('../../FrountEnd/CustomerSection/ChooseROOM/chooseRoom.html', chooseRoomContent)
+                    .then(() => { if (typeof initializeChooseRoomPage === 'function') initializeChooseRoomPage(); })
+                    .catch(err => { console.error('Error loading choose-room content:', err); });
+            chooseRoomPage.classList.remove('hidden');
+          } else {
+            console.warn('choose-room page or content area missing');
+          }
+          return;
+        }
+
+        // Default: other pages will just be visible by the generic show above
+
+// ---------- payment (loads external payment.html into payment-page) ----------
+        // ---------- payment: load payment into an isolated iframe (prevents CSS collisions) ----------
+        if (targetPage === 'payment') {
+          const paymentPage = el('payment-page');
+          if (!paymentPage) {
+            console.warn('payment-page element not found in DOM');
+            return;
+          }
+
+          // remove any previous iframe (clean re-open)
+          const prev = paymentPage.querySelector('iframe#payment-iframe');
+          if (prev) prev.remove();
+
+          // create frame container (keeps page header/placeholder unchanged)
+          let iframe = document.createElement('iframe');
+          iframe.id = 'payment-iframe';
+          iframe.style.width = '100%';
+          iframe.style.minHeight = '600px'; // adjust as needed
+          iframe.style.height = 'calc(100vh - 160px)'; // optional: full-ish height
+          iframe.style.border = '0';
+          iframe.sandbox = 'allow-same-origin allow-scripts allow-forms allow-modals'; // same-origin + scripts
+          // if your payment.html is on same origin, you can call iframe.contentWindow functions
+
+          // Set src to the path (adjust path to your project)
+          iframe.src = '../../FrountEnd/CustomerSection/Payment/payment.html';
+
+          // append without removing the page header/placeholder content
+          paymentPage.appendChild(iframe);
+
+          // Optional: call initializer inside iframe after loaded (same-origin required)
+          iframe.addEventListener('load', () => {
+            try {
+              const win = iframe.contentWindow;
+              if (win && typeof win.initializePaymentPage === 'function') {
+                win.initializePaymentPage();
+              }
+            } catch (e) {
+              // cross-origin or missing initializer
+              console.warn('Could not call initializePaymentPage in iframe (maybe cross-origin):', e);
+            }
+          });
+
+          paymentPage.classList.remove('hidden');
+          return;
+        }
+
+      });
+    });
+  })();
+
+  // ---------- Booking details navigation helpers ----------
+  function loadBookingDetails() {
+    const bookingDetailsBtn = document.querySelector('[data-page="booking-details"]');
+    if (bookingDetailsBtn) bookingDetailsBtn.click();
+    else navigateToBookingDetailsDirectly();
+  }
+  function navigateToBookingDetailsDirectly() {
+    // hide all page-content containers
+    elAll('.page-content').forEach(p => p.classList.add('hidden'));
+    if (el('dashboard-content')) el('dashboard-content').style.display = 'none';
+    if (document.querySelector('.top-header')) document.querySelector('.top-header').style.display = 'none';
+    if (document.querySelector('.search-section')) document.querySelector('.search-section').style.display = 'none';
+
+    let bookingDetailsPage = el('booking-details-page');
+    if (!bookingDetailsPage) {
+      bookingDetailsPage = document.createElement('div');
+      bookingDetailsPage.id = 'booking-details-page';
+      bookingDetailsPage.className = 'page-content';
+      bookingDetailsPage.innerHTML = '<div id="booking-details-content-area"></div>';
+      const mainContent = document.querySelector('.main-content') || document.body;
+      mainContent.appendChild(bookingDetailsPage);
+    }
+
+    const bookingDetailsContent = el('booking-details-content-area') || bookingDetailsPage.querySelector('#booking-details-content-area');
+
+    // attempt to load the booking details content
+    const bookingDetailsJson = sessionStorage.getItem('currentBookingDetails');
+    if (bookingDetailsJson) {
+      loadHtmlIntoContainer('../../FrountEnd/CustomerSection/BookingDetails/BookingDetailsLoader.html', bookingDetailsContent)
+
+              .then(() => {
+                if (typeof window.initializeBookingDetailsPage === 'function') window.initializeBookingDetailsPage();
+              })
+              .catch(err => {
+                console.error('Error loading booking details:', err);
+                bookingDetailsContent.innerHTML = '<div style="padding:20px">Failed to load booking details.</div>';
+              });
+    } else {
+      bookingDetailsContent.innerHTML = `
+      <div style="padding: 40px; text-align: center; background: white; border-radius: 8px; margin: 20px;">
+        <i class="fas fa-file-invoice" style="font-size: 48px; color: #0071c2; margin-bottom: 20px;"></i>
+        <h3 style="color: #262626; margin-bottom: 16px;">No Booking Details Available</h3>
+        <p style="color: #6b6b6b; margin-bottom: 32px;">Complete a booking first to view your booking details here.</p>
+        <button onclick="document.querySelector('[data-page=\\'manage-team\\']') && document.querySelector('[data-page=\\'manage-team\\']').click()"
+                style="background: #0071c2; color: white; border: none; padding: 12px 24px; border-radius: 4px; margin-top: 16px; cursor: pointer;">
+          Start Booking
+        </button>
+      </div>`;
+    }
+
+    bookingDetailsPage.classList.remove('hidden');
+    // update sidebar active state
+    elAll('.menu-item').forEach(mi => mi.classList.remove('active'));
+    const bookingMenu = document.querySelector('[data-page="booking-details"]');
+    if (bookingMenu) bookingMenu.classList.add('active');
+  }
+
+  // expose globally
+  window.loadBookingDetails = loadBookingDetails;
+  window.navigateToBookingDetailsDirectly = navigateToBookingDetailsDirectly;
+
+  // ---------- Open Choose Room from Hotel (supports optional hotelId param) ----------
+  async function openChooseRoomFromHotel(hotelId) {
+    try {
+      if (hotelId) {
+        try { sessionStorage.setItem('selectedHotelId', hotelId); } catch (e) {}
+      }
+
+      const chooseRoomContent = el('choose-room-content-area');
+      const chooseRoomPage = el('choose-room-page');
+      const manageTeamPage = el('manage-team-page');
+
+      // If chooseRoom area does not exist, fallback to injecting into manage-team
+      if (!chooseRoomContent) {
+        if (!manageTeamPage) {
+          console.warn('No choose-room container or manage-team page found.');
+          return;
+        }
+        // create temp container inside manage-team
+        manageTeamPage.innerHTML = '<div id="temp-choose-room-content"></div>';
+        const tempContainer = el('temp-choose-room-content');
+        const url = '../../FrountEnd/CustomerSection/ChooseROOM/chooseRoom.html' + (hotelId ? '?id=' + hotelId : '');
+        await loadHtmlIntoContainer(url, tempContainer);
+        manageTeamPage.classList.remove('hidden');
+        elAll('.menu-item').forEach(mi => mi.classList.remove('active'));
+        const manageBtn = document.querySelector('[data-page="manage-team"]');
+        if (manageBtn) manageBtn.classList.add('active');
+        return;
+      }
+
+      const url = '../../FrountEnd/CustomerSection/ChooseROOM/chooseRoom.html' + (hotelId ? '?id=' + hotelId : '');
+      await loadHtmlIntoContainer(url, chooseRoomContent);
+      // hide other pages and show choose-room page
+      elAll('.page-content').forEach(p => p.classList.add('hidden'));
+      if (el('dashboard-content')) el('dashboard-content').style.display = 'none';
+      chooseRoomPage && chooseRoomPage.classList.remove('hidden');
+      elAll('.menu-item').forEach(mi => mi.classList.remove('active'));
+      const sidebarChoose = elAll('.menu-item').find(m => m.dataset.page === 'choose-room' || m.dataset.page === 'manage-team');
+      if (sidebarChoose) sidebarChoose.classList.add('active');
+    } catch (err) {
+      console.error('openChooseRoomFromHotel error:', err);
+    }
+  }
+  window.openChooseRoomFromHotel = openChooseRoomFromHotel;
+
+  // Enhanced wrapper to accept callback when booking completes
+  async function openChooseRoomFromHotelEnhanced(hotelId, onBookingComplete) {
+    try {
+      if (onBookingComplete) window.bookingCompleteCallback = onBookingComplete;
+      await openChooseRoomFromHotel(hotelId);
+    } catch (err) {
+      console.error('openChooseRoomFromHotelEnhanced error', err);
+    }
+  }
+  window.openChooseRoomFromHotelEnhanced = openChooseRoomFromHotelEnhanced;
+
+  // Booking completion handler (stores booking details and navigates or calls callback)
+  function handleBookingCompletion(bookingDetails) {
+    if (!bookingDetails) {
+      console.warn('handleBookingCompletion called with no bookingDetails');
+      return;
+    }
+    try {
+      sessionStorage.setItem('currentBookingDetails', JSON.stringify(bookingDetails));
+      safeLog('Saved booking details', bookingDetails);
+    } catch (e) {
+      console.error('Error saving booking details to sessionStorage', e);
+    }
+
+    if (typeof window.bookingCompleteCallback === 'function') {
+      try {
+        window.bookingCompleteCallback(bookingDetails);
+      } catch (err) {
+        console.error('bookingCompleteCallback failed', err);
+      }
+      delete window.bookingCompleteCallback;
+    } else {
+      // default: go to booking details page after a short delay
+      setTimeout(() => loadBookingDetails(), 600);
+    }
+  }
+  window.handleBookingCompletion = handleBookingCompletion;
+
+  // ---------- Utility: disable booked room in UI (called after booking success) ----------
+  function disableRoomInUI(roomId) {
+    const container = el('room-cards');
+    if (!container) return;
+    const btn = container.querySelector(`.room-book-btn[data-roomid="${roomId}"]`);
+    if (btn) {
+      btn.disabled = true;
+      btn.innerText = 'Unavailable ❌';
+      btn.style.background = '#ccc';
+      btn.style.cursor = 'not-allowed';
+      const card = btn.closest('.room-card');
+      if (card) card.classList.add('unavailable');
+    }
+  }
+  window.disableRoomInUI = disableRoomInUI;
+
+  // ---------- Test helper: create sample booking (safe demo) ----------
+  function createSampleBookingDetails() {
+    const sampleBookingDetails = {
+      bookingId: 'BOOK123456',
+      roomName: 'Deluxe Suite',
+      totalPrice: '250.00',
+      checkIn: '2024-01-15',
+      checkOut: '2024-01-17',
+      guests: '2',
+      hotelName: 'Grand Hotel',
+      hotelAddress: '123 Main Street, City Center',
+      hotelLocation: 'New York, NY',
+      bookingDate: new Date().toISOString(),
+      hotelDetails: {
+        name: 'Grand Hotel',
+        address: '123 Main Street, City Center',
+        location: 'New York, NY',
+        rating: '9.1',
+        stars: '★★★★★',
+        description: 'Luxury hotel in the heart of the city',
+        pricePerNight: '125',
+        image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=600&fit=crop'
+      }
+    };
+    sessionStorage.setItem('currentBookingDetails', JSON.stringify(sampleBookingDetails));
+    console.log('Sample booking details created');
+    alert('Sample booking details created! You can now view the Booking Details page.');
+  }
+  window.createSampleBookingDetails = createSampleBookingDetails;
+
+  // ---------- Mobile menu toggle & outside click close ----------
+  const mobileMenuToggle = el('mobileMenuToggle');
+  if (mobileMenuToggle) {
+    mobileMenuToggle.addEventListener('click', function (e) {
+      e.stopPropagation();
+      const sidebar = el('sidebar');
+      if (sidebar) sidebar.classList.toggle('active');
+    });
+  }
+  document.addEventListener('click', function (ev) {
+    const sidebar = el('sidebar');
+    const toggleButton = el('mobileMenuToggle');
+    if (toggleButton && sidebar && window.innerWidth <= 768) {
+      const isClickInsideSidebar = sidebar.contains(ev.target);
+      const isClickOnToggle = toggleButton.contains(ev.target);
+>>>>>>> 0eb3d42 (commit 1)
       if (!isClickInsideSidebar && !isClickOnToggle) sidebar.classList.remove('active');
     }
   });
 
+<<<<<<< HEAD
   // ====== Greeting Method ======
   function parseJwt(token) {
     try {
@@ -820,15 +1495,295 @@
           } else {
             greetingElement.textContent = `${timeGreeting}, User`;
             console.error("Error fetching greeting:", xhr.responseText);
+=======
+  // ---------- JWT parse & greeting ----------
+  function parseJwt(token) {
+    try {
+      const payload = token.split('.')[1];
+      return JSON.parse(atob(payload));
+    } catch (e) {
+      console.error('Invalid JWT:', e);
+      return null;
+    }
+  }
+  function updateGreeting() {
+    const greetingElement = el('greeting-text');
+    if (!greetingElement) return;
+
+    const now = new Date();
+    const hour = now.getHours();
+    let timeGreeting = 'Good day';
+    if (hour >= 5 && hour < 12) timeGreeting = 'Good morning';
+    else if (hour >= 12 && hour < 18) timeGreeting = 'Good afternoon';
+    else timeGreeting = 'Good evening';
+
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      greetingElement.textContent = `${timeGreeting}, User`;
+      return;
+    }
+
+    // If jQuery is available, use it for the existing endpoint; otherwise fallback to fetch
+    if (window.jQuery) {
+      $.ajax({
+        url: 'http://localhost:8080/hello/user',
+        method: 'GET',
+        headers: { 'Authorization': 'Bearer ' + token },
+        success: function () {
+          const payload = parseJwt(token);
+          greetingElement.textContent = payload && payload.sub ? `${timeGreeting}, ${payload.sub}` : `${timeGreeting}, User`;
+        },
+        error: function (xhr) {
+          if (xhr.status === 403) {
+            window.location.href = 'admin-dashboard.html';
+          } else if (xhr.status === 401) {
+            localStorage.removeItem('accessToken');
+            window.location.href = '../loging.html';
+          } else {
+            greetingElement.textContent = `${timeGreeting}, User`;
+            console.error('Error fetching greeting:', xhr.responseText);
+>>>>>>> 0eb3d42 (commit 1)
           }
         }
       });
     } else {
+<<<<<<< HEAD
       greetingElement.textContent = `${timeGreeting}, User`;
     }
   }
 
   document.addEventListener("DOMContentLoaded", updateGreeting);
+=======
+      // fallback fetch
+      fetch('http://localhost:8080/hello/user', {
+        method: 'GET',
+        headers: { 'Authorization': 'Bearer ' + token }
+      }).then(res => {
+        if (res.ok) {
+          const payload = parseJwt(token);
+          greetingElement.textContent = payload && payload.sub ? `${timeGreeting}, ${payload.sub}` : `${timeGreeting}, User`;
+        } else if (res.status === 403) {
+          window.location.href = 'admin-dashboard.html';
+        } else if (res.status === 401) {
+          localStorage.removeItem('accessToken');
+          window.location.href = '../loging.html';
+        } else {
+          greetingElement.textContent = `${timeGreeting}, User`;
+        }
+      }).catch(err => {
+        greetingElement.textContent = `${timeGreeting}, User`;
+        console.error('Error fetching greeting (fetch):', err);
+      });
+    }
+  }
+  document.addEventListener('DOMContentLoaded', updateGreeting);
+
+  // Expose some functions globally (keeps existing usages intact)
+  window.scrollProperties = scrollProperties;
+  window.scrollHomes = scrollHomes;
+  window.openChooseRoomFromHotel = openChooseRoomFromHotel;
+  window.handleBookingCompletion = handleBookingCompletion;
+  window.disableRoomInUI = disableRoomInUI;
+  window.loadHtmlIntoContainer = loadHtmlIntoContainer;
+
+
+
+  // ===============================
+  // Frontend-only fallback: loadNotifications (robust)
+  // - Fetch /api/bookings
+  // - Resolve roomType -> name (try per-id GET, fallback to GET /api/roomtypes)
+  // - Resolve hotel -> name (GET /api/hotels/{id}, unwrap ApiResponse if needed)
+  // - Skip CANCELLED rows
+  // - Attach cancel handlers
+  // ===============================
+
+  (async function debugBookings() {
+    const token = localStorage.getItem('accessToken');
+    console.log('token present?', !!token);
+
+    try {
+      const res = await fetch('http://localhost:8080/api/bookings', {
+        headers: token ? { 'Authorization': 'Bearer ' + token } : {}
+      });
+      console.log('GET /api/bookings status', res.status);
+      const json = await res.text();
+      try { console.log('bookings json (parsed):', JSON.parse(json)); }
+      catch(e){ console.log('bookings raw text:', json); }
+    } catch (err) {
+      console.error('fetch /api/bookings failed:', err);
+    }
+  })();
+
+
+  async function fetchJson(url, token, opts = {}) {
+    try {
+      const headers = opts.headers || {};
+      if (token) headers['Authorization'] = 'Bearer ' + token;
+      const res = await fetch(url, { ...opts, headers });
+      if (!res.ok) return null;
+      return await res.json();
+    } catch (e) {
+      console.warn('fetchJson error', url, e);
+      return null;
+    }
+  }
+
+  async function loadNotifications() {
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      console.warn('No token found - cannot load notifications');
+      return;
+    }
+
+    try {
+      // 1) Load bookings
+      const bookings = await fetchJson('http://localhost:8080/api/bookings', token);
+      if (!bookings || !Array.isArray(bookings)) {
+        console.error('Bookings response invalid', bookings);
+        return;
+      }
+
+      // 2) Collect unique roomTypeIds (support multiple naming conventions)
+      const roomIdsSet = new Set();
+      for (const b of bookings) {
+        const rid = b.roomTypeId ?? b.room_type_id ?? b.room_typeid ?? b.room_type ?? null;
+        if (rid != null) roomIdsSet.add(String(rid));
+      }
+      const roomIds = Array.from(roomIdsSet);
+
+      // 3) Try to fetch room types individually
+      const roomMap = new Map(); // id -> roomObj
+      if (roomIds.length > 0) {
+        const roomFetches = roomIds.map(id =>
+                fetchJson(`http://localhost:8080/api/roomtypes/${id}`, token)
+                        .then(r => ({ id, r }))
+        );
+        const roomResults = await Promise.all(roomFetches);
+        for (const { id, r } of roomResults) {
+          if (r) {
+            // normalize returned object (if it's wrapped)
+            const payload = r.data ?? r;
+            roomMap.set(String(id), payload);
+          }
+        }
+
+        // 3b) If any roomId didn't return individually, try bulk GET /api/roomtypes (if available)
+        const missing = roomIds.filter(id => !roomMap.has(String(id)));
+        if (missing.length > 0) {
+          const bulk = await fetchJson('http://localhost:8080/api/roomtypes', token);
+          if (Array.isArray(bulk)) {
+            bulk.forEach(rt => {
+              const payload = rt.data ?? rt;
+              const idStr = String(payload.id ?? payload.roomTypeId ?? payload.id);
+              if (idStr) roomMap.set(idStr, payload);
+            });
+          }
+        }
+      }
+
+      // 4) Collect hotelIds from roomMap and fetch hotels
+      const hotelIdsSet = new Set();
+      for (const room of roomMap.values()) {
+        const hid = room.hotelId ?? room.hotel_id ?? room.hotel ?? null;
+        if (hid != null) hotelIdsSet.add(String(hid));
+      }
+      const hotelMap = new Map(); // id -> hotelObj
+      if (hotelIdsSet.size > 0) {
+        const hotelFetches = Array.from(hotelIdsSet).map(id =>
+                fetchJson(`http://localhost:8080/api/hotels/${id}`, token).then(r => ({ id, r }))
+        );
+        const hotelResults = await Promise.all(hotelFetches);
+        for (const { id, r } of hotelResults) {
+          if (!r) continue;
+          // hotel controller may return ApiResponse wrapper { data: {...} }
+          const payload = r.data ?? r;
+          hotelMap.set(String(id), payload);
+        }
+      }
+
+      // 5) Render table (skip CANCELLED rows)
+      const tbody = document.querySelector('#notifications-booking-table tbody');
+      if (!tbody) {
+        console.error('#notifications-booking-table tbody not found');
+        return;
+      }
+      tbody.innerHTML = '';
+
+      bookings.forEach(b => {
+        const status = (b.status ?? b.bookingStatus ?? '').toString().toUpperCase();
+        if (status === 'CANCELLED') return; // skip cancelled rows
+
+        const rtId = String(b.roomTypeId ?? b.room_type_id ?? b.room_typeid ?? b.room_type ?? '');
+        const room = roomMap.get(rtId) || {};
+        const hotel = hotelMap.get(String(room.hotelId ?? room.hotel_id ?? room.hotel ?? '')) || {};
+
+        const hotelName = (b.hotelName ?? b.hotel_name ?? hotel.name ?? hotel.data?.name) || '-';
+        const roomName = (b.roomTypeName ?? b.room_type_name ?? room.name ?? room.data?.name) || '-';
+        const checkIn = b.checkInDate ?? b.check_in_date ?? '-';
+        const checkOut = b.checkOutDate ?? b.check_out_date ?? '-';
+        const guests = b.guests ?? b.noOfGuests ?? b.no_of_guests ?? '-';
+        const total = b.totalPrice ?? b.total_price ?? b.total ?? '-';
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+        <td>${b.id}</td>
+        <td>${hotelName}</td>
+        <td>${roomName}</td>
+        <td>${checkIn}</td>
+        <td>${checkOut}</td>
+        <td class="text-success">${status}</td>
+        <td>${guests}</td>
+        <td>${total}</td>
+        <td>
+          <button class="btn btn-sm btn-danger cancel-btn" data-id="${b.id}">Cancel</button>
+        </td>
+      `;
+        tbody.appendChild(tr);
+      });
+
+      // 6) Attach cancel handlers
+      document.querySelectorAll('.cancel-btn').forEach(btn => {
+        btn.addEventListener('click', async function () {
+          const bookingId = this.dataset.id;
+          if (!bookingId) return;
+          if (!confirm('Are you sure you want to cancel booking ' + bookingId + '?')) return;
+
+          try {
+            const cancelRes = await fetch(`http://localhost:8080/api/bookings/${bookingId}/cancel`, {
+              method: 'PUT',
+              headers: { 'Authorization': 'Bearer ' + token }
+            });
+            if (!cancelRes.ok) {
+              const txt = await cancelRes.text().catch(()=>null);
+              throw new Error('Cancel failed: ' + (txt || cancelRes.status));
+            }
+
+            // success — reload notifications (which will now skip CANCELLED rows)
+            await loadNotifications();
+            // optional user feedback
+            alert('Booking cancelled successfully');
+          } catch (err) {
+            console.error('Cancel error', err);
+            alert('Failed to cancel booking. See console for details.');
+          }
+        });
+      });
+
+    } catch (err) {
+      console.error('loadNotifications general error', err);
+    }
+  }
+
+  // hook up to notifications sidebar button
+  const notificationsMenu = document.querySelector("[data-page='notifications']");
+  if (notificationsMenu) {
+    notificationsMenu.addEventListener('click', loadNotifications);
+  }
+
+  // expose for manual reload/testing
+  window.loadNotifications = loadNotifications;
+
+>>>>>>> 0eb3d42 (commit 1)
 
 
 </script>

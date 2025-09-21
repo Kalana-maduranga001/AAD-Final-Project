@@ -7,6 +7,9 @@ package com.springproject.hospitalitymanagnet.backend.controller;
 import com.springproject.hospitalitymanagnet.backend.dto.ApiResponse;
 import com.springproject.hospitalitymanagnet.backend.dto.HotelDTO;
 import com.springproject.hospitalitymanagnet.backend.service.HotelService;
+import com.springproject.hospitalitymanagnet.backend.util.APIResponse;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -50,6 +53,7 @@ public class HotelController {
             return ResponseEntity.status(500)
                     .body(new ApiResponse(500, "Failed to save hotel with images: " + e.getMessage(), null));
         }
+<<<<<<< HEAD
     }
 
     // === CREATE WITH MULTIPART FILES (Keep existing for compatibility) ===
@@ -91,6 +95,44 @@ public class HotelController {
         }
     }
 
+=======
+    }
+
+    // === CREATE WITH MULTIPART FILES (Keep existing for compatibility) ===
+    @PostMapping(value = "/withImage", consumes = {"multipart/form-data"})
+    public ResponseEntity<ApiResponse> createHotelWithImage(
+            @RequestPart("hotel") HotelDTO hotelDTO,
+            @RequestPart(value = "images", required = false) List<MultipartFile> images) {
+
+        try {
+            // Delegate saving to the service layer
+            HotelDTO savedHotel = hotelService.saveHotelWithImages(hotelDTO, images);
+
+            return ResponseEntity.ok(
+                    new ApiResponse(200, "Hotel + Images saved successfully", savedHotel)
+            );
+
+        } catch (Exception e) {
+            return ResponseEntity.status(500)
+                    .body(new ApiResponse(500, "Failed to save hotel: " + e.getMessage(), null));
+        }
+    }
+
+    // === UPDATE WITH CLOUDINARY SUPPORT ===
+//    @PutMapping("/{id}")
+//    public ResponseEntity<ApiResponse> updateHotel(@PathVariable Integer id, @RequestBody HotelDTO hotelDTO) {
+//        try {
+//            // Set the ID from path parameter to ensure consistency
+//            hotelDTO.setId(id);
+//            HotelDTO updatedHotel = hotelService.updateHotel(id, hotelDTO);
+//            return ResponseEntity.ok(new ApiResponse(200, "Hotel updated successfully", updatedHotel));
+//        } catch (Exception e) {
+//            return ResponseEntity.status(500)
+//                    .body(new ApiResponse(500, "Failed to update hotel: " + e.getMessage(), null));
+//        }
+//    }
+
+>>>>>>> 0eb3d42 (commit 1)
     // === UPDATE WITH CLOUDINARY IMAGES (Alternative endpoint) ===
     @PutMapping("/updateWithImages/{id}")
     public ResponseEntity<ApiResponse> updateHotelWithCloudinaryImages(@PathVariable Integer id, @RequestBody HotelDTO hotelDTO) {
@@ -174,4 +216,30 @@ public class HotelController {
         }
     }
 
+<<<<<<< HEAD
+=======
+    // inside com.springproject.hospitalitymanagnet.backend.controller.HotelController
+    @PutMapping("/{id}")
+    public ResponseEntity<APIResponse> updateHotel(@PathVariable Integer id, @RequestBody HotelDTO hotelDTO) {
+        try {
+            HotelDTO updated = hotelService.updateHotel(id, hotelDTO);
+            return ResponseEntity.ok(new APIResponse(200, "Hotel updated successfully", updated));
+        } catch (IllegalStateException ise) {
+            // Business rule violation (e.g. "Cannot remove RoomType 176 ...")
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(new APIResponse(409, ise.getMessage(), null));
+        } catch (DataIntegrityViolationException dive) {
+            // DB constraint/foreign-key race fallback
+            String detail = dive.getMostSpecificCause() != null ? dive.getMostSpecificCause().getMessage() : dive.getMessage();
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(new APIResponse(409, "Database constraint prevented the operation. " + detail, null));
+        } catch (Exception ex) {
+            // fallback to previous generic behavior if you have it
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new APIResponse(500, ex.getMessage(), "server error"));
+        }
+    }
+
+
+>>>>>>> 0eb3d42 (commit 1)
 }

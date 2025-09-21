@@ -15,6 +15,10 @@ import java.util.List;
 @Entity
 @Table(name = "hotels")
 public class Hotel {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0eb3d42 (commit 1)
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
      private Integer id;
@@ -39,7 +43,12 @@ public class Hotel {
      @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
      private List<HotelImage> images;
 
-     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
+     // ✅ changed here: do not remove room types automatically to avoid FK error
+     @OneToMany(
+             mappedBy = "hotel",
+             cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+             orphanRemoval = false
+     )
      private List<RoomType> roomTypes;
 
      @ManyToMany

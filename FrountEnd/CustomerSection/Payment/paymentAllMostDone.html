@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Almost Done - Booking Confirmation</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #003580, #0057b8);
+      color: white;
+      padding: 15px 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .currency {
+      background: rgba(255,255,255,0.1);
+      padding: 8px 15px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .trust-badges {
+      background: white;
+      padding: 15px 0;
+      text-align: center;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .trust-badges-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      padding: 0 20px;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .trust-icon {
+      width: 20px;
+      height: 20px;
+      background: #28a745;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 12px;
+    }
+
+    .progress-steps {
+      background: white;
+      padding: 20px 0;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .steps-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      gap: 100px;
+      padding: 0 20px;
+    }
+
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      position: relative;
+    }
+
+    .step-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .step.completed .step-number {
+      background: #28a745;
+    }
+
+    .step.current .step-number {
+      background: #0066cc;
+    }
+
+    .step.pending .step-number {
+      background: #ccc;
+    }
+
+    .step-label {
+      font-weight: 500;
+      color: #333;
+    }
+
+    .main-content {
+      max-width: 1200px;
+      margin: 30px auto;
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      gap: 30px;
+      padding: 0 20px;
+    }
+
+    .booking-details {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      border: 1px solid #e0e0e0;
+    }
+
+    .success-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #28a745, #20c997);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      color: white;
+      font-size: 24px;
+    }
+
+    .title {
+      font-size: 28px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #666;
+      margin-bottom: 25px;
+      font-size: 16px;
+    }
+
+    .confirmation-section {
+      margin-bottom: 30px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #0066cc;
+      padding-bottom: 8px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .info-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .info-label {
+      font-weight: 500;
+      color: #555;
+    }
+
+    .info-value {
+      font-weight: bold;
+      color: #333;
+    }
+
+    .hotel-info {
+      background: linear-gradient(135deg, #f8f9ff, #ffffff);
+      border: 1px solid #e0e8ff;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 25px;
+    }
+
+    .hotel-name {
+      font-size: 22px;
+      font-weight: bold;
+      color: #0066cc;
+      margin-bottom: 8px;
+    }
+
+    .hotel-location {
+      color: #666;
+      margin-bottom: 15px;
+      font-size: 15px;
+    }
+
+    .stay-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .next-steps {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .next-steps h3 {
+      color: #333;
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+
+    .step-list {
+      list-style: none;
+    }
+
+    .step-list li {
+      margin-bottom: 10px;
+      padding-left: 25px;
+      position: relative;
+      color: #555;
+    }
+
+    .step-list li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #28a745;
+      font-weight: bold;
+    }
+
+    .price-summary {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      border: 1px solid #e0e0e0;
+      height: fit-content;
+    }
+
+    .price-header {
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 20px;
+      text-align: center;
+      border-bottom: 2px solid #0066cc;
+      padding-bottom: 10px;
+    }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .price-label {
+      color: #555;
+      font-weight: 500;
+    }
+
+    .price-value {
+      font-weight: bold;
+      color: #333;
+    }
+
+    .total-row {
+      border-top: 2px solid #0066cc;
+      border-bottom: none;
+      margin-top: 15px;
+      padding-top: 15px;
+    }
+
+    .total-label {
+      font-size: 18px;
+      font-weight: bold;
+      color: #28a745;
+    }
+
+    .total-value {
+      font-size: 22px;
+      font-weight: bold;
+      color: #28a745;
+    }
+
+    .support-section {
+      background: linear-gradient(135deg, #e3f2fd, #ffffff);
+      border: 1px solid #bbdefb;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .support-text {
+      color: #0066cc;
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+
+    .support-phone {
+      font-size: 20px;
+      font-weight: bold;
+      color: #0066cc;
+    }
+
+    .payment-notice {
+      background: #fff3cd;
+      border: 1px solid #ffeaa7;
+      border-radius: 8px;
+      padding: 15px;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #856404;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+      font-size: 16px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0066cc, #0052a3);
+      color: white;
+      flex: 1;
+    }
+
+    .btn-secondary {
+      background: #f8f9fa;
+      color: #0066cc;
+      border: 2px solid #0066cc;
+      flex: 1;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    @media (max-width: 768px) {
+      .main-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .steps-content {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .trust-badges-content {
+        flex-direction: column;
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+<!-- Header -->
+<div class="header">
+  <div class="header-content">
+    <div class="logo">Booking.com</div>
+    <div class="currency">$ USD</div>
+  </div>
+</div>
+
+<!-- Trust Badges -->
+<div class="trust-badges">
+  <div class="trust-badges-content">
+    <div class="trust-item">
+      <div class="trust-icon">🔒</div>
+      <span>SECURE TRANSACTIONS</span>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">🕐</div>
+      <span>24-HOUR SERVICE</span>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">💳</div>
+      <span>TRUSTED PAYMENTS</span>
+    </div>
+  </div>
+</div>
+
+<!-- Progress Steps -->
+<div class="progress-steps">
+  <div class="steps-content">
+    <div class="step completed">
+      <div class="step-number">1</div>
+      <div class="step-label">Choose Room</div>
+    </div>
+    <div class="step completed">
+      <div class="step-number">2</div>
+      <div class="step-label">Guest & Payment Details</div>
+    </div>
+    <div class="step current">
+      <div class="step-number">3</div>
+      <div class="step-label">Booking Confirmation</div>
+    </div>
+  </div>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+  <!-- Left Column - Booking Details -->
+  <div class="booking-details">
+    <div class="success-icon">✓</div>
+    <h1 class="title">Almost done!</h1>
+    <p class="subtitle">Your booking has been confirmed and payment processed successfully.</p>
+
+    <!-- Booking Confirmation -->
+    <div class="confirmation-section">
+      <h2 class="section-title">Booking Confirmation</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">Confirmation Number:</span>
+          <span class="info-value">BK-2025-789456123</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment Details -->
+    <div class="confirmation-section">
+      <h2 class="section-title">Payment Successful</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">Amount Charged:</span>
+          <span class="info-value">$771.75</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Payment Method:</span>
+          <span class="info-value">**** **** **** 4532</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Transaction Date:</span>
+          <span class="info-value">August 2, 2025</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hotel Information -->
+    <div class="hotel-info">
+      <h3 class="hotel-name">Hotel La Maison Creole</h3>
+      <p class="hotel-location">Le Gosier</p>
+      <div class="stay-details">
+        <div class="info-item">
+          <span class="info-label">Check-in:</span>
+          <span class="info-value">Saturday, August 9, 2025 (3:00 PM)</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Check-out:</span>
+          <span class="info-value">Saturday, August 16, 2025 (12:00 PM)</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Duration:</span>
+          <span class="info-value">7 nights</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Room:</span>
+          <span class="info-value">Twin Room (2 Adults)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- What's Next -->
+    <div class="next-steps">
+      <h3>What's Next?</h3>
+      <ul class="step-list">
+        <li>Confirmation email sent</li>
+        <li>Bring valid ID & credit card</li>
+        <li>Check-in starts at 3:00 PM</li>
+        <li>Download Booking.com app</li>
+      </ul>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <button class="btn btn-primary">View Full Details</button>
+      <button class="btn btn-secondary">Download Receipt</button>
+    </div>
+  </div>
+
+  <!-- Right Column - Price Summary -->
+  <div class="price-summary">
+    <h3 class="price-header">Price Summary</h3>
+
+    <div class="price-row">
+      <span class="price-label">Price per night</span>
+      <span class="price-value">$104.62</span>
+    </div>
+
+    <div class="price-row">
+      <span class="price-label">1 room</span>
+      <span class="price-value">-</span>
+    </div>
+
+    <div class="price-row">
+      <span class="price-label">Number of nights</span>
+      <span class="price-value">7</span>
+    </div>
+
+    <div class="price-row">
+      <span class="price-label">Taxes and fees</span>
+      <span class="price-value">$39.41</span>
+    </div>
+
+    <div class="price-row total-row">
+      <span class="total-label">Total charges</span>
+      <span class="total-value">$771.75</span>
+    </div>
+
+    <!-- Support Section -->
+    <div class="support-section">
+      <div class="support-text">Have questions? We're here to help!</div>
+      <div class="support-phone">(877) 757-1513</div>
+    </div>
+
+    <!-- Payment Notice -->
+    <div class="payment-notice">
+      Payment of $ -674.28 will be made in the hotel's local currency. The USD estimates provided are based on the current exchange rate. The hotel will determine the final total.
+      <br><br>
+      <strong>Information about Taxes and Fees.</strong>
+    </div>
+  </div>
+</div>
+
+<script src="PaymentAllMostDone.js"></script>
+
+</body>
+</html>

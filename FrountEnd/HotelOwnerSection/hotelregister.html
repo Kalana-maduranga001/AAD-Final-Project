@@ -617,7 +617,10 @@
                     </div>
                 </div>
 
+<<<<<<< HEAD
 <!--                Image-->
+=======
+>>>>>>> 0eb3d42 (commit 1)
                 <div class="form-section" id="images-section" style="display: none;">
                     <h4 class="mb-3"><i class="fas fa-images"></i> Hotel Images</h4>
                     <div class="image-upload">
@@ -935,7 +938,10 @@
     let currentRoomTypeIds = [];
     let currentAmenityIds = [];
     let allHotels = [];
+<<<<<<< HEAD
     let currentHotelImages = []; // <-- ADD THIS
+=======
+>>>>>>> 0eb3d42 (commit 1)
 
     async function collectFormData() {
         console.log('=== DEBUG collectFormData ===');
@@ -983,6 +989,7 @@
         console.log('Collected hotel data (without image yet):', hotelData);
 
         // Handle image upload (only if file selected)
+<<<<<<< HEAD
         // === inside collectFormData(), replace images: [], and the upload block ===
 
 // initialize images from currentHotelImages (copy) so existing images are preserved on update
@@ -992,6 +999,10 @@
         const imageInput = document.getElementById('hotelImagesInput');
         if (imageInput && imageInput.files.length > 0) {
             // You currently only take the first file — keep that or iterate all files:
+=======
+        const imageInput = document.getElementById('hotelImagesInput');
+        if (imageInput && imageInput.files.length > 0) {
+>>>>>>> 0eb3d42 (commit 1)
             const file = imageInput.files[0];
             const formData = new FormData();
             formData.append("file", file);
@@ -1005,29 +1016,60 @@
                 });
                 const cloudinaryData = await res.json();
                 if (cloudinaryData.secure_url) {
+<<<<<<< HEAD
                     // push the new URL alongside existing ones
+=======
+>>>>>>> 0eb3d42 (commit 1)
                     hotelData.images.push({
                         id: null,
                         imageUrl: cloudinaryData.secure_url
                     });
+<<<<<<< HEAD
                     // also update client copy so UI reflects selection even before server returns
                     currentHotelImages.push({
                         id: null,
                         imageUrl: cloudinaryData.secure_url
                     });
+=======
+>>>>>>> 0eb3d42 (commit 1)
                 }
             } catch (err) {
                 console.error("Error uploading image:", err);
             }
         }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0eb3d42 (commit 1)
         console.log('Final hotel data (with image):', hotelData);
         console.log('=== END DEBUG ===');
 
         return hotelData;
     }
 
+<<<<<<< HEAD
+=======
+
+    // Helper: safely read API response body (works when body is JSON or plain text)
+    async function parseApiResponse(response) {
+        const raw = await response.text();
+        let body = null;
+        try {
+            body = raw ? JSON.parse(raw) : null;
+        } catch (e) {
+            // not JSON — keep the raw message
+            body = { message: raw || response.statusText };
+        }
+        return {
+            ok: response.ok,
+            status: response.status,
+            body
+        };
+    }
+
+
+>>>>>>> 0eb3d42 (commit 1)
     // ===========================
     // Hotel Images Gallery
     // ===========================
@@ -1103,7 +1145,11 @@
             return;
         }
 
+<<<<<<< HEAD
         // FIXED: Corrected API endpoints to match controller
+=======
+        // Endpoints & method (keep your existing structure)
+>>>>>>> 0eb3d42 (commit 1)
         const url = editingMode ? `http://localhost:8080/api/hotels/${currentHotelId}`
             : "http://localhost:8080/api/hotels/create";
         const method = editingMode ? "PUT" : "POST";
@@ -1120,9 +1166,19 @@
                 body: JSON.stringify(hotelData)
             });
 
+<<<<<<< HEAD
             const result = await response.json();
 
             if (response.ok) {
+=======
+            // Robust parsing: read text first then try JSON
+            const parsed = await parseApiResponse(response);
+            const result = parsed.body || {};
+            console.log('API response:', parsed);
+
+            if (parsed.ok) {
+                // success: controller returns ApiResponse with data field
+>>>>>>> 0eb3d42 (commit 1)
                 const message = result.message || "Hotel saved successfully!";
                 alert(message);
 
@@ -1130,12 +1186,16 @@
                 currentHotelId = hotelResponse?.id || currentHotelId;
                 editingMode = true;
 
+<<<<<<< HEAD
                 // existing UI updates...
+=======
+>>>>>>> 0eb3d42 (commit 1)
                 document.getElementById('formTitle').textContent = 'Edit Hotel Details';
                 document.getElementById('submitBtnText').textContent = 'Update Hotel Details';
                 document.getElementById('updateBtn').disabled = false;
                 document.getElementById('deleteBtn').disabled = false;
 
+<<<<<<< HEAD
                 // NEW: re-load this hotel so the form previews are in sync with the DB
                 if (currentHotelId) {
                     await loadHotelById(currentHotelId);
@@ -1148,6 +1208,20 @@
         } catch (error) {
             console.error('Error saving hotel:', error);
             alert("Error saving hotel: " + error.message);
+=======
+                loadAllHotels();
+            } else {
+                // server-side error: show message from APIResponse if available
+                const message = result.message || `Failed to save hotel (status ${parsed.status})`;
+                console.error('Save hotel failed:', parsed);
+                alert("Error saving hotel: " + message);
+                throw new Error(message);
+            }
+
+        } catch (error) {
+            console.error('Error saving hotel (client):', error);
+            alert("Error saving hotel: " + (error.message || "Unexpected error"));
+>>>>>>> 0eb3d42 (commit 1)
         }
     }
 
@@ -1277,9 +1351,25 @@
                     "Content-Type": "application/json"
                 }
             });
+<<<<<<< HEAD
 
             const result = await response.json();
 
+=======
+            const result = await response.json();
+
+
+            const parsed = await parseApiResponse(response);
+            if (parsed.ok) {
+                alert(result.message || "Hotel deleted successfully!");
+                loadHotelImages();
+                loadAllHotels();
+            } else {
+                throw new Error(result.message || `Failed to delete hotel (status ${parsed.status})`);
+            }
+
+
+>>>>>>> 0eb3d42 (commit 1)
             if (response.ok) {
                 alert(result.message || "Hotel deleted successfully!");
                 // Reload gallery after delete
@@ -1444,11 +1534,17 @@
             imageUrls = extractImageUrls(hotel.data);
         }
 
+<<<<<<< HEAD
         // AFTER you calculate imageUrls (inside populateForm)
         currentHotelImages = []; // reset
         if (imageUrls && imageUrls.length > 0) {
             imageUrls.forEach(src => {
                 // keep the same preview code you already have...
+=======
+// Render the previews (if any)
+        if (imageUrls && imageUrls.length > 0) {
+            imageUrls.forEach(src => {
+>>>>>>> 0eb3d42 (commit 1)
                 const img = document.createElement('img');
                 img.src = src;
                 img.alt = hotel.name || 'Hotel Image';
@@ -1456,6 +1552,7 @@
                 img.style.marginRight = '10px';
                 img.style.marginBottom = '10px';
                 img.style.borderRadius = '8px';
+<<<<<<< HEAD
                 img.onerror = function() { this.style.display = 'none'; };
                 imagePreview.appendChild(img);
 
@@ -1473,6 +1570,20 @@
 
 
 
+=======
+                img.onerror = function() {
+                    console.warn('Image failed to load:', src);
+                    // optionally hide broken image
+                    this.style.display = 'none';
+                };
+                imagePreview.appendChild(img);
+            });
+        } else {
+            imagePreview.innerHTML = '<p class="text-muted">No images available for this hotel</p>';
+            console.warn('populateForm: no image URLs found after all fallbacks. See previous console logs for hotel object.');
+        }
+
+>>>>>>> 0eb3d42 (commit 1)
 // Make images section visible so user sees the preview immediately
         const imagesSection = document.getElementById('images-section');
         if (imagesSection) imagesSection.style.display = 'block';
@@ -1503,10 +1614,13 @@
         document.getElementById('checkInTime').value = '14:00';
         document.getElementById('checkOutTime').value = '12:00';
 
+<<<<<<< HEAD
         // clear image previews and reset currentHotelImages
         document.getElementById("hotelImagePreview").innerHTML = "";
         currentHotelImages = [];
 
+=======
+>>>>>>> 0eb3d42 (commit 1)
         updateRoomCount();
         updateAmenityCount();
     }

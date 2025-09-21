@@ -3,10 +3,497 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hôtel & Villa Le Cocotel - Saint-François</title>
-    <link rel="stylesheet" href="styles3.css">
+    <title>Hotel Details - Booking</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            line-height: 1.6;
+            color: #262626;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation Bar */
+        .nav-bar {
+            background: #003580;
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-button {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s;
+        }
+
+        .back-button:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            font-size: 18px;
+            color: #666;
+        }
+
+        .loading-spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #003580;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Error State */
+        .error-container {
+            background: #fff;
+            border: 1px solid #ff6b6b;
+            border-radius: 8px;
+            padding: 40px;
+            margin: 40px auto;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .error-container h2 {
+            color: #ff6b6b;
+            margin-bottom: 20px;
+        }
+
+        /* Main Content */
+        .hotel-content {
+            background: white;
+            margin: 20px auto;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Hotel Header */
+        .hotel-header {
+            padding: 30px;
+            border-bottom: 1px solid #e7e7e7;
+        }
+
+        .hotel-title-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .hotel-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .hotel-info h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: #262626;
+        }
+
+        .hotel-rating {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .stars {
+            color: #febb02;
+            font-size: 18px;
+        }
+
+        .rating-badge {
+            background: #003580;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .hotel-address {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .hotel-location {
+            color: #0071c2;
+            font-size: 14px;
+        }
+
+        .price-section {
+            background: #f0f8ff;
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 250px;
+        }
+
+        .price-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .total-price {
+            font-size: 36px;
+            font-weight: bold;
+            color: #003580;
+            margin: 10px 0;
+        }
+
+        .price-details {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .book-button {
+            background: #003580;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+        }
+
+        .book-button:hover {
+            background: #00224f;
+        }
+
+        /* Image Gallery */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            height: 200px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-item:first-child {
+            grid-column: span 2;
+            grid-row: span 2;
+            height: 410px;
+        }
+
+        /* Hotel Details */
+        .hotel-details {
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        /* Left Column */
+        .left-column {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .section {
+            background: white;
+            border: 1px solid #e7e7e7;
+            border-radius: 8px;
+            padding: 25px;
+        }
+
+        .section h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #262626;
+            border-bottom: 2px solid #003580;
+            padding-bottom: 10px;
+        }
+
+        /* Description */
+        .description-text {
+            color: #555;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        /* Room Types */
+        .room-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .room-card {
+            border: 1px solid #e7e7e7;
+            border-radius: 8px;
+            padding: 20px;
+            transition: box-shadow 0.3s;
+            background: #fafafa;
+        }
+
+        .room-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .room-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: #262626;
+            margin-bottom: 10px;
+        }
+
+        .room-details {
+            display: flex;
+            gap: 20px;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .room-price {
+            font-size: 24px;
+            font-weight: bold;
+            color: #003580;
+            margin-top: 10px;
+        }
+
+        .room-book-btn {
+            background: #0071c2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        .room-book-btn:hover {
+            background: #003580;
+        }
+
+        /* Amenities */
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .amenity-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .amenity-icon {
+            color: #0071c2;
+            font-size: 20px;
+        }
+
+        /* Right Column */
+        .right-column {
+            position: sticky;
+            top: 80px;
+            height: fit-content;
+        }
+
+        .booking-card {
+            background: white;
+            border: 2px solid #003580;
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .booking-card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #262626;
+        }
+
+        .booking-summary {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .summary-total {
+            font-size: 24px;
+            font-weight: bold;
+            color: #003580;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #e7e7e7;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .hotel-details {
+                grid-template-columns: 1fr;
+            }
+
+            .right-column {
+                position: static;
+            }
+
+            .hotel-title-section {
+                flex-direction: column;
+            }
+
+            .image-gallery {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+
+            .gallery-item:first-child {
+                grid-column: span 1;
+                grid-row: span 1;
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 10px;
+            }
+
+            .hotel-header {
+                padding: 20px;
+            }
+
+            .hotel-info h1 {
+                font-size: 24px;
+            }
+
+            .total-price {
+                font-size: 28px;
+            }
+
+            .amenities-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ---------- Room availability visuals ---------- */
+
+        /* grey out a room card when it's unavailable */
+        .room-card.unavailable {
+            opacity: 0.55;
+            filter: grayscale(0.03);
+            pointer-events: none; /* optional: prevents clicks inside card (buttons will still be disabled) */
+        }
+
+        /* make sure the disabled button looks clearly disabled */
+        .room-book-btn[disabled] {
+            background: #cfd8dc; /* light grey */
+            color: #666;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        /* small top control row (checkbox + summary) */
+        .room-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            gap: 12px;
+            font-size: 14px;
+            color: #444;
+        }
+
+        /* checkbox label styling */
+        .room-controls label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+         /*Booking Modal */
+        .modal { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.6); display:flex; justify-content:center; align-items:center; }
+        .modal-content { background:#fff; padding:20px; border-radius:10px; width:400px; }
+        .close-btn { float:right; cursor:pointer; font-size:20px; }
+
+    </style>
 </head>
 <body>
+<<<<<<< HEAD
     <!-- Header -->
 <!--    <header class="header">-->
 <!--        <div class="container">-->
@@ -17,455 +504,165 @@
 <!--&lt;!&ndash;            </div>&ndash;&gt;-->
 <!--        </div>-->
 <!--    </header>-->
-
-    <!-- Navigation -->
-    <nav class="nav-section">
-        <div class="container">
-            <div class="breadcrumb">
-                <a href="#" class="back-link">← Back to Listings</a>
-            </div>
-            <div class="nav-tabs">
-                <a href="#" class="tab active">Overview</a>
-                <a href="#" class="tab">Photos</a>
-                <a href="#" class="tab">Rooms</a>
-                <a href="#" class="tab">Amenities</a>
-                <a href="#" class="tab">About</a>
-                <a href="#" class="tab">Reviews</a>
-                <a href="#" class="tab">Map</a>
+=======
+<!-- Navigation -->
+<nav class="nav-bar">
+    <div class="container">
+        <div class="nav-content">
+            <a href="#" class="back-button" onclick="goBackToHotels(); return false;">
+                ← Back to Hotels
+            </a>
+            <div style="color: white; font-size: 20px; font-weight: bold;">
+                BOOKING<span style="color: #febb02;">ME</span>
             </div>
         </div>
-    </nav>
+    </div>
+</nav>
+>>>>>>> 0eb3d42 (commit 1)
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <div class="container">
+<!-- Main Content Container -->
+<div id="content-container">
+    <!-- Loading State -->
+    <div id="loading-state" class="loading">
+        <div class="loading-spinner"></div>
+        <p>Loading hotel details...</p>
+    </div>
+
+    <!-- Error State -->
+    <div id="error-state" class="error-container" style="display: none;">
+        <h2>Unable to Load Hotel Details</h2>
+        <p id="error-message">There was an error loading the hotel information.</p>
+        <button class="book-button" onclick="goBackToHotels()">Return to Hotels</button>
+    </div>
+
+    <!-- Hotel Content -->
+    <div id="hotel-container" class="container" style="display: none;">
+        <div class="hotel-content">
             <!-- Hotel Header -->
             <div class="hotel-header">
                 <div class="hotel-title-section">
                     <div class="hotel-info">
-                        <h1>Hôtel & Villa Le Cocotel</h1>
+                        <h1 id="hotel-name">Loading...</h1>
                         <div class="hotel-rating">
-                            <span class="stars">⭐⭐⭐⭐</span>
-                            <span class="hotel-type">4-Star Hotel</span>
+                            <span class="stars" id="hotel-stars">⭐⭐⭐⭐</span>
+                            <span class="rating-badge" id="hotel-rating">9.1</span>
                         </div>
-                        <div class="hotel-address">Rue De Kendores Sainte Marthe, Saint-François - Saint-François</div>
+                        <div class="hotel-address" id="hotel-address">Loading...</div>
+                        <div class="hotel-location" id="hotel-location">Loading...</div>
                     </div>
                     <div class="price-section">
-                        <div class="price-label">Per night $262</div>
-                        <div class="total-price">$4,721</div>
-                        <div class="price-details">4 nights, 2 rooms</div>
-                        <button class="choose-room-btn">Choose Your Room</button>
+                        <div class="price-label">Starting from</div>
+                        <div class="total-price">$<span id="price-per-night">0</span></div>
+                        <div class="price-details">per night</div>
+                        <button class="book-button" onclick="bookRoom()">Book Now</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Gallery -->
-            <div class="hotel-gallery">
-                <div class="gallery-item main-photo">
-                    <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&h=600&fit=crop" alt="Hotel Pool View">
-                    <div class="photo-overlay">
-                        <button class="see-all-photos">📷 See All 54 Photos</button>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop" alt="Hotel Interior">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=400&h=300&fit=crop" alt="Hotel Pool">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=300&h=200&fit=crop" alt="King Room">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop" alt="Hotel View">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=400&h=300&fit=crop" alt="Villa View">
-                </div>
-                 <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=300&h=200&fit=crop" alt="Deluxe Queen Room" alt="Villa View">
-                </div>
-                
+            <!-- Image Gallery -->
+            <div class="image-gallery" id="image-gallery">
+                <!-- Images will be loaded dynamically -->
             </div>
 
-            <!-- Content Layout -->
-            <div class="content-wrapper">
+            <!-- Hotel Details Section -->
+            <div class="hotel-details">
                 <!-- Left Column -->
                 <div class="left-column">
-                    <!-- Top Reasons to Book -->
-                    <section class="reasons-section">
-                        <h2>Top Reasons to Book</h2>
-                        <div class="reason-item">
-                            <div class="reason-icon">👥</div>
-                            <div class="reason-content">
-                                <h3>GUESTS LOVE IT</h3>
-                                <p>Guests give this property an exceptional rating of 9.1/10</p>
-                            </div>
-                        </div>
-                        <div class="reason-item">
-                            <div class="reason-icon">✨</div>
-                            <div class="reason-content">
-                                <h3>VERY CLEAN</h3>
-                                <p>Guests rate the cleanliness 10.0/10</p>
-                            </div>
-                        </div>
-                    </section>
+                    <!-- Description -->
+                    <div class="section">
+                        <h2>About This Hotel</h2>
+                        <p class="description-text" id="hotel-description">
+                            Loading hotel description...
+                        </p>
+                    </div>
 
-                    <!-- Flexible Dates -->
-                    <section class="flexible-dates">
-                        <div class="flexible-header">
-                            <span class="calendar-icon">📅</span>
-                            <span>Flexible dates?</span>
-                        </div>
-                        <p>Compare prices and save</p>
-                    </section>
+                    <!-- Room Types -->
+                    <div class="section">
+                        <h2>Available Rooms</h2>
 
-                    <!-- Room Options -->
-                    <section class="room-options">
-                        <h2>Room Options</h2>
-                        <div class="room-filters">
-                            <div class="filter-group">
-                                <label>Check-in - Check-out</label>
-                                <input type="text" value="08/07/2025 - 08/16/2025 (9 nights)">
-                            </div>
-                            <div class="filter-group">
-                                <label>Rooms & Guests</label>
-                                <select>
-                                    <option>2 Rooms, 2 Adults</option>
-                                </select>
-                            </div>
-                            <button class="update-search-btn">Update Search</button>
+                        <!-- FILTER CONTROL: add this block directly under the H2 -->
+                        <div class="room-controls">
+                            <label for="filter-available">
+                                <input type="checkbox" id="filter-available" />
+                                Show only available rooms
+                            </label>
+
+                            <!-- optional small counter text (updated by JS) -->
+                            <div id="rooms-count">0 rooms</div>
                         </div>
 
-                        <div class="room-cards">
-                            <!-- King Room -->
-                            <div class="room-card">
-                                <div class="room-image">
-                                    <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=300&h=200&fit=crop" alt="King Room">
-                                </div>
-                                <div class="room-details">
-                                    <h3>King Room with Pool View</h3>
-                                    <p class="room-specs">Sleeps 2 • 334 sq ft</p>
-                                    <p class="bed-type">1 Queen Bed</p>
-                                    <div class="room-amenities">
-                                        <span class="amenity-tag wifi">📶 Free WiFi</span>
-                                        <span class="amenity-tag parking">🅿️ Free Parking</span>
-                                    </div>
-                                    <div class="room-features">
-                                        <span class="feature">Room Details and Photos</span>
-                                    </div>
-                                    <p class="cancellation">Flexible Cancellation</p>
-                                </div>
-                                <div class="room-pricing">
-                                    <div class="price-per-night">Per night $262</div>
-                                    <div class="total-room-price">$4,721</div>
-                                    <div class="nights-info">9 nights, 2 rooms</div>
-                                    <button class="book-room-btn">Book 2 rooms</button>
-                                </div>
-                            </div>
-
-                            <!-- Deluxe Queen Room -->
-                            <div class="room-card">
-                                <div class="room-image">
-                                    <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=300&h=200&fit=crop" alt="Deluxe Queen Room">
-                                </div>
-                                <div class="room-details">
-                                    <h3>Deluxe Queen Room</h3>
-                                    <p class="room-specs">Sleeps 2 • 334 sq ft</p>
-                                    <p class="bed-type">1 Queen Bed</p>
-                                    <div class="room-amenities">
-                                        <span class="amenity-tag wifi">📶 Free WiFi</span>
-                                        <span class="amenity-tag parking">🅿️ Free Parking</span>
-                                    </div>
-                                    <div class="room-features">
-                                        <span class="feature">Room Details and Photos</span>
-                                    </div>
-                                    <p class="cancellation">Flexible Cancellation</p>
-                                </div>
-                                <div class="room-pricing">
-                                    <div class="price-per-night">Per night $291</div>
-                                    <div class="total-room-price">$5,246</div>
-                                    <div class="nights-info">9 nights, 2 rooms</div>
-                                    <button class="book-room-btn">Book 2 rooms</button>
-                                </div>
-                            </div>
-
-                            <!-- Villa with Private Pool -->
-                            <div class="room-card sold-out">
-                                <div class="room-image">
-                                    <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=300&h=200&fit=crop" alt="Villa with Private Pool">
-                                </div>
-                                <div class="room-details">
-                                    <h3>Villa with Private Pool</h3>
-                                    <p class="room-specs">Sleeps 6 • 1185 sq ft</p>
-                                    <p class="bed-type">Bedroom 1: 1 Queen Bed, Bedroom 2: 1 Queen Bed, Bedroom 3: 1 Queen Bed</p>
-                                    <div class="room-amenities">
-                                        <span class="amenity-tag wifi">📶 Free WiFi</span>
-                                        <span class="amenity-tag parking">🅿️ Free Parking</span>
-                                    </div>
-                                    <div class="room-features">
-                                        <span class="feature">Room Details and Photos</span>
-                                    </div>
-                                    <div class="sold-out-badge">SOLD OUT</div>
-                                    <p class="sold-out-text">This property is in high demand - book available rooms while you can.</p>
-                                </div>
-                            </div>
+                        <div class="room-cards" id="room-cards">
+                            <!-- Rooms will be loaded dynamically -->
                         </div>
-                    </section>
+                    </div>
 
                     <!-- Amenities -->
-                    <section class="amenities-section">
-                        <h2>Amenities</h2>
-                        <div class="amenities-grid">
-                            <div class="amenity-category">
-                                <h3>Outdoor Recreation</h3>
-                                <ul>
-                                    <li>Sun deck</li>
-                                    <li>Golf course</li>
-                                    <li>Garden</li>
-                                </ul>
-                            </div>
-                            <div class="amenity-category">
-                                <h3>Sanitation Procedures</h3>
-                                <ul>
-                                    <li>All plates, cutlery, glasses and other tableware have been sanitized</li>
-                                    <li>Hand sanitizer in guest accommodation and key areas</li>
-                                </ul>
-                            </div>
-                            <div class="amenity-category">
-                                <h3>Security</h3>
-                                <ul>
-                                    <li>CCTV security in common areas</li>
-                                </ul>
-                            </div>
-                            <div class="amenity-category">
-                                <h3>Room Amenities 🔗</h3>
-                                <ul>
-                                    <li>Fire extinguishers</li>
-                                    <li>Safety deposit box</li>
-                                    <li>Smoke alarms</li>
-                                    <li>Air conditioning</li>
-                                    <li>Room service</li>
-                                </ul>
-                            </div>
+                    <div class="section">
+                        <h2>Hotel Amenities</h2>
+                        <div class="amenities-grid" id="amenities-grid">
+                            <!-- Amenities will be loaded dynamically -->
                         </div>
-                        <button class="show-all-amenities">Show All Amenities</button>
-                    </section>
-
-                    <!-- Reviews Section -->
-                    <section class="reviews-section">
-                        <h2>14 Verified Reviews</h2>
-                        <div class="review-summary">
-                            <div class="rating-score">
-                                <span class="score">9.1</span>
-                                <span class="rating-text">Exceptional</span>
-                            </div>
-                            <div class="rating-breakdown">
-                                <div class="rating-item">
-                                    <span class="rating-value">10</span>
-                                    <span class="rating-label">Cleanliness</span>
-                                </div>
-                                <div class="rating-item">
-                                    <span class="rating-value">10</span>
-                                    <span class="rating-label">Staff</span>
-                                </div>
-                                <div class="rating-item">
-                                    <span class="rating-value">9.3</span>
-                                    <span class="rating-label">Location</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="reviews-list">
-                            <div class="review-item">
-                                <div class="review-header">
-                                    <span class="review-rating negative">6</span>
-                                    <div class="review-title-section">
-                                        <span class="review-title">"Not great location & very expensive."</span>
-                                        <span class="review-date">Feb 2025</span>
-                                    </div>
-                                </div>
-                                <p class="review-text">The bungalow was modern and stylish. Very private with hot tub. The property has no restaurant or bar. It was very expensive compared to similar all inclusive beach resorts like Cocobay in Antigua.</p>
-                                <div class="reviewer-info">
-                                    <span class="reviewer-type">Traveling as a Couple</span>
-                                    <span class="reviewer-name">James</span>
-                                </div>
-                            </div>
-
-                            <div class="review-item">
-                                <div class="review-header">
-                                    <span class="review-rating positive">8</span>
-                                    <div class="review-title-section">
-                                        <span class="review-title">"Very Good"</span>
-                                        <span class="review-date">Oct 2023</span>
-                                    </div>
-                                </div>
-                                <p class="review-text">Comfortable bed. Nice bathroom with good shower. Private outdoor seating with comfortable chairs. Pool water was almost hot - not refreshing. Mini fridge not cold enough and on the floor. Should be on a shelf so one does not have to stoop.</p>
-                                <div class="reviewer-info">
-                                    <span class="reviewer-type">Traveling as a Couple</span>
-                                    <span class="reviewer-name">Orin</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <button class="show-all-reviews">Show 14 Verified Reviews</button>
-                    </section>
+                    </div>
                 </div>
 
                 <!-- Right Column -->
                 <div class="right-column">
-                    <!-- Verified Reviews Summary -->
-                    <section class="reviews-summary-card">
-                        <h2>14 Verified Reviews</h2>
-                        <div class="score-section">
-                            <div class="main-score">9.1</div>
-                            <div class="score-label">Exceptional</div>
-                        </div>
-                        <div class="score-breakdown">
-                            <div class="score-item">
-                                <span class="score-value">10</span>
-                                <span class="score-name">Cleanliness</span>
+                    <div class="booking-card">
+                        <h3>Booking Summary</h3>
+                        <div class="booking-summary">
+                            <div class="summary-item">
+                                <span>Check-in:</span>
+                                <span id="check-in">Select Date</span>
                             </div>
-                            <div class="score-item">
-                                <span class="score-value">10</span>
-                                <span class="score-name">Staff</span>
+                            <div class="summary-item">
+                                <span>Check-out:</span>
+                                <span id="check-out">Select Date</span>
                             </div>
-                            <div class="score-item">
-                                <span class="score-value">9.3</span>
-                                <span class="score-name">Location</span>
+                            <div class="summary-item">
+                                <span>Nights:</span>
+                                <span id="nights">1</span>
                             </div>
-                        </div>
-                        <button class="show-verified-reviews">Show 14 Verified Reviews</button>
-                    </section>
-
-                    <!-- Top Amenities -->
-                    <section class="top-amenities">
-                        <h2>Top Amenities</h2>
-                        <div class="amenity-list">
-                            <div class="amenity-item">
-                                <span class="amenity-icon">🏊</span>
-                                <span>Swimming Pool</span>
+                            <div class="summary-item">
+                                <span>Guests:</span>
+                                <span id="guests">2 Adults</span>
                             </div>
-                            <div class="amenity-item">
-                                <span class="amenity-icon">📶</span>
-                                <span>Free Internet Access</span>
-                            </div>
-                            <div class="amenity-item">
-                                <span class="amenity-icon">🅿️</span>
-                                <span>Free Parking</span>
-                            </div>
-                            <div class="amenity-item">
-                                <span class="amenity-icon">🧖</span>
-                                <span>Spa</span>
-                            </div>
-                            <div class="amenity-item">
-                                <span class="amenity-icon">♿</span>
-                                <span>Accessible Rooms / Facilities</span>
-                            </div>
-                            <div class="amenity-item">
-                                <span class="amenity-icon">🚭</span>
-                                <span>Non Smoking Rooms / Facilities</span>
+                            <div class="summary-total">
+                                Total: $<span id="total-price">0</span>
                             </div>
                         </div>
-                        <button class="show-all-amenities">Show All Amenities</button>
-                    </section>
-
-                    <!-- People Also Liked -->
-                    <section class="similar-hotels">
-                        <h2>People also liked</h2>
-                        
-                        <div class="similar-hotel-card currently-viewing">
-                            <span class="viewing-badge">Currently Viewing</span>
-                            <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=200&h=120&fit=crop" alt="Hotel Le Cocotel">
-                            <div class="hotel-info">
-                                <h3>Hôtel & Villa Le Cocotel</h3>
-                                <p class="location">Saint-François</p>
-                                <div class="features">All plates, cutlery, glasses...</div>
-                                <div class="rating">
-                                    <span class="stars">⭐⭐⭐⭐</span>
-                                    <span class="hotel-type">4-Star Hotel</span>
-                                </div>
-                                <div class="pricing">
-                                    <span class="total-price">$4915</span>
-                                    <span class="price-details">Total Price $262/night</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="similar-hotel-card">
-                            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=200&h=120&fit=crop" alt="Hotel La Maison Creole">
-                            <div class="hotel-info">
-                                <h3>Hotel La Maison Creole</h3>
-                                <p class="location">Le Gosier</p>
-                                <div class="features">Free Internet Access, Health Services...</div>
-                                <div class="rating">
-                                    <span class="stars">⭐⭐⭐</span>
-                                    <span class="hotel-type">3-Star Hotel</span>
-                                </div>
-                                <div class="pricing">
-                                    <span class="discount">10% Off</span>
-                                    <span class="total-price">$1984</span>
-                                    <span class="original-price">$98</span>
-                                    <span class="price-details">$110/night</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="similar-hotel-card">
-                            <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=200&h=120&fit=crop" alt="Habitation Saint Charles">
-                            <div class="hotel-info">
-                                <h3>Habitation Saint Charles - Hotel d...</h3>
-                                <p class="location">Petit-Bourg</p>
-                                <div class="features">Free Internet Access, Free Parking, H...</div>
-                                <div class="rating">
-                                    <span class="stars">⭐⭐⭐⭐</span>
-                                    <span class="hotel-type">4-Star Hotel</span>
-                                </div>
-                                <div class="pricing">
-                                    <span class="total-price">$4367</span>
-                                    <span class="price-details">Total Price $222/night</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <button class="back-to-hotels">Back To All Hotels</button>
-                    </section>
-
-                    <!-- Final Booking Section -->
-                    <section class="final-booking">
-                        <div class="booking-price">
-                            <span class="from-text">from</span>
-                            <span class="final-price">$4,721</span>
-                        </div>
-                        <div class="booking-details">Includes taxes & fees</div>
-                        <button class="choose-room-final">Choose Your Room</button>
-                    </section>
+                        <button class="book-button" onclick="bookRoom()">Reserve Now</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
+</div>
+<!-- Booking Modal -->
+<div id="booking-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeBookingModal()">&times;</span>
+        <h2>Confirm Your Booking</h2>
+        <form id="booking-form">
+            <input type="hidden" id="roomId">
+            <label>Check-in Date:</label>
+            <input type="date" id="modal-check-in" required><br>
+            <label>Check-out Date:</label>
+            <input type="date" id="modal-check-out" required><br>
+            <label>Guests:</label>
+            <input type="number" id="modal-guests" min="1" value="1" required><br>
+            <button type="submit">Confirm Booking</button>
+        </form>
+    </div>
+</div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Support</h3>
-                    <ul>
-                        <li><a href="#">Find my trip</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Legal</h3>
-                    <ul>
-                        <li><a href="#">Terms and Conditions</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
+<style>
 
-    <script src="booking-script.js"></script>
+</style>
+
+
+
+<script src="chooseRoom.js">
+
+</script>
 </body>
 </html>

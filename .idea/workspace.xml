@@ -5,26 +5,77 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5e08bef9-cf13-4cee-94e0-69d6c65d61b6" name="Changes" comment="">
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/config/WebMvcConfig.java" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/536b44e6-2804-4412-83de-e838eb05f187.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/536b44e6-2804-4412-83de-e838eb05f187/storage_v2/_src_/schema/hotel_management.rrMcIA.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/config/WebMvcConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/controller/BookingController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/controller/HelloController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/controller/RoomTypeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/dto/BookingApiRequestDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/dto/BookingDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/dto/PaymentResultDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/entity/Booking.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/entity/BookingStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/entity/Payment.java" afterDir="false" />
+>>>>>>> 0eb3d42 (commit 1)
       <change afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/exception/AllReadyFoundException.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/exception/GlobalExceptionHandler.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/exception/ResourceAlreadyExistsException.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/exception/ResourceNotFoundException.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/exception/RestExceptionHandler.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/repository/AmenityRepository.java" afterDir="false" />
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/util/APIResponse.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/BackEnd/src/main/resources/static/uploads/default-hotel.jpg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/FrountEnd/CustomerDashBoard/Hotel_City.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/FrountEnd/CustomerDashBoard/customer.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/FrountEnd/CustomerDashBoard/unique-properties.css" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/repository/BookingRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/repository/PaymentRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/repository/RoomTypeRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/service/BookingService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/service/PaymentService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/service/RoomTypeService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/service/impl/BookingServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/service/impl/PaymentServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/service/impl/RoomTypeServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/util/APIResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BackEnd/src/main/resources/static/uploads/default-hotel.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrountEnd/CustomerDashBoard/BookingDetailsLoader.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrountEnd/CustomerDashBoard/Hotel_City.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrountEnd/CustomerDashBoard/PaymentAllMostDone.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrountEnd/CustomerDashBoard/chooseRoom.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrountEnd/CustomerDashBoard/customer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrountEnd/CustomerDashBoard/payment.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrountEnd/CustomerDashBoard/unique-properties.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrountEnd/CustomerSection/ChooseROOM/BookingDetailsLoader.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrountEnd/CustomerSection/ChooseROOM/BookingDetailsLoader.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrountEnd/CustomerSection/ChooseROOM/bookingDetailsLoader.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrountEnd/CustomerSection/ChooseROOM/chooseRoom.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrountEnd/CustomerSection/Payment/PaymentAllMostDone.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrountEnd/CustomerSection/Payment/payment.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FrountEnd/CustomerSection/Payment/paymentAllMostDone.html" afterDir="false" />
+>>>>>>> 0eb3d42 (commit 1)
       <change afterPath="$PROJECT_DIR$/FrountEnd/HomePage/customer.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/FrountEnd/HomePage/unique-properties.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/AAD-Final-Project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/AAD-Final-Project.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+>>>>>>> 0eb3d42 (commit 1)
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/config/ApplicationConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/config/ApplicationConfig.java" afterDir="false" />
@@ -33,8 +84,16 @@
       <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/dto/HotelDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/dto/HotelDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/dto/HotelImageDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/dto/HotelImageDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/dto/PolicyDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/dto/PolicyDTO.java" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/entity/Hotel.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/entity/Hotel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/repository/HotelRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/repository/HotelRepository.java" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/dto/RoomTypeDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/dto/RoomTypeDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/entity/Hotel.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/entity/Hotel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/repository/HotelRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/repository/HotelRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/repository/UserRepository.java" afterDir="false" />
+>>>>>>> 0eb3d42 (commit 1)
       <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/service/HotelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/service/HotelService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/service/impl/HotelServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/service/impl/HotelServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/util/JWTUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/util/JWTUtil.java" afterDir="false" />
@@ -46,7 +105,20 @@
       <change beforePath="$PROJECT_DIR$/FrountEnd/CustomerSection/AboutHotelBooking/HotelBookingPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrountEnd/CustomerSection/AboutHotelBooking/HotelBookingPage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrountEnd/CustomerSection/AboutHotelBooking/styles2.css" beforeDir="false" afterPath="$PROJECT_DIR$/FrountEnd/CustomerSection/AboutHotelBooking/styles2.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrountEnd/CustomerSection/ChooseROOM/chooseRoom.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrountEnd/CustomerSection/ChooseROOM/chooseRoom.html" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/FrountEnd/HomePage/CustomerInterFace.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrountEnd/HomePage/CustomerInterFace.html" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/FrountEnd/CustomerSection/HotelDetailsView/hotelDetails.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrountEnd/CustomerSection/Payment/Payment02/payment.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrountEnd/CustomerSection/Payment/payment.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrountEnd/CustomerSection/Payment/Payment02/styles4.css" beforeDir="false" afterPath="$PROJECT_DIR$/FrountEnd/CustomerSection/Payment/payment.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrountEnd/CustomerSection/Payment/booking-script.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrountEnd/CustomerSection/Payment/bookingSuccess.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrountEnd/CustomerSection/Payment/bookingSuccess.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrountEnd/CustomerSection/PaymentV2/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrountEnd/CustomerDashBoard/BookingDetailsLoader.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrountEnd/CustomerSection/PaymentV2/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/FrountEnd/CustomerDashBoard/bookingDetailsLoader.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrountEnd/HomePage/CustomerInterFace.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrountEnd/HomePage/CustomerInterFace.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrountEnd/HomePage/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/FrountEnd/HomePage/styles.css" afterDir="false" />
+>>>>>>> 0eb3d42 (commit 1)
       <change beforePath="$PROJECT_DIR$/FrountEnd/HotelOwnerSection/hotelregister.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrountEnd/HotelOwnerSection/hotelregister.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrountEnd/loging.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrountEnd/loging.html" afterDir="false" />
     </list>
@@ -59,8 +131,16 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Exception" />
+<<<<<<< HEAD
         <option value="Class" />
         <option value="CSS File" />
+=======
+        <option value="CSS File" />
+        <option value="Enum" />
+        <option value="HTML File" />
+        <option value="Interface" />
+        <option value="Class" />
+>>>>>>> 0eb3d42 (commit 1)
         <option value="JavaScript File" />
       </list>
     </option>
@@ -91,6 +171,7 @@
     <option name="showMembers" value="true" />
     <option name="showVisibilityIcons" value="true" />
   </component>
+<<<<<<< HEAD
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
@@ -112,14 +193,49 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+=======
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.BackEndApplication.executor": "Run",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/94716/Desktop/html/AAD-Final-Project/FrountEnd/CustomerDashBoard",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+>>>>>>> 0eb3d42 (commit 1)
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+<<<<<<< HEAD
+=======
+      <recent name="C:\Users\94716\Desktop\html\AAD-Final-Project\FrountEnd\CustomerDashBoard" />
+      <recent name="C:\Users\94716\Desktop\html\AAD-Final-Project\FrountEnd\CustomerSection\ChooseROOM" />
+      <recent name="C:\Users\94716\Desktop\html\AAD-Final-Project\FrountEnd\CustomerSection\Payment" />
+>>>>>>> 0eb3d42 (commit 1)
       <recent name="C:\Users\94716\Desktop\html\AAD-Final-Project\FrountEnd\HomePage" />
       <recent name="C:\Users\94716\Desktop\html\AAD-Final-Project\FrountEnd\HotelOwnerSection" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+<<<<<<< HEAD
+=======
+      <recent name="C:\Users\94716\Desktop\html\AAD-Final-Project\FrountEnd\CustomerDashBoard" />
+      <recent name="C:\Users\94716\Desktop\html\AAD-Final-Project\FrountEnd\CustomerSection\Payment" />
+>>>>>>> 0eb3d42 (commit 1)
       <recent name="C:\Users\94716\Desktop\html\AAD-Final-Project\FrountEnd\HomePage" />
       <recent name="C:\Users\94716\Desktop\html\AAD-Final-Project\BackEnd\src\main\resources\static\uploads" />
     </key>
@@ -153,8 +269,16 @@
       <workItem from="1757317660867" duration="19348000" />
       <workItem from="1757426705196" duration="21189000" />
       <workItem from="1757487100611" duration="74304000" />
+<<<<<<< HEAD
       <workItem from="1757759449391" duration="53326000" />
       <workItem from="1758007021099" duration="1885000" />
+=======
+      <workItem from="1757759449391" duration="46153000" />
+      <workItem from="1758052491498" duration="1914000" />
+      <workItem from="1758086827412" duration="2818000" />
+      <workItem from="1758097032088" duration="11663000" />
+      <workItem from="1758113801521" duration="90160000" />
+>>>>>>> 0eb3d42 (commit 1)
     </task>
     <servers />
   </component>
@@ -165,10 +289,29 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
+<<<<<<< HEAD
           <url>file://$PROJECT_DIR$/FrountEnd/HotelOwnerSection/hotelregister.html</url>
           <line>1299</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
+=======
+          <url>file://$PROJECT_DIR$/FrountEnd/CustomerDashBoard/DashBoardSample02.html</url>
+          <line>471</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/FrountEnd/CustomerDashBoard/payment.js</url>
+          <line>311</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/BackEnd/src/main/java/com/springproject/hospitalitymanagnet/backend/entity/Booking.java</url>
+          <line>28</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+>>>>>>> 0eb3d42 (commit 1)
       </breakpoints>
     </breakpoint-manager>
   </component>
