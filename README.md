@@ -18,16 +18,16 @@ It is designed for both **admins** and **customers**, making hotel operations ea
 ## 2. Screenshots
 
 ### Home Page  
-![Home Page](https://raw.githubusercontent.com/Kalana-maduranga001/AAD-Final-Project/refs/heads/main/FrountEnd/screenshort/1.PNG)
+![Home Page](https://raw.githubusercontent.com/Kalana-maduranga001/AAD-Final-Project/refs/heads/main/FrountEnd/screenshort/2.PNG)
 
 ### Room Management  
-![Room Management](screenshots/rooms.png)
+![Room Management]([screenshots/rooms.png](https://raw.githubusercontent.com/Kalana-maduranga001/AAD-Final-Project/refs/heads/main/FrountEnd/screenshort/3.PNG)
 
 ### Booking Form  
-![Booking Form](screenshots/booking.png)
+![Booking Form]([screenshots/booking.png](https://raw.githubusercontent.com/Kalana-maduranga001/AAD-Final-Project/refs/heads/main/FrountEnd/screenshort/5.PNG)
 
 ### Dashboard  
-![Dashboard](screenshots/dashboard.png)
+![Dashboard]([screenshots/dashboard.png](https://raw.githubusercontent.com/Kalana-maduranga001/AAD-Final-Project/refs/heads/main/FrountEnd/screenshort/1.PNG))
 
 ---
 
@@ -44,7 +44,7 @@ It is designed for both **admins** and **customers**, making hotel operations ea
 ### Backend
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/coreone.git
+  git clone https://github.com/Kalana-maduranga001/AAD-Final-Project
 2. Navigate to the backend folder:
    ```bash
     cd coreone/backend
@@ -73,4 +73,4 @@ It is designed for both **admins** and **customers**, making hotel operations ea
 
 ## 4. Demo Video
 
-Watch the project demo video here: [Youtube Link]()
+Watch the project demo video here: [Youtube Link](https://www.youtube.com/watch?v=fbbNRNAX2Yk)
