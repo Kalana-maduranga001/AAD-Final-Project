@@ -18,7 +18,7 @@ It is designed for both **admins** and **customers**, making hotel operations ea
 ## 2. Screenshots
 
 ### Home Page  
-![Home Page](screenshots/home.png)
+![Home Page](https://raw.githubusercontent.com/Kalana-maduranga001/AAD-Final-Project/refs/heads/main/FrountEnd/screenshort/1.PNG)
 
 ### Room Management  
 ![Room Management](screenshots/rooms.png)
