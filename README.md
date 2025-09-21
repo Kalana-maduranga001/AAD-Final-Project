@@ -21,13 +21,13 @@ It is designed for both **admins** and **customers**, making hotel operations ea
 ![Home Page](https://raw.githubusercontent.com/Kalana-maduranga001/AAD-Final-Project/refs/heads/main/FrountEnd/screenshort/2.PNG)
 
 ### Room Management  
-![Room Management]([screenshots/rooms.png](https://raw.githubusercontent.com/Kalana-maduranga001/AAD-Final-Project/refs/heads/main/FrountEnd/screenshort/3.PNG)
+![Room Management](https://raw.githubusercontent.com/Kalana-maduranga001/AAD-Final-Project/refs/heads/main/FrountEnd/screenshort/3.PNG)
 
 ### Booking Form  
-![Booking Form]([screenshots/booking.png](https://raw.githubusercontent.com/Kalana-maduranga001/AAD-Final-Project/refs/heads/main/FrountEnd/screenshort/5.PNG)
+![Booking Form](https://raw.githubusercontent.com/Kalana-maduranga001/AAD-Final-Project/refs/heads/main/FrountEnd/screenshort/5.PNG)
 
 ### Dashboard  
-![Dashboard]([screenshots/dashboard.png](https://raw.githubusercontent.com/Kalana-maduranga001/AAD-Final-Project/refs/heads/main/FrountEnd/screenshort/1.PNG))
+![Dashboard](https://raw.githubusercontent.com/Kalana-maduranga001/AAD-Final-Project/refs/heads/main/FrountEnd/screenshort/1.PNG)
 
 ---
 
