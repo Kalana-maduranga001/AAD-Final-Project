@@ -45,6 +45,7 @@ It is designed for both **admins** and **customers**, making hotel operations ea
 1. Clone the repository:
    ```bash
   git clone https://github.com/Kalana-maduranga001/AAD-Final-Project
+  
 2. Navigate to the backend folder:
    ```bash
     cd coreone/backend
@@ -72,5 +73,4 @@ It is designed for both **admins** and **customers**, making hotel operations ea
 3. Ensure the backend is running on http://localhost:8080 for API calls.
 
 ## 4. Demo Video
-
 Watch the project demo video here: [Youtube Link](https://www.youtube.com/watch?v=fbbNRNAX2Yk)
