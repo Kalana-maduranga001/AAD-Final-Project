@@ -1,11 +1,5 @@
 package com.springproject.hospitalitymanagnet.backend.exception;
 
-<<<<<<< HEAD
-
-import com.springproject.hospitalitymanagnet.backend.util.APIResponse;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-=======
 import com.springproject.hospitalitymanagnet.backend.util.APIResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,22 +7,10 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.TransactionSystemException;
->>>>>>> 0eb3d42 (commit 1)
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-<<<<<<< HEAD
-import java.util.HashMap;
-import java.util.Map;
-
-@RestControllerAdvice
-public class GlobalExceptionHandler {
-     @ExceptionHandler(Exception.class)
-    public ResponseEntity<APIResponse> handlerGenericException(Exception ex) {
-        return new ResponseEntity<>(new APIResponse(500 , ex.getMessage()
-                ,"sever error"), HttpStatus.INTERNAL_SERVER_ERROR);
-=======
 import jakarta.persistence.RollbackException;
 import java.util.HashMap;
 import java.util.Map;
@@ -68,41 +50,16 @@ public class GlobalExceptionHandler {
         // Otherwise return 500 with the root message for debugging
         String message = root.getMessage() != null ? root.getMessage() : ex.getMessage();
         return new ResponseEntity<>(new APIResponse(500, message, "server error"), HttpStatus.INTERNAL_SERVER_ERROR);
->>>>>>> 0eb3d42 (commit 1)
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<APIResponse> handlerResourceNotFoundException(ResourceNotFoundException ex) {
-<<<<<<< HEAD
-        return new ResponseEntity<>(new APIResponse(404 , ex.getMessage()
-                ,"Not found"), HttpStatus.NOT_FOUND);
-=======
         logger.info("Resource not found: {}", ex.getMessage());
         return new ResponseEntity<>(new APIResponse(404, ex.getMessage(), "Not found"), HttpStatus.NOT_FOUND);
->>>>>>> 0eb3d42 (commit 1)
     }
 
     @ExceptionHandler(ResourceAlreadyExistsException.class)
     public ResponseEntity<APIResponse> handlerResourceAlreadyExistsException(ResourceAlreadyExistsException ex) {
-<<<<<<< HEAD
-         return new ResponseEntity<>(new APIResponse(409 , ex.getMessage() , "Resource Already Exists") , HttpStatus.CONFLICT);
-    }
-
-    @ExceptionHandler(AllReadyFoundException.class)
-    public ResponseEntity<APIResponse> handleAllReadyFoundException(AllReadyFoundException e){
-        return new ResponseEntity(new APIResponse(400,e.getMessage(),null)
-                , HttpStatus.NOT_FOUND);
-    }
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<APIResponse> handleMethodArgumentNotValidException
-            (MethodArgumentNotValidException e){
-        Map<String,String> errors=new HashMap<>();
-        e.getBindingResult().getFieldErrors().forEach(fieldError ->{
-            errors.put(fieldError.getField(),fieldError.getDefaultMessage());
-        });
-        return new ResponseEntity(new APIResponse(400,"Validation Failed",errors)
-                , HttpStatus.BAD_REQUEST);
-=======
         logger.info("Resource already exists: {}", ex.getMessage());
         return new ResponseEntity<>(new APIResponse(409, ex.getMessage(), "Resource Already Exists"), HttpStatus.CONFLICT);
     }
@@ -180,6 +137,5 @@ public class GlobalExceptionHandler {
         if (t == null || t.getMessage() == null) return false;
         String m = t.getMessage().toLowerCase();
         return m.contains("constraint") || m.contains("foreign key") || m.contains("integrity") || m.contains("cannot delete or update a parent row");
->>>>>>> 0eb3d42 (commit 1)
     }
 }

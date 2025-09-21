@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all functionality when DOM is loaded
     initializeFavorites();
@@ -265,7 +265,7 @@ function refreshCityHotels() {
 
 // Console log for debugging
 console.log('BookStay JavaScript loaded successfully!');
-=======
+
 // customer.js - robust loader + hotel listing + choose-room integration
 // Save as customer.js and include on your dashboard page.
 
@@ -753,4 +753,4 @@ console.log('BookStay JavaScript loaded successfully!');
     window.resolveChooseRoomUrl = resolveChooseRoomUrl;
 
 })();
->>>>>>> 0eb3d42 (commit 1)
+

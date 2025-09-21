@@ -53,49 +53,6 @@ public class HotelController {
             return ResponseEntity.status(500)
                     .body(new ApiResponse(500, "Failed to save hotel with images: " + e.getMessage(), null));
         }
-<<<<<<< HEAD
-    }
-
-    // === CREATE WITH MULTIPART FILES (Keep existing for compatibility) ===
-    @PostMapping(value = "/withImage", consumes = {"multipart/form-data"})
-    public ResponseEntity<ApiResponse> createHotelWithImage(
-            @RequestPart("hotel") HotelDTO hotelDTO,
-            @RequestPart(value = "images", required = false) List<MultipartFile> images) {
-
-        try {
-            // Delegate saving to the service layer
-            HotelDTO savedHotel = hotelService.saveHotelWithImages(hotelDTO, images);
-
-            return ResponseEntity.ok(
-                    new ApiResponse(200, "Hotel + Images saved successfully", savedHotel)
-            );
-
-        } catch (Exception e) {
-            return ResponseEntity.status(500)
-                    .body(new ApiResponse(500, "Failed to save hotel: " + e.getMessage(), null));
-        }
-    }
-
-    // === UPDATE WITH CLOUDINARY SUPPORT ===
-    @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse> updateHotel(@PathVariable Integer id, @RequestBody HotelDTO hotelDTO) {
-        try {
-            System.out.println("DEBUG: incoming hotelDTO for update: " + hotelDTO);
-            if (hotelDTO.getImages() != null) {
-                System.out.println("DEBUG: images payload:");
-                hotelDTO.getImages().forEach(img -> System.out.println("  -> id=" + img.getId() + ", url=" + img.getImageUrl()));
-            }
-            hotelDTO.setId(id);
-            HotelDTO updatedHotel = hotelService.updateHotel(id, hotelDTO);
-            return ResponseEntity.ok(new ApiResponse(200, "Hotel updated successfully", updatedHotel));
-        } catch (Exception e) {
-            e.printStackTrace(); // important: print full stacktrace to server logs
-            return ResponseEntity.status(500)
-                    .body(new ApiResponse(500, "Failed to update hotel: " + e.getClass().getSimpleName() + " - " + e.getMessage(), null));
-        }
-    }
-
-=======
     }
 
     // === CREATE WITH MULTIPART FILES (Keep existing for compatibility) ===
@@ -132,7 +89,6 @@ public class HotelController {
 //        }
 //    }
 
->>>>>>> 0eb3d42 (commit 1)
     // === UPDATE WITH CLOUDINARY IMAGES (Alternative endpoint) ===
     @PutMapping("/updateWithImages/{id}")
     public ResponseEntity<ApiResponse> updateHotelWithCloudinaryImages(@PathVariable Integer id, @RequestBody HotelDTO hotelDTO) {
@@ -216,8 +172,6 @@ public class HotelController {
         }
     }
 
-<<<<<<< HEAD
-=======
     // inside com.springproject.hospitalitymanagnet.backend.controller.HotelController
     @PutMapping("/{id}")
     public ResponseEntity<APIResponse> updateHotel(@PathVariable Integer id, @RequestBody HotelDTO hotelDTO) {
@@ -241,5 +195,4 @@ public class HotelController {
     }
 
 
->>>>>>> 0eb3d42 (commit 1)
 }

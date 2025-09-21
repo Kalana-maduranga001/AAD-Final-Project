@@ -15,10 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "hotels")
 public class Hotel {
-<<<<<<< HEAD
-=======
 
->>>>>>> 0eb3d42 (commit 1)
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
      private Integer id;
